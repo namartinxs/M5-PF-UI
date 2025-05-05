@@ -1,5 +1,5 @@
 import express from "express";
-import livrosRoutes from "./livros.routes.js";
+import livrosRoutes from './routes/livros.routes.js';
 import cors from "cors";
 
 const app = express();
