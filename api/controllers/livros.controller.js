@@ -1,6 +1,6 @@
 let livros = [];
 
-export const listarLivros = (_, res) => {
+export const listarLivros = (req, res) => {
   return res.status(200).json(livros);
 };
 

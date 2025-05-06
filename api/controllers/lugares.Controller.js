@@ -1,7 +1,7 @@
 let locais = [];
 
 //método GET para retorna os locais cadastrados
-export const getLocais = (_, res) => {
+export const getLocais = (req, res) => {
   return res.status(200).json(locais);
 };
 

@@ -5,6 +5,8 @@ import livrosRoutes from "./routes/livros.routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
 import tipoProdutoRoutes from './routes/tipoProduto.Routes.js';
 import animaisRoutes from "./routes/animais.routes.js";
+import usersRoutes from "./routes/users.routes.js"; // Importando a rota de usuários
+import routerRoupas from "./routes/roupas.routes.js"; // Importando a rota de roupas
 
 const app = express();
 app.use(cors());
@@ -14,6 +16,8 @@ app.use("/livros", livrosRoutes);
 app.use("/locais", lugaresRoutes);
 app.use("/produtos", tipoProdutoRoutes);
 app.use("/animais", animaisRoutes);
+app.use("/users", usersRoutes); // Registrando a rota de usuários
+app.use("/roupas", routerRoupas); // Registrando a rota de roupas
 
 app.listen(8800, () => {
   console.log("Servidor rodando na porta 8800");

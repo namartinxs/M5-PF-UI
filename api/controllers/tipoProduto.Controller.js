@@ -1,7 +1,7 @@
 let tipoProduto = [];
 
 //método GET para retorna os produtos cadastrados
-export const getProduto = (_, res) => {
+export const getProduto = (req, res) => {
   return res.status(200).json(tipoProduto);
 };
 
