@@ -4,7 +4,11 @@ import {
   criarLivro,
   atualizarLivro,
   deletarLivro
+<<<<<<< HEAD
 }  from '../controllers/livros.controller.js';
+=======
+} from '../controllers/livros.controller.js';
+>>>>>>> origin/main
 
 const router = Router();
 
