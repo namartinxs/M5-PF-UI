@@ -4,12 +4,9 @@ import {
   criarLivro,
   atualizarLivro,
   deletarLivro
-<<<<<<< HEAD
-}  from '../controllers/livros.controller.js';
-=======
-} from '../controllers/livros.controller.js';
->>>>>>> origin/main
 
+}  from '../controllers/livros.controller.js';
+ 
 const router = Router();
 
 router.get('/', listarLivros);
