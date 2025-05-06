@@ -1,9 +1,6 @@
 import express from "express";
-<<<<<<< HEAD
-=======
-import livrosRoutes from './routes/livros.routes.js';
->>>>>>> origin/main
 import cors from "cors";
+
 import livrosRoutes from "./routes/livros.routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
 import tipoProdutoRoutes from './routes/tipoProduto.Routes.js';
