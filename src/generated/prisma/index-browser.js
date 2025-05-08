@@ -120,9 +120,84 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UsuarioScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome',
+  email: 'email',
+  senha: 'senha',
+  criadoEm: 'criadoEm'
+};
+
+exports.Prisma.CampanhaScalarFieldEnum = {
+  id: 'id',
+  titulo: 'titulo',
+  descricao: 'descricao',
+  meta: 'meta',
+  criadaEm: 'criadaEm',
+  criadorId: 'criadorId'
+};
+
+exports.Prisma.DoacaoScalarFieldEnum = {
+  id: 'id',
+  valor: 'valor',
+  data: 'data',
+  tipoProduto: 'tipoProduto',
+  produto: 'produto',
+  usuarioId: 'usuarioId',
+  campanhaId: 'campanhaId',
+  categoriaId: 'categoriaId',
+  status: 'status',
+  localId: 'localId'
+};
+
+exports.Prisma.CategoriaScalarFieldEnum = {
+  id: 'id',
+  nome: 'nome'
+};
+
+exports.Prisma.LocalScalarFieldEnum = {
+  id: 'id',
+  cidade: 'cidade',
+  estado: 'estado',
+  pais: 'pais'
+};
+
+exports.Prisma.UsuarioDoacaoScalarFieldEnum = {
+  id: 'id',
+  usuarioId: 'usuarioId',
+  doacaoId: 'doacaoId',
+  data: 'data'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+exports.TipoProduto = exports.$Enums.TipoProduto = {
+  ANIMAL: 'ANIMAL',
+  LIVRO: 'LIVRO',
+  ROUPA: 'ROUPA',
+  LUGAR: 'LUGAR',
+  ELETRONICO: 'ELETRONICO'
+};
+
+exports.StatusDoacao = exports.$Enums.StatusDoacao = {
+  PENDENTE: 'PENDENTE',
+  FEITA: 'FEITA'
+};
 
 exports.Prisma.ModelName = {
-
+  Usuario: 'Usuario',
+  Campanha: 'Campanha',
+  Doacao: 'Doacao',
+  Categoria: 'Categoria',
+  Local: 'Local',
+  UsuarioDoacao: 'UsuarioDoacao'
 };
 
 /**

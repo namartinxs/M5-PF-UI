@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 
 import livrosRoutes from "./routes/livros.routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
@@ -11,7 +11,7 @@ import routerRoupas from "./routes/roupas.routes.js"; // Importando a rota de ro
 import routerEletronicos from "./routes/eletronicos.routes.js"; // Importando a rota de eletrônicos
 
 const app = express();
-const prisma = new  PrismaClient()
+// const prisma = new  PrismaClient()
 
 app.use(cors());
 app.use(express.json());
