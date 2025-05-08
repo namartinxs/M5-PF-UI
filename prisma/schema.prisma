@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+//This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -6,10 +6,86 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id          String       @id @default(uuid())
+  nome        String
+  email       String       @unique
+  senha       String
+  criadoEm    DateTime     @default(now())
+  doacoes     Doacao[]     // Adicionei este campo para representar a relação de um usuário com suas doações
+  campanhas   Campanha[]
+    usuarioDoacoes UsuarioDoacao[]
+}
+
+model Campanha {
+  id          String      @id @default(uuid())
+  titulo      String
+  descricao   String
+  meta        Float
+  criadaEm    DateTime    @default(now())
+  criador     Usuario     @relation(fields: [criadorId], references: [id])
+  criadorId   String
+  doacoes     Doacao[]
+}
+
+model Doacao {
+  id            String     @id @default(uuid())
+  valor         Float
+  data          DateTime   @default(now())
+  tipoProduto   TipoProduto
+  produto       String
+  usuarioId     String
+  usuario       Usuario    @relation(fields: [usuarioId], references: [id])  // Relação com Usuario
+  campanhaId    String
+  campanha      Campanha   @relation(fields: [campanhaId], references: [id])
+  categoriaId   String
+  categoria     Categoria  @relation(fields: [categoriaId], references: [id])
+  status        StatusDoacao @default(PENDENTE)
+  localId       String
+  local         Local      @relation(fields: [localId], references: [id])
+  usuarioDoacoes UsuarioDoacao[] // Campo de relação com UsuarioDoacao
+}
+
+model Categoria {
+  id          String    @id @default(uuid())
+  nome        String
+  doacoes     Doacao[]
+}
+
+model Local {
+  id          String    @id @default(uuid())
+  cidade      String
+  estado      String
+  pais        String
+  doacoes     Doacao[]
+}
+
+model UsuarioDoacao {
+  id            String    @id @default(uuid())
+  usuarioId     String
+  doacaoId      String
+  data          DateTime  @default(now())
+
+  usuario       Usuario   @relation(fields: [usuarioId], references: [id])
+  doacao        Doacao    @relation(fields: [doacaoId], references: [id])
+}
+
+enum TipoProduto {
+  ANIMAL
+  LIVRO
+  ROUPA
+  LUGAR
+  ELETRONICO
+}
+
+enum StatusDoacao {
+  PENDENTE
+  FEITA
 }
