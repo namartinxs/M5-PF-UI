@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -14,70 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id             String          @id @default(uuid())
-  nome           String
-  email          String          @unique
-  senha          String
-  criadoEm       DateTime        @default(now())
-  doacoes        Doacao[] // Adicionei este campo para representar a relação de um usuário com suas doações
-  campanhas      Campanha[]
-  usuarioDoacoes UsuarioDoacao[]
-}
-
-model Campanha {
-  id        String   @id @default(uuid())
-  titulo    String
-  descricao String
-  meta      Float
-  criadaEm  DateTime @default(now())
-  criador   Usuario  @relation(fields: [criadorId], references: [id])
-  criadorId String
-  doacoes   Doacao[]
-}
-
-model Doacao {
-  id             String          @id @default(uuid())
-  valor          Float
-  data           DateTime        @default(now())
-  tipoProduto    TipoProduto
-  produto        String
-  usuarioId      String
-  usuario        Usuario         @relation(fields: [usuarioId], references: [id]) // Relação com Usuario
-  campanhaId     String
-  campanha       Campanha        @relation(fields: [campanhaId], references: [id])
-  categoriaId    String
-  categoria      Categoria       @relation(fields: [categoriaId], references: [id])
-  status         StatusDoacao    @default(PENDENTE)
-  localId        String
-  local          Local           @relation(fields: [localId], references: [id])
-  usuarioDoacoes UsuarioDoacao[] // Campo de relação com UsuarioDoacao
-}
-
-model Categoria {
-  id      String   @id @default(uuid())
-  nome    String
-  doacoes Doacao[]
-}
-
-model Local {
-  id      String   @id @default(uuid())
-  cidade  String
-  estado  String
-  pais    String
-  doacoes Doacao[]
-}
-
-model UsuarioDoacao {
-  id        String   @id @default(uuid())
-  usuarioId String
-  doacaoId  String
-  data      DateTime @default(now())
-
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
-  doacao  Doacao  @relation(fields: [doacaoId], references: [id])
-}
-
+// Enums para categorizar tipos de produtos, status de doações e tipos de usuários
 enum TipoProduto {
   ANIMAL
   LIVRO
@@ -89,4 +20,123 @@ enum TipoProduto {
 enum StatusDoacao {
   PENDENTE
   FEITA
+}
+
+enum TipoUsuario {
+  ADMIN
+  DOADOR
+  COMUM
+}
+
+// Modelo de Usuário
+model Usuario {
+  id       String      @id @default(uuid())
+  nome     String
+  email    String      @unique
+  senha    String
+  tipo     TipoUsuario @default(COMUM)
+  criadoEm DateTime    @default(now())
+  telefone String?
+  ativo    Boolean     @default(true)
+  fotoUrl  String?
+
+  campanhasCriadas      Campanha[]            @relation("CampanhasCriadas")
+  doacoes               Doacao[]
+  doacoesCompartilhadas DoacaoCompartilhada[]
+  historicoDeAlteracoes LogAlteracaoDoacao[]  @relation("UsuarioHistorico")
+
+  @@index([criadoEm]) // Índice para consultas por data de criação
+}
+
+// Modelo de Campanha
+model Campanha {
+  id        String   @id @default(uuid())
+  titulo    String
+  descricao String
+  meta      Float
+  criadaEm  DateTime @default(now())
+
+  criadorId String
+  criador   Usuario  @relation("CampanhasCriadas", fields: [criadorId], references: [id])
+  doacoes   Doacao[]
+}
+
+// Modelo de Doação
+model Doacao {
+  id          String       @id @default(uuid())
+  valor       Float
+  data        DateTime     @default(now())
+  tipoProduto TipoProduto
+  produto     String
+  status      StatusDoacao @default(PENDENTE)
+
+  usuarioId String
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+
+  campanhaId String
+  campanha   Campanha @relation(fields: [campanhaId], references: [id])
+
+  categoriaId String
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+
+  localId String
+  local   Local  @relation(fields: [localId], references: [id])
+
+  compartilhamentos DoacaoCompartilhada[]
+  logsAlteracoes    LogAlteracaoDoacao[]
+
+  @@index([status]) // Índice para consultas por status
+  @@index([data]) // Índice para consultas por data
+}
+
+// Modelo de Categoria
+model Categoria {
+  id           String   @id @default(uuid())
+  nome         String   @unique
+  descricao    String? // Explicação da categoria
+  iconeUrl     String? // URL para exibir um ícone no front
+  ativo        Boolean  @default(true) // Controle de visibilidade
+  criadaEm     DateTime @default(now())
+  atualizadaEm DateTime @updatedAt
+
+  doacoes Doacao[]
+
+  @@index([nome]) // Índice para consultas por nome
+}
+
+// Modelo de Local
+model Local {
+  id      String   @id @default(uuid())
+  cidade  String
+  estado  String
+  pais    String
+  doacoes Doacao[]
+}
+
+// Modelo de Doação Compartilhada
+model DoacaoCompartilhada {
+  id        String   @id @default(uuid())
+  usuarioId String
+  doacaoId  String
+  data      DateTime @default(now())
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  doacao  Doacao  @relation(fields: [doacaoId], references: [id])
+
+  @@unique([usuarioId, doacaoId]) // Garante que a mesma doação não seja compartilhada duas vezes pelo mesmo usuário
+}
+
+// Modelo de Log de Alterações em Doações
+model LogAlteracaoDoacao {
+  id       String @id @default(uuid())
+  doacaoId String
+  doacao   Doacao @relation(fields: [doacaoId], references: [id])
+
+  alteradoPor String
+  usuario     Usuario @relation("UsuarioHistorico", fields: [alteradoPor], references: [id])
+
+  campo       String // Nome do campo alterado
+  valorAntigo String // Valor anterior do campo
+  valorNovo   String // Novo valor do campo
+  data        DateTime @default(now())
 }

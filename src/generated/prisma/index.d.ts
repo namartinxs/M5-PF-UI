@@ -39,10 +39,15 @@ export type Categoria = $Result.DefaultSelection<Prisma.$CategoriaPayload>
  */
 export type Local = $Result.DefaultSelection<Prisma.$LocalPayload>
 /**
- * Model UsuarioDoacao
+ * Model DoacaoCompartilhada
  * 
  */
-export type UsuarioDoacao = $Result.DefaultSelection<Prisma.$UsuarioDoacaoPayload>
+export type DoacaoCompartilhada = $Result.DefaultSelection<Prisma.$DoacaoCompartilhadaPayload>
+/**
+ * Model LogAlteracaoDoacao
+ * 
+ */
+export type LogAlteracaoDoacao = $Result.DefaultSelection<Prisma.$LogAlteracaoDoacaoPayload>
 
 /**
  * Enums
@@ -66,6 +71,15 @@ export const StatusDoacao: {
 
 export type StatusDoacao = (typeof StatusDoacao)[keyof typeof StatusDoacao]
 
+
+export const TipoUsuario: {
+  ADMIN: 'ADMIN',
+  DOADOR: 'DOADOR',
+  COMUM: 'COMUM'
+};
+
+export type TipoUsuario = (typeof TipoUsuario)[keyof typeof TipoUsuario]
+
 }
 
 export type TipoProduto = $Enums.TipoProduto
@@ -75,6 +89,10 @@ export const TipoProduto: typeof $Enums.TipoProduto
 export type StatusDoacao = $Enums.StatusDoacao
 
 export const StatusDoacao: typeof $Enums.StatusDoacao
+
+export type TipoUsuario = $Enums.TipoUsuario
+
+export const TipoUsuario: typeof $Enums.TipoUsuario
 
 /**
  * ##  Prisma Client ʲˢ
@@ -252,14 +270,24 @@ export class PrismaClient<
   get local(): Prisma.LocalDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.usuarioDoacao`: Exposes CRUD operations for the **UsuarioDoacao** model.
+   * `prisma.doacaoCompartilhada`: Exposes CRUD operations for the **DoacaoCompartilhada** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more UsuarioDoacaos
-    * const usuarioDoacaos = await prisma.usuarioDoacao.findMany()
+    * // Fetch zero or more DoacaoCompartilhadas
+    * const doacaoCompartilhadas = await prisma.doacaoCompartilhada.findMany()
     * ```
     */
-  get usuarioDoacao(): Prisma.UsuarioDoacaoDelegate<ExtArgs, ClientOptions>;
+  get doacaoCompartilhada(): Prisma.DoacaoCompartilhadaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.logAlteracaoDoacao`: Exposes CRUD operations for the **LogAlteracaoDoacao** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LogAlteracaoDoacaos
+    * const logAlteracaoDoacaos = await prisma.logAlteracaoDoacao.findMany()
+    * ```
+    */
+  get logAlteracaoDoacao(): Prisma.LogAlteracaoDoacaoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -705,7 +733,8 @@ export namespace Prisma {
     Doacao: 'Doacao',
     Categoria: 'Categoria',
     Local: 'Local',
-    UsuarioDoacao: 'UsuarioDoacao'
+    DoacaoCompartilhada: 'DoacaoCompartilhada',
+    LogAlteracaoDoacao: 'LogAlteracaoDoacao'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -724,7 +753,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "campanha" | "doacao" | "categoria" | "local" | "usuarioDoacao"
+      modelProps: "usuario" | "campanha" | "doacao" | "categoria" | "local" | "doacaoCompartilhada" | "logAlteracaoDoacao"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1098,77 +1127,151 @@ export namespace Prisma {
           }
         }
       }
-      UsuarioDoacao: {
-        payload: Prisma.$UsuarioDoacaoPayload<ExtArgs>
-        fields: Prisma.UsuarioDoacaoFieldRefs
+      DoacaoCompartilhada: {
+        payload: Prisma.$DoacaoCompartilhadaPayload<ExtArgs>
+        fields: Prisma.DoacaoCompartilhadaFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UsuarioDoacaoFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload> | null
+            args: Prisma.DoacaoCompartilhadaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UsuarioDoacaoFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           findFirst: {
-            args: Prisma.UsuarioDoacaoFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload> | null
+            args: Prisma.DoacaoCompartilhadaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UsuarioDoacaoFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           findMany: {
-            args: Prisma.UsuarioDoacaoFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>[]
+            args: Prisma.DoacaoCompartilhadaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>[]
           }
           create: {
-            args: Prisma.UsuarioDoacaoCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           createMany: {
-            args: Prisma.UsuarioDoacaoCreateManyArgs<ExtArgs>
+            args: Prisma.DoacaoCompartilhadaCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UsuarioDoacaoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>[]
+            args: Prisma.DoacaoCompartilhadaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>[]
           }
           delete: {
-            args: Prisma.UsuarioDoacaoDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           update: {
-            args: Prisma.UsuarioDoacaoUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           deleteMany: {
-            args: Prisma.UsuarioDoacaoDeleteManyArgs<ExtArgs>
+            args: Prisma.DoacaoCompartilhadaDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UsuarioDoacaoUpdateManyArgs<ExtArgs>
+            args: Prisma.DoacaoCompartilhadaUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UsuarioDoacaoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>[]
+            args: Prisma.DoacaoCompartilhadaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>[]
           }
           upsert: {
-            args: Prisma.UsuarioDoacaoUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UsuarioDoacaoPayload>
+            args: Prisma.DoacaoCompartilhadaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DoacaoCompartilhadaPayload>
           }
           aggregate: {
-            args: Prisma.UsuarioDoacaoAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUsuarioDoacao>
+            args: Prisma.DoacaoCompartilhadaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDoacaoCompartilhada>
           }
           groupBy: {
-            args: Prisma.UsuarioDoacaoGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UsuarioDoacaoGroupByOutputType>[]
+            args: Prisma.DoacaoCompartilhadaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DoacaoCompartilhadaGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UsuarioDoacaoCountArgs<ExtArgs>
-            result: $Utils.Optional<UsuarioDoacaoCountAggregateOutputType> | number
+            args: Prisma.DoacaoCompartilhadaCountArgs<ExtArgs>
+            result: $Utils.Optional<DoacaoCompartilhadaCountAggregateOutputType> | number
+          }
+        }
+      }
+      LogAlteracaoDoacao: {
+        payload: Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>
+        fields: Prisma.LogAlteracaoDoacaoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LogAlteracaoDoacaoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LogAlteracaoDoacaoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          findFirst: {
+            args: Prisma.LogAlteracaoDoacaoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LogAlteracaoDoacaoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          findMany: {
+            args: Prisma.LogAlteracaoDoacaoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>[]
+          }
+          create: {
+            args: Prisma.LogAlteracaoDoacaoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          createMany: {
+            args: Prisma.LogAlteracaoDoacaoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LogAlteracaoDoacaoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>[]
+          }
+          delete: {
+            args: Prisma.LogAlteracaoDoacaoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          update: {
+            args: Prisma.LogAlteracaoDoacaoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          deleteMany: {
+            args: Prisma.LogAlteracaoDoacaoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LogAlteracaoDoacaoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LogAlteracaoDoacaoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>[]
+          }
+          upsert: {
+            args: Prisma.LogAlteracaoDoacaoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LogAlteracaoDoacaoPayload>
+          }
+          aggregate: {
+            args: Prisma.LogAlteracaoDoacaoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLogAlteracaoDoacao>
+          }
+          groupBy: {
+            args: Prisma.LogAlteracaoDoacaoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LogAlteracaoDoacaoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LogAlteracaoDoacaoCountArgs<ExtArgs>
+            result: $Utils.Optional<LogAlteracaoDoacaoCountAggregateOutputType> | number
           }
         }
       }
@@ -1261,7 +1364,8 @@ export namespace Prisma {
     doacao?: DoacaoOmit
     categoria?: CategoriaOmit
     local?: LocalOmit
-    usuarioDoacao?: UsuarioDoacaoOmit
+    doacaoCompartilhada?: DoacaoCompartilhadaOmit
+    logAlteracaoDoacao?: LogAlteracaoDoacaoOmit
   }
 
   /* Types for Logging */
@@ -1356,15 +1460,17 @@ export namespace Prisma {
    */
 
   export type UsuarioCountOutputType = {
+    campanhasCriadas: number
     doacoes: number
-    campanhas: number
-    usuarioDoacoes: number
+    doacoesCompartilhadas: number
+    historicoDeAlteracoes: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campanhasCriadas?: boolean | UsuarioCountOutputTypeCountCampanhasCriadasArgs
     doacoes?: boolean | UsuarioCountOutputTypeCountDoacoesArgs
-    campanhas?: boolean | UsuarioCountOutputTypeCountCampanhasArgs
-    usuarioDoacoes?: boolean | UsuarioCountOutputTypeCountUsuarioDoacoesArgs
+    doacoesCompartilhadas?: boolean | UsuarioCountOutputTypeCountDoacoesCompartilhadasArgs
+    historicoDeAlteracoes?: boolean | UsuarioCountOutputTypeCountHistoricoDeAlteracoesArgs
   }
 
   // Custom InputTypes
@@ -1381,6 +1487,13 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
+  export type UsuarioCountOutputTypeCountCampanhasCriadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CampanhaWhereInput
+  }
+
+  /**
+   * UsuarioCountOutputType without action
+   */
   export type UsuarioCountOutputTypeCountDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DoacaoWhereInput
   }
@@ -1388,15 +1501,15 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountCampanhasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CampanhaWhereInput
+  export type UsuarioCountOutputTypeCountDoacoesCompartilhadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoacaoCompartilhadaWhereInput
   }
 
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountUsuarioDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsuarioDoacaoWhereInput
+  export type UsuarioCountOutputTypeCountHistoricoDeAlteracoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogAlteracaoDoacaoWhereInput
   }
 
 
@@ -1436,11 +1549,13 @@ export namespace Prisma {
    */
 
   export type DoacaoCountOutputType = {
-    usuarioDoacoes: number
+    compartilhamentos: number
+    logsAlteracoes: number
   }
 
   export type DoacaoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarioDoacoes?: boolean | DoacaoCountOutputTypeCountUsuarioDoacoesArgs
+    compartilhamentos?: boolean | DoacaoCountOutputTypeCountCompartilhamentosArgs
+    logsAlteracoes?: boolean | DoacaoCountOutputTypeCountLogsAlteracoesArgs
   }
 
   // Custom InputTypes
@@ -1457,8 +1572,15 @@ export namespace Prisma {
   /**
    * DoacaoCountOutputType without action
    */
-  export type DoacaoCountOutputTypeCountUsuarioDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsuarioDoacaoWhereInput
+  export type DoacaoCountOutputTypeCountCompartilhamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoacaoCompartilhadaWhereInput
+  }
+
+  /**
+   * DoacaoCountOutputType without action
+   */
+  export type DoacaoCountOutputTypeCountLogsAlteracoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogAlteracaoDoacaoWhereInput
   }
 
 
@@ -1543,7 +1665,11 @@ export namespace Prisma {
     nome: string | null
     email: string | null
     senha: string | null
+    tipo: $Enums.TipoUsuario | null
     criadoEm: Date | null
+    telefone: string | null
+    ativo: boolean | null
+    fotoUrl: string | null
   }
 
   export type UsuarioMaxAggregateOutputType = {
@@ -1551,7 +1677,11 @@ export namespace Prisma {
     nome: string | null
     email: string | null
     senha: string | null
+    tipo: $Enums.TipoUsuario | null
     criadoEm: Date | null
+    telefone: string | null
+    ativo: boolean | null
+    fotoUrl: string | null
   }
 
   export type UsuarioCountAggregateOutputType = {
@@ -1559,7 +1689,11 @@ export namespace Prisma {
     nome: number
     email: number
     senha: number
+    tipo: number
     criadoEm: number
+    telefone: number
+    ativo: number
+    fotoUrl: number
     _all: number
   }
 
@@ -1569,7 +1703,11 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    tipo?: true
     criadoEm?: true
+    telefone?: true
+    ativo?: true
+    fotoUrl?: true
   }
 
   export type UsuarioMaxAggregateInputType = {
@@ -1577,7 +1715,11 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    tipo?: true
     criadoEm?: true
+    telefone?: true
+    ativo?: true
+    fotoUrl?: true
   }
 
   export type UsuarioCountAggregateInputType = {
@@ -1585,7 +1727,11 @@ export namespace Prisma {
     nome?: true
     email?: true
     senha?: true
+    tipo?: true
     criadoEm?: true
+    telefone?: true
+    ativo?: true
+    fotoUrl?: true
     _all?: true
   }
 
@@ -1666,7 +1812,11 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo: $Enums.TipoUsuario
     criadoEm: Date
+    telefone: string | null
+    ativo: boolean
+    fotoUrl: string | null
     _count: UsuarioCountAggregateOutputType | null
     _min: UsuarioMinAggregateOutputType | null
     _max: UsuarioMaxAggregateOutputType | null
@@ -1691,10 +1841,15 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    tipo?: boolean
     criadoEm?: boolean
+    telefone?: boolean
+    ativo?: boolean
+    fotoUrl?: boolean
+    campanhasCriadas?: boolean | Usuario$campanhasCriadasArgs<ExtArgs>
     doacoes?: boolean | Usuario$doacoesArgs<ExtArgs>
-    campanhas?: boolean | Usuario$campanhasArgs<ExtArgs>
-    usuarioDoacoes?: boolean | Usuario$usuarioDoacoesArgs<ExtArgs>
+    doacoesCompartilhadas?: boolean | Usuario$doacoesCompartilhadasArgs<ExtArgs>
+    historicoDeAlteracoes?: boolean | Usuario$historicoDeAlteracoesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -1703,7 +1858,11 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    tipo?: boolean
     criadoEm?: boolean
+    telefone?: boolean
+    ativo?: boolean
+    fotoUrl?: boolean
   }, ExtArgs["result"]["usuario"]>
 
   export type UsuarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1711,7 +1870,11 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    tipo?: boolean
     criadoEm?: boolean
+    telefone?: boolean
+    ativo?: boolean
+    fotoUrl?: boolean
   }, ExtArgs["result"]["usuario"]>
 
   export type UsuarioSelectScalar = {
@@ -1719,14 +1882,19 @@ export namespace Prisma {
     nome?: boolean
     email?: boolean
     senha?: boolean
+    tipo?: boolean
     criadoEm?: boolean
+    telefone?: boolean
+    ativo?: boolean
+    fotoUrl?: boolean
   }
 
-  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "senha" | "criadoEm", ExtArgs["result"]["usuario"]>
+  export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "email" | "senha" | "tipo" | "criadoEm" | "telefone" | "ativo" | "fotoUrl", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    campanhasCriadas?: boolean | Usuario$campanhasCriadasArgs<ExtArgs>
     doacoes?: boolean | Usuario$doacoesArgs<ExtArgs>
-    campanhas?: boolean | Usuario$campanhasArgs<ExtArgs>
-    usuarioDoacoes?: boolean | Usuario$usuarioDoacoesArgs<ExtArgs>
+    doacoesCompartilhadas?: boolean | Usuario$doacoesCompartilhadasArgs<ExtArgs>
+    historicoDeAlteracoes?: boolean | Usuario$historicoDeAlteracoesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1735,16 +1903,21 @@ export namespace Prisma {
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
     objects: {
+      campanhasCriadas: Prisma.$CampanhaPayload<ExtArgs>[]
       doacoes: Prisma.$DoacaoPayload<ExtArgs>[]
-      campanhas: Prisma.$CampanhaPayload<ExtArgs>[]
-      usuarioDoacoes: Prisma.$UsuarioDoacaoPayload<ExtArgs>[]
+      doacoesCompartilhadas: Prisma.$DoacaoCompartilhadaPayload<ExtArgs>[]
+      historicoDeAlteracoes: Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       nome: string
       email: string
       senha: string
+      tipo: $Enums.TipoUsuario
       criadoEm: Date
+      telefone: string | null
+      ativo: boolean
+      fotoUrl: string | null
     }, ExtArgs["result"]["usuario"]>
     composites: {}
   }
@@ -2139,9 +2312,10 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    campanhasCriadas<T extends Usuario$campanhasCriadasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$campanhasCriadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampanhaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     doacoes<T extends Usuario$doacoesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$doacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    campanhas<T extends Usuario$campanhasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$campanhasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampanhaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    usuarioDoacoes<T extends Usuario$usuarioDoacoesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$usuarioDoacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    doacoesCompartilhadas<T extends Usuario$doacoesCompartilhadasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$doacoesCompartilhadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    historicoDeAlteracoes<T extends Usuario$historicoDeAlteracoesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$historicoDeAlteracoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2175,7 +2349,11 @@ export namespace Prisma {
     readonly nome: FieldRef<"Usuario", 'String'>
     readonly email: FieldRef<"Usuario", 'String'>
     readonly senha: FieldRef<"Usuario", 'String'>
+    readonly tipo: FieldRef<"Usuario", 'TipoUsuario'>
     readonly criadoEm: FieldRef<"Usuario", 'DateTime'>
+    readonly telefone: FieldRef<"Usuario", 'String'>
+    readonly ativo: FieldRef<"Usuario", 'Boolean'>
+    readonly fotoUrl: FieldRef<"Usuario", 'String'>
   }
     
 
@@ -2564,6 +2742,30 @@ export namespace Prisma {
   }
 
   /**
+   * Usuario.campanhasCriadas
+   */
+  export type Usuario$campanhasCriadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Campanha
+     */
+    select?: CampanhaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Campanha
+     */
+    omit?: CampanhaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampanhaInclude<ExtArgs> | null
+    where?: CampanhaWhereInput
+    orderBy?: CampanhaOrderByWithRelationInput | CampanhaOrderByWithRelationInput[]
+    cursor?: CampanhaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CampanhaScalarFieldEnum | CampanhaScalarFieldEnum[]
+  }
+
+  /**
    * Usuario.doacoes
    */
   export type Usuario$doacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2588,51 +2790,51 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.campanhas
+   * Usuario.doacoesCompartilhadas
    */
-  export type Usuario$campanhasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$doacoesCompartilhadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Campanha
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: CampanhaSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Campanha
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: CampanhaOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CampanhaInclude<ExtArgs> | null
-    where?: CampanhaWhereInput
-    orderBy?: CampanhaOrderByWithRelationInput | CampanhaOrderByWithRelationInput[]
-    cursor?: CampanhaWhereUniqueInput
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
+    where?: DoacaoCompartilhadaWhereInput
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: CampanhaScalarFieldEnum | CampanhaScalarFieldEnum[]
+    distinct?: DoacaoCompartilhadaScalarFieldEnum | DoacaoCompartilhadaScalarFieldEnum[]
   }
 
   /**
-   * Usuario.usuarioDoacoes
+   * Usuario.historicoDeAlteracoes
    */
-  export type Usuario$usuarioDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$historicoDeAlteracoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the LogAlteracaoDoacao
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the LogAlteracaoDoacao
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
-    where?: UsuarioDoacaoWhereInput
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    where?: LogAlteracaoDoacaoWhereInput
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UsuarioDoacaoScalarFieldEnum | UsuarioDoacaoScalarFieldEnum[]
+    distinct?: LogAlteracaoDoacaoScalarFieldEnum | LogAlteracaoDoacaoScalarFieldEnum[]
   }
 
   /**
@@ -3815,10 +4017,10 @@ export namespace Prisma {
     data: Date | null
     tipoProduto: $Enums.TipoProduto | null
     produto: string | null
+    status: $Enums.StatusDoacao | null
     usuarioId: string | null
     campanhaId: string | null
     categoriaId: string | null
-    status: $Enums.StatusDoacao | null
     localId: string | null
   }
 
@@ -3828,10 +4030,10 @@ export namespace Prisma {
     data: Date | null
     tipoProduto: $Enums.TipoProduto | null
     produto: string | null
+    status: $Enums.StatusDoacao | null
     usuarioId: string | null
     campanhaId: string | null
     categoriaId: string | null
-    status: $Enums.StatusDoacao | null
     localId: string | null
   }
 
@@ -3841,10 +4043,10 @@ export namespace Prisma {
     data: number
     tipoProduto: number
     produto: number
+    status: number
     usuarioId: number
     campanhaId: number
     categoriaId: number
-    status: number
     localId: number
     _all: number
   }
@@ -3864,10 +4066,10 @@ export namespace Prisma {
     data?: true
     tipoProduto?: true
     produto?: true
+    status?: true
     usuarioId?: true
     campanhaId?: true
     categoriaId?: true
-    status?: true
     localId?: true
   }
 
@@ -3877,10 +4079,10 @@ export namespace Prisma {
     data?: true
     tipoProduto?: true
     produto?: true
+    status?: true
     usuarioId?: true
     campanhaId?: true
     categoriaId?: true
-    status?: true
     localId?: true
   }
 
@@ -3890,10 +4092,10 @@ export namespace Prisma {
     data?: true
     tipoProduto?: true
     produto?: true
+    status?: true
     usuarioId?: true
     campanhaId?: true
     categoriaId?: true
-    status?: true
     localId?: true
     _all?: true
   }
@@ -3990,10 +4192,10 @@ export namespace Prisma {
     data: Date
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status: $Enums.StatusDoacao
     localId: string
     _count: DoacaoCountAggregateOutputType | null
     _avg: DoacaoAvgAggregateOutputType | null
@@ -4022,16 +4224,17 @@ export namespace Prisma {
     data?: boolean
     tipoProduto?: boolean
     produto?: boolean
+    status?: boolean
     usuarioId?: boolean
     campanhaId?: boolean
     categoriaId?: boolean
-    status?: boolean
     localId?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     campanha?: boolean | CampanhaDefaultArgs<ExtArgs>
     categoria?: boolean | CategoriaDefaultArgs<ExtArgs>
     local?: boolean | LocalDefaultArgs<ExtArgs>
-    usuarioDoacoes?: boolean | Doacao$usuarioDoacoesArgs<ExtArgs>
+    compartilhamentos?: boolean | Doacao$compartilhamentosArgs<ExtArgs>
+    logsAlteracoes?: boolean | Doacao$logsAlteracoesArgs<ExtArgs>
     _count?: boolean | DoacaoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["doacao"]>
 
@@ -4041,10 +4244,10 @@ export namespace Prisma {
     data?: boolean
     tipoProduto?: boolean
     produto?: boolean
+    status?: boolean
     usuarioId?: boolean
     campanhaId?: boolean
     categoriaId?: boolean
-    status?: boolean
     localId?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     campanha?: boolean | CampanhaDefaultArgs<ExtArgs>
@@ -4058,10 +4261,10 @@ export namespace Prisma {
     data?: boolean
     tipoProduto?: boolean
     produto?: boolean
+    status?: boolean
     usuarioId?: boolean
     campanhaId?: boolean
     categoriaId?: boolean
-    status?: boolean
     localId?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     campanha?: boolean | CampanhaDefaultArgs<ExtArgs>
@@ -4075,20 +4278,21 @@ export namespace Prisma {
     data?: boolean
     tipoProduto?: boolean
     produto?: boolean
+    status?: boolean
     usuarioId?: boolean
     campanhaId?: boolean
     categoriaId?: boolean
-    status?: boolean
     localId?: boolean
   }
 
-  export type DoacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "valor" | "data" | "tipoProduto" | "produto" | "usuarioId" | "campanhaId" | "categoriaId" | "status" | "localId", ExtArgs["result"]["doacao"]>
+  export type DoacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "valor" | "data" | "tipoProduto" | "produto" | "status" | "usuarioId" | "campanhaId" | "categoriaId" | "localId", ExtArgs["result"]["doacao"]>
   export type DoacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     campanha?: boolean | CampanhaDefaultArgs<ExtArgs>
     categoria?: boolean | CategoriaDefaultArgs<ExtArgs>
     local?: boolean | LocalDefaultArgs<ExtArgs>
-    usuarioDoacoes?: boolean | Doacao$usuarioDoacoesArgs<ExtArgs>
+    compartilhamentos?: boolean | Doacao$compartilhamentosArgs<ExtArgs>
+    logsAlteracoes?: boolean | Doacao$logsAlteracoesArgs<ExtArgs>
     _count?: boolean | DoacaoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DoacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4111,7 +4315,8 @@ export namespace Prisma {
       campanha: Prisma.$CampanhaPayload<ExtArgs>
       categoria: Prisma.$CategoriaPayload<ExtArgs>
       local: Prisma.$LocalPayload<ExtArgs>
-      usuarioDoacoes: Prisma.$UsuarioDoacaoPayload<ExtArgs>[]
+      compartilhamentos: Prisma.$DoacaoCompartilhadaPayload<ExtArgs>[]
+      logsAlteracoes: Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4119,10 +4324,10 @@ export namespace Prisma {
       data: Date
       tipoProduto: $Enums.TipoProduto
       produto: string
+      status: $Enums.StatusDoacao
       usuarioId: string
       campanhaId: string
       categoriaId: string
-      status: $Enums.StatusDoacao
       localId: string
     }, ExtArgs["result"]["doacao"]>
     composites: {}
@@ -4522,7 +4727,8 @@ export namespace Prisma {
     campanha<T extends CampanhaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CampanhaDefaultArgs<ExtArgs>>): Prisma__CampanhaClient<$Result.GetResult<Prisma.$CampanhaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     categoria<T extends CategoriaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoriaDefaultArgs<ExtArgs>>): Prisma__CategoriaClient<$Result.GetResult<Prisma.$CategoriaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     local<T extends LocalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LocalDefaultArgs<ExtArgs>>): Prisma__LocalClient<$Result.GetResult<Prisma.$LocalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    usuarioDoacoes<T extends Doacao$usuarioDoacoesArgs<ExtArgs> = {}>(args?: Subset<T, Doacao$usuarioDoacoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    compartilhamentos<T extends Doacao$compartilhamentosArgs<ExtArgs> = {}>(args?: Subset<T, Doacao$compartilhamentosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    logsAlteracoes<T extends Doacao$logsAlteracoesArgs<ExtArgs> = {}>(args?: Subset<T, Doacao$logsAlteracoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4557,10 +4763,10 @@ export namespace Prisma {
     readonly data: FieldRef<"Doacao", 'DateTime'>
     readonly tipoProduto: FieldRef<"Doacao", 'TipoProduto'>
     readonly produto: FieldRef<"Doacao", 'String'>
+    readonly status: FieldRef<"Doacao", 'StatusDoacao'>
     readonly usuarioId: FieldRef<"Doacao", 'String'>
     readonly campanhaId: FieldRef<"Doacao", 'String'>
     readonly categoriaId: FieldRef<"Doacao", 'String'>
-    readonly status: FieldRef<"Doacao", 'StatusDoacao'>
     readonly localId: FieldRef<"Doacao", 'String'>
   }
     
@@ -4958,27 +5164,51 @@ export namespace Prisma {
   }
 
   /**
-   * Doacao.usuarioDoacoes
+   * Doacao.compartilhamentos
    */
-  export type Doacao$usuarioDoacoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Doacao$compartilhamentosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
-    where?: UsuarioDoacaoWhereInput
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
+    where?: DoacaoCompartilhadaWhereInput
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UsuarioDoacaoScalarFieldEnum | UsuarioDoacaoScalarFieldEnum[]
+    distinct?: DoacaoCompartilhadaScalarFieldEnum | DoacaoCompartilhadaScalarFieldEnum[]
+  }
+
+  /**
+   * Doacao.logsAlteracoes
+   */
+  export type Doacao$logsAlteracoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    where?: LogAlteracaoDoacaoWhereInput
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LogAlteracaoDoacaoScalarFieldEnum | LogAlteracaoDoacaoScalarFieldEnum[]
   }
 
   /**
@@ -5013,16 +5243,31 @@ export namespace Prisma {
   export type CategoriaMinAggregateOutputType = {
     id: string | null
     nome: string | null
+    descricao: string | null
+    iconeUrl: string | null
+    ativo: boolean | null
+    criadaEm: Date | null
+    atualizadaEm: Date | null
   }
 
   export type CategoriaMaxAggregateOutputType = {
     id: string | null
     nome: string | null
+    descricao: string | null
+    iconeUrl: string | null
+    ativo: boolean | null
+    criadaEm: Date | null
+    atualizadaEm: Date | null
   }
 
   export type CategoriaCountAggregateOutputType = {
     id: number
     nome: number
+    descricao: number
+    iconeUrl: number
+    ativo: number
+    criadaEm: number
+    atualizadaEm: number
     _all: number
   }
 
@@ -5030,16 +5275,31 @@ export namespace Prisma {
   export type CategoriaMinAggregateInputType = {
     id?: true
     nome?: true
+    descricao?: true
+    iconeUrl?: true
+    ativo?: true
+    criadaEm?: true
+    atualizadaEm?: true
   }
 
   export type CategoriaMaxAggregateInputType = {
     id?: true
     nome?: true
+    descricao?: true
+    iconeUrl?: true
+    ativo?: true
+    criadaEm?: true
+    atualizadaEm?: true
   }
 
   export type CategoriaCountAggregateInputType = {
     id?: true
     nome?: true
+    descricao?: true
+    iconeUrl?: true
+    ativo?: true
+    criadaEm?: true
+    atualizadaEm?: true
     _all?: true
   }
 
@@ -5118,6 +5378,11 @@ export namespace Prisma {
   export type CategoriaGroupByOutputType = {
     id: string
     nome: string
+    descricao: string | null
+    iconeUrl: string | null
+    ativo: boolean
+    criadaEm: Date
+    atualizadaEm: Date
     _count: CategoriaCountAggregateOutputType | null
     _min: CategoriaMinAggregateOutputType | null
     _max: CategoriaMaxAggregateOutputType | null
@@ -5140,6 +5405,11 @@ export namespace Prisma {
   export type CategoriaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
+    descricao?: boolean
+    iconeUrl?: boolean
+    ativo?: boolean
+    criadaEm?: boolean
+    atualizadaEm?: boolean
     doacoes?: boolean | Categoria$doacoesArgs<ExtArgs>
     _count?: boolean | CategoriaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categoria"]>
@@ -5147,19 +5417,34 @@ export namespace Prisma {
   export type CategoriaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
+    descricao?: boolean
+    iconeUrl?: boolean
+    ativo?: boolean
+    criadaEm?: boolean
+    atualizadaEm?: boolean
   }, ExtArgs["result"]["categoria"]>
 
   export type CategoriaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nome?: boolean
+    descricao?: boolean
+    iconeUrl?: boolean
+    ativo?: boolean
+    criadaEm?: boolean
+    atualizadaEm?: boolean
   }, ExtArgs["result"]["categoria"]>
 
   export type CategoriaSelectScalar = {
     id?: boolean
     nome?: boolean
+    descricao?: boolean
+    iconeUrl?: boolean
+    ativo?: boolean
+    criadaEm?: boolean
+    atualizadaEm?: boolean
   }
 
-  export type CategoriaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome", ExtArgs["result"]["categoria"]>
+  export type CategoriaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "descricao" | "iconeUrl" | "ativo" | "criadaEm" | "atualizadaEm", ExtArgs["result"]["categoria"]>
   export type CategoriaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     doacoes?: boolean | Categoria$doacoesArgs<ExtArgs>
     _count?: boolean | CategoriaCountOutputTypeDefaultArgs<ExtArgs>
@@ -5175,6 +5460,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       nome: string
+      descricao: string | null
+      iconeUrl: string | null
+      ativo: boolean
+      criadaEm: Date
+      atualizadaEm: Date
     }, ExtArgs["result"]["categoria"]>
     composites: {}
   }
@@ -5601,6 +5891,11 @@ export namespace Prisma {
   interface CategoriaFieldRefs {
     readonly id: FieldRef<"Categoria", 'String'>
     readonly nome: FieldRef<"Categoria", 'String'>
+    readonly descricao: FieldRef<"Categoria", 'String'>
+    readonly iconeUrl: FieldRef<"Categoria", 'String'>
+    readonly ativo: FieldRef<"Categoria", 'Boolean'>
+    readonly criadaEm: FieldRef<"Categoria", 'DateTime'>
+    readonly atualizadaEm: FieldRef<"Categoria", 'DateTime'>
   }
     
 
@@ -7089,30 +7384,30 @@ export namespace Prisma {
 
 
   /**
-   * Model UsuarioDoacao
+   * Model DoacaoCompartilhada
    */
 
-  export type AggregateUsuarioDoacao = {
-    _count: UsuarioDoacaoCountAggregateOutputType | null
-    _min: UsuarioDoacaoMinAggregateOutputType | null
-    _max: UsuarioDoacaoMaxAggregateOutputType | null
+  export type AggregateDoacaoCompartilhada = {
+    _count: DoacaoCompartilhadaCountAggregateOutputType | null
+    _min: DoacaoCompartilhadaMinAggregateOutputType | null
+    _max: DoacaoCompartilhadaMaxAggregateOutputType | null
   }
 
-  export type UsuarioDoacaoMinAggregateOutputType = {
+  export type DoacaoCompartilhadaMinAggregateOutputType = {
     id: string | null
     usuarioId: string | null
     doacaoId: string | null
     data: Date | null
   }
 
-  export type UsuarioDoacaoMaxAggregateOutputType = {
+  export type DoacaoCompartilhadaMaxAggregateOutputType = {
     id: string | null
     usuarioId: string | null
     doacaoId: string | null
     data: Date | null
   }
 
-  export type UsuarioDoacaoCountAggregateOutputType = {
+  export type DoacaoCompartilhadaCountAggregateOutputType = {
     id: number
     usuarioId: number
     doacaoId: number
@@ -7121,21 +7416,21 @@ export namespace Prisma {
   }
 
 
-  export type UsuarioDoacaoMinAggregateInputType = {
+  export type DoacaoCompartilhadaMinAggregateInputType = {
     id?: true
     usuarioId?: true
     doacaoId?: true
     data?: true
   }
 
-  export type UsuarioDoacaoMaxAggregateInputType = {
+  export type DoacaoCompartilhadaMaxAggregateInputType = {
     id?: true
     usuarioId?: true
     doacaoId?: true
     data?: true
   }
 
-  export type UsuarioDoacaoCountAggregateInputType = {
+  export type DoacaoCompartilhadaCountAggregateInputType = {
     id?: true
     usuarioId?: true
     doacaoId?: true
@@ -7143,152 +7438,152 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type UsuarioDoacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UsuarioDoacao to aggregate.
+     * Filter which DoacaoCompartilhada to aggregate.
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UsuarioDoacaos to fetch.
+     * Determine the order of DoacaoCompartilhadas to fetch.
      */
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UsuarioDoacaos from the position of the cursor.
+     * Take `±n` DoacaoCompartilhadas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UsuarioDoacaos.
+     * Skip the first `n` DoacaoCompartilhadas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned UsuarioDoacaos
+     * Count returned DoacaoCompartilhadas
     **/
-    _count?: true | UsuarioDoacaoCountAggregateInputType
+    _count?: true | DoacaoCompartilhadaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UsuarioDoacaoMinAggregateInputType
+    _min?: DoacaoCompartilhadaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UsuarioDoacaoMaxAggregateInputType
+    _max?: DoacaoCompartilhadaMaxAggregateInputType
   }
 
-  export type GetUsuarioDoacaoAggregateType<T extends UsuarioDoacaoAggregateArgs> = {
-        [P in keyof T & keyof AggregateUsuarioDoacao]: P extends '_count' | 'count'
+  export type GetDoacaoCompartilhadaAggregateType<T extends DoacaoCompartilhadaAggregateArgs> = {
+        [P in keyof T & keyof AggregateDoacaoCompartilhada]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUsuarioDoacao[P]>
-      : GetScalarType<T[P], AggregateUsuarioDoacao[P]>
+        : GetScalarType<T[P], AggregateDoacaoCompartilhada[P]>
+      : GetScalarType<T[P], AggregateDoacaoCompartilhada[P]>
   }
 
 
 
 
-  export type UsuarioDoacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UsuarioDoacaoWhereInput
-    orderBy?: UsuarioDoacaoOrderByWithAggregationInput | UsuarioDoacaoOrderByWithAggregationInput[]
-    by: UsuarioDoacaoScalarFieldEnum[] | UsuarioDoacaoScalarFieldEnum
-    having?: UsuarioDoacaoScalarWhereWithAggregatesInput
+  export type DoacaoCompartilhadaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DoacaoCompartilhadaWhereInput
+    orderBy?: DoacaoCompartilhadaOrderByWithAggregationInput | DoacaoCompartilhadaOrderByWithAggregationInput[]
+    by: DoacaoCompartilhadaScalarFieldEnum[] | DoacaoCompartilhadaScalarFieldEnum
+    having?: DoacaoCompartilhadaScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UsuarioDoacaoCountAggregateInputType | true
-    _min?: UsuarioDoacaoMinAggregateInputType
-    _max?: UsuarioDoacaoMaxAggregateInputType
+    _count?: DoacaoCompartilhadaCountAggregateInputType | true
+    _min?: DoacaoCompartilhadaMinAggregateInputType
+    _max?: DoacaoCompartilhadaMaxAggregateInputType
   }
 
-  export type UsuarioDoacaoGroupByOutputType = {
+  export type DoacaoCompartilhadaGroupByOutputType = {
     id: string
     usuarioId: string
     doacaoId: string
     data: Date
-    _count: UsuarioDoacaoCountAggregateOutputType | null
-    _min: UsuarioDoacaoMinAggregateOutputType | null
-    _max: UsuarioDoacaoMaxAggregateOutputType | null
+    _count: DoacaoCompartilhadaCountAggregateOutputType | null
+    _min: DoacaoCompartilhadaMinAggregateOutputType | null
+    _max: DoacaoCompartilhadaMaxAggregateOutputType | null
   }
 
-  type GetUsuarioDoacaoGroupByPayload<T extends UsuarioDoacaoGroupByArgs> = Prisma.PrismaPromise<
+  type GetDoacaoCompartilhadaGroupByPayload<T extends DoacaoCompartilhadaGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UsuarioDoacaoGroupByOutputType, T['by']> &
+      PickEnumerable<DoacaoCompartilhadaGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UsuarioDoacaoGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof DoacaoCompartilhadaGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UsuarioDoacaoGroupByOutputType[P]>
-            : GetScalarType<T[P], UsuarioDoacaoGroupByOutputType[P]>
+              : GetScalarType<T[P], DoacaoCompartilhadaGroupByOutputType[P]>
+            : GetScalarType<T[P], DoacaoCompartilhadaGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UsuarioDoacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type DoacaoCompartilhadaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     usuarioId?: boolean
     doacaoId?: boolean
     data?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["usuarioDoacao"]>
+  }, ExtArgs["result"]["doacaoCompartilhada"]>
 
-  export type UsuarioDoacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type DoacaoCompartilhadaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     usuarioId?: boolean
     doacaoId?: boolean
     data?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["usuarioDoacao"]>
+  }, ExtArgs["result"]["doacaoCompartilhada"]>
 
-  export type UsuarioDoacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type DoacaoCompartilhadaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     usuarioId?: boolean
     doacaoId?: boolean
     data?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["usuarioDoacao"]>
+  }, ExtArgs["result"]["doacaoCompartilhada"]>
 
-  export type UsuarioDoacaoSelectScalar = {
+  export type DoacaoCompartilhadaSelectScalar = {
     id?: boolean
     usuarioId?: boolean
     doacaoId?: boolean
     data?: boolean
   }
 
-  export type UsuarioDoacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usuarioId" | "doacaoId" | "data", ExtArgs["result"]["usuarioDoacao"]>
-  export type UsuarioDoacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "usuarioId" | "doacaoId" | "data", ExtArgs["result"]["doacaoCompartilhada"]>
+  export type DoacaoCompartilhadaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
   }
-  export type UsuarioDoacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
   }
-  export type UsuarioDoacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
     doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
   }
 
-  export type $UsuarioDoacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UsuarioDoacao"
+  export type $DoacaoCompartilhadaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DoacaoCompartilhada"
     objects: {
       usuario: Prisma.$UsuarioPayload<ExtArgs>
       doacao: Prisma.$DoacaoPayload<ExtArgs>
@@ -7298,136 +7593,136 @@ export namespace Prisma {
       usuarioId: string
       doacaoId: string
       data: Date
-    }, ExtArgs["result"]["usuarioDoacao"]>
+    }, ExtArgs["result"]["doacaoCompartilhada"]>
     composites: {}
   }
 
-  type UsuarioDoacaoGetPayload<S extends boolean | null | undefined | UsuarioDoacaoDefaultArgs> = $Result.GetResult<Prisma.$UsuarioDoacaoPayload, S>
+  type DoacaoCompartilhadaGetPayload<S extends boolean | null | undefined | DoacaoCompartilhadaDefaultArgs> = $Result.GetResult<Prisma.$DoacaoCompartilhadaPayload, S>
 
-  type UsuarioDoacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UsuarioDoacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UsuarioDoacaoCountAggregateInputType | true
+  type DoacaoCompartilhadaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DoacaoCompartilhadaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DoacaoCompartilhadaCountAggregateInputType | true
     }
 
-  export interface UsuarioDoacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UsuarioDoacao'], meta: { name: 'UsuarioDoacao' } }
+  export interface DoacaoCompartilhadaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DoacaoCompartilhada'], meta: { name: 'DoacaoCompartilhada' } }
     /**
-     * Find zero or one UsuarioDoacao that matches the filter.
-     * @param {UsuarioDoacaoFindUniqueArgs} args - Arguments to find a UsuarioDoacao
+     * Find zero or one DoacaoCompartilhada that matches the filter.
+     * @param {DoacaoCompartilhadaFindUniqueArgs} args - Arguments to find a DoacaoCompartilhada
      * @example
-     * // Get one UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.findUnique({
+     * // Get one DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UsuarioDoacaoFindUniqueArgs>(args: SelectSubset<T, UsuarioDoacaoFindUniqueArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends DoacaoCompartilhadaFindUniqueArgs>(args: SelectSubset<T, DoacaoCompartilhadaFindUniqueArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one UsuarioDoacao that matches the filter or throw an error with `error.code='P2025'`
+     * Find one DoacaoCompartilhada that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UsuarioDoacaoFindUniqueOrThrowArgs} args - Arguments to find a UsuarioDoacao
+     * @param {DoacaoCompartilhadaFindUniqueOrThrowArgs} args - Arguments to find a DoacaoCompartilhada
      * @example
-     * // Get one UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.findUniqueOrThrow({
+     * // Get one DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UsuarioDoacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, UsuarioDoacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends DoacaoCompartilhadaFindUniqueOrThrowArgs>(args: SelectSubset<T, DoacaoCompartilhadaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UsuarioDoacao that matches the filter.
+     * Find the first DoacaoCompartilhada that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoFindFirstArgs} args - Arguments to find a UsuarioDoacao
+     * @param {DoacaoCompartilhadaFindFirstArgs} args - Arguments to find a DoacaoCompartilhada
      * @example
-     * // Get one UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.findFirst({
+     * // Get one DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UsuarioDoacaoFindFirstArgs>(args?: SelectSubset<T, UsuarioDoacaoFindFirstArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends DoacaoCompartilhadaFindFirstArgs>(args?: SelectSubset<T, DoacaoCompartilhadaFindFirstArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UsuarioDoacao that matches the filter or
+     * Find the first DoacaoCompartilhada that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoFindFirstOrThrowArgs} args - Arguments to find a UsuarioDoacao
+     * @param {DoacaoCompartilhadaFindFirstOrThrowArgs} args - Arguments to find a DoacaoCompartilhada
      * @example
-     * // Get one UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.findFirstOrThrow({
+     * // Get one DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UsuarioDoacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, UsuarioDoacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends DoacaoCompartilhadaFindFirstOrThrowArgs>(args?: SelectSubset<T, DoacaoCompartilhadaFindFirstOrThrowArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more UsuarioDoacaos that matches the filter.
+     * Find zero or more DoacaoCompartilhadas that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {DoacaoCompartilhadaFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all UsuarioDoacaos
-     * const usuarioDoacaos = await prisma.usuarioDoacao.findMany()
+     * // Get all DoacaoCompartilhadas
+     * const doacaoCompartilhadas = await prisma.doacaoCompartilhada.findMany()
      * 
-     * // Get first 10 UsuarioDoacaos
-     * const usuarioDoacaos = await prisma.usuarioDoacao.findMany({ take: 10 })
+     * // Get first 10 DoacaoCompartilhadas
+     * const doacaoCompartilhadas = await prisma.doacaoCompartilhada.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const usuarioDoacaoWithIdOnly = await prisma.usuarioDoacao.findMany({ select: { id: true } })
+     * const doacaoCompartilhadaWithIdOnly = await prisma.doacaoCompartilhada.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends UsuarioDoacaoFindManyArgs>(args?: SelectSubset<T, UsuarioDoacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends DoacaoCompartilhadaFindManyArgs>(args?: SelectSubset<T, DoacaoCompartilhadaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a UsuarioDoacao.
-     * @param {UsuarioDoacaoCreateArgs} args - Arguments to create a UsuarioDoacao.
+     * Create a DoacaoCompartilhada.
+     * @param {DoacaoCompartilhadaCreateArgs} args - Arguments to create a DoacaoCompartilhada.
      * @example
-     * // Create one UsuarioDoacao
-     * const UsuarioDoacao = await prisma.usuarioDoacao.create({
+     * // Create one DoacaoCompartilhada
+     * const DoacaoCompartilhada = await prisma.doacaoCompartilhada.create({
      *   data: {
-     *     // ... data to create a UsuarioDoacao
+     *     // ... data to create a DoacaoCompartilhada
      *   }
      * })
      * 
      */
-    create<T extends UsuarioDoacaoCreateArgs>(args: SelectSubset<T, UsuarioDoacaoCreateArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends DoacaoCompartilhadaCreateArgs>(args: SelectSubset<T, DoacaoCompartilhadaCreateArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many UsuarioDoacaos.
-     * @param {UsuarioDoacaoCreateManyArgs} args - Arguments to create many UsuarioDoacaos.
+     * Create many DoacaoCompartilhadas.
+     * @param {DoacaoCompartilhadaCreateManyArgs} args - Arguments to create many DoacaoCompartilhadas.
      * @example
-     * // Create many UsuarioDoacaos
-     * const usuarioDoacao = await prisma.usuarioDoacao.createMany({
+     * // Create many DoacaoCompartilhadas
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UsuarioDoacaoCreateManyArgs>(args?: SelectSubset<T, UsuarioDoacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends DoacaoCompartilhadaCreateManyArgs>(args?: SelectSubset<T, DoacaoCompartilhadaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many UsuarioDoacaos and returns the data saved in the database.
-     * @param {UsuarioDoacaoCreateManyAndReturnArgs} args - Arguments to create many UsuarioDoacaos.
+     * Create many DoacaoCompartilhadas and returns the data saved in the database.
+     * @param {DoacaoCompartilhadaCreateManyAndReturnArgs} args - Arguments to create many DoacaoCompartilhadas.
      * @example
-     * // Create many UsuarioDoacaos
-     * const usuarioDoacao = await prisma.usuarioDoacao.createManyAndReturn({
+     * // Create many DoacaoCompartilhadas
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many UsuarioDoacaos and only return the `id`
-     * const usuarioDoacaoWithIdOnly = await prisma.usuarioDoacao.createManyAndReturn({
+     * // Create many DoacaoCompartilhadas and only return the `id`
+     * const doacaoCompartilhadaWithIdOnly = await prisma.doacaoCompartilhada.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7437,28 +7732,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UsuarioDoacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, UsuarioDoacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends DoacaoCompartilhadaCreateManyAndReturnArgs>(args?: SelectSubset<T, DoacaoCompartilhadaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a UsuarioDoacao.
-     * @param {UsuarioDoacaoDeleteArgs} args - Arguments to delete one UsuarioDoacao.
+     * Delete a DoacaoCompartilhada.
+     * @param {DoacaoCompartilhadaDeleteArgs} args - Arguments to delete one DoacaoCompartilhada.
      * @example
-     * // Delete one UsuarioDoacao
-     * const UsuarioDoacao = await prisma.usuarioDoacao.delete({
+     * // Delete one DoacaoCompartilhada
+     * const DoacaoCompartilhada = await prisma.doacaoCompartilhada.delete({
      *   where: {
-     *     // ... filter to delete one UsuarioDoacao
+     *     // ... filter to delete one DoacaoCompartilhada
      *   }
      * })
      * 
      */
-    delete<T extends UsuarioDoacaoDeleteArgs>(args: SelectSubset<T, UsuarioDoacaoDeleteArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends DoacaoCompartilhadaDeleteArgs>(args: SelectSubset<T, DoacaoCompartilhadaDeleteArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one UsuarioDoacao.
-     * @param {UsuarioDoacaoUpdateArgs} args - Arguments to update one UsuarioDoacao.
+     * Update one DoacaoCompartilhada.
+     * @param {DoacaoCompartilhadaUpdateArgs} args - Arguments to update one DoacaoCompartilhada.
      * @example
-     * // Update one UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.update({
+     * // Update one DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7468,30 +7763,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UsuarioDoacaoUpdateArgs>(args: SelectSubset<T, UsuarioDoacaoUpdateArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends DoacaoCompartilhadaUpdateArgs>(args: SelectSubset<T, DoacaoCompartilhadaUpdateArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more UsuarioDoacaos.
-     * @param {UsuarioDoacaoDeleteManyArgs} args - Arguments to filter UsuarioDoacaos to delete.
+     * Delete zero or more DoacaoCompartilhadas.
+     * @param {DoacaoCompartilhadaDeleteManyArgs} args - Arguments to filter DoacaoCompartilhadas to delete.
      * @example
-     * // Delete a few UsuarioDoacaos
-     * const { count } = await prisma.usuarioDoacao.deleteMany({
+     * // Delete a few DoacaoCompartilhadas
+     * const { count } = await prisma.doacaoCompartilhada.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UsuarioDoacaoDeleteManyArgs>(args?: SelectSubset<T, UsuarioDoacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends DoacaoCompartilhadaDeleteManyArgs>(args?: SelectSubset<T, DoacaoCompartilhadaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UsuarioDoacaos.
+     * Update zero or more DoacaoCompartilhadas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {DoacaoCompartilhadaUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many UsuarioDoacaos
-     * const usuarioDoacao = await prisma.usuarioDoacao.updateMany({
+     * // Update many DoacaoCompartilhadas
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7501,14 +7796,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UsuarioDoacaoUpdateManyArgs>(args: SelectSubset<T, UsuarioDoacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends DoacaoCompartilhadaUpdateManyArgs>(args: SelectSubset<T, DoacaoCompartilhadaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more UsuarioDoacaos and returns the data updated in the database.
-     * @param {UsuarioDoacaoUpdateManyAndReturnArgs} args - Arguments to update many UsuarioDoacaos.
+     * Update zero or more DoacaoCompartilhadas and returns the data updated in the database.
+     * @param {DoacaoCompartilhadaUpdateManyAndReturnArgs} args - Arguments to update many DoacaoCompartilhadas.
      * @example
-     * // Update many UsuarioDoacaos
-     * const usuarioDoacao = await prisma.usuarioDoacao.updateManyAndReturn({
+     * // Update many DoacaoCompartilhadas
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7517,8 +7812,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more UsuarioDoacaos and only return the `id`
-     * const usuarioDoacaoWithIdOnly = await prisma.usuarioDoacao.updateManyAndReturn({
+     * // Update zero or more DoacaoCompartilhadas and only return the `id`
+     * const doacaoCompartilhadaWithIdOnly = await prisma.doacaoCompartilhada.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7531,56 +7826,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UsuarioDoacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, UsuarioDoacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends DoacaoCompartilhadaUpdateManyAndReturnArgs>(args: SelectSubset<T, DoacaoCompartilhadaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one UsuarioDoacao.
-     * @param {UsuarioDoacaoUpsertArgs} args - Arguments to update or create a UsuarioDoacao.
+     * Create or update one DoacaoCompartilhada.
+     * @param {DoacaoCompartilhadaUpsertArgs} args - Arguments to update or create a DoacaoCompartilhada.
      * @example
-     * // Update or create a UsuarioDoacao
-     * const usuarioDoacao = await prisma.usuarioDoacao.upsert({
+     * // Update or create a DoacaoCompartilhada
+     * const doacaoCompartilhada = await prisma.doacaoCompartilhada.upsert({
      *   create: {
-     *     // ... data to create a UsuarioDoacao
+     *     // ... data to create a DoacaoCompartilhada
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UsuarioDoacao we want to update
+     *     // ... the filter for the DoacaoCompartilhada we want to update
      *   }
      * })
      */
-    upsert<T extends UsuarioDoacaoUpsertArgs>(args: SelectSubset<T, UsuarioDoacaoUpsertArgs<ExtArgs>>): Prisma__UsuarioDoacaoClient<$Result.GetResult<Prisma.$UsuarioDoacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends DoacaoCompartilhadaUpsertArgs>(args: SelectSubset<T, DoacaoCompartilhadaUpsertArgs<ExtArgs>>): Prisma__DoacaoCompartilhadaClient<$Result.GetResult<Prisma.$DoacaoCompartilhadaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of UsuarioDoacaos.
+     * Count the number of DoacaoCompartilhadas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoCountArgs} args - Arguments to filter UsuarioDoacaos to count.
+     * @param {DoacaoCompartilhadaCountArgs} args - Arguments to filter DoacaoCompartilhadas to count.
      * @example
-     * // Count the number of UsuarioDoacaos
-     * const count = await prisma.usuarioDoacao.count({
+     * // Count the number of DoacaoCompartilhadas
+     * const count = await prisma.doacaoCompartilhada.count({
      *   where: {
-     *     // ... the filter for the UsuarioDoacaos we want to count
+     *     // ... the filter for the DoacaoCompartilhadas we want to count
      *   }
      * })
     **/
-    count<T extends UsuarioDoacaoCountArgs>(
-      args?: Subset<T, UsuarioDoacaoCountArgs>,
+    count<T extends DoacaoCompartilhadaCountArgs>(
+      args?: Subset<T, DoacaoCompartilhadaCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UsuarioDoacaoCountAggregateOutputType>
+          : GetScalarType<T['select'], DoacaoCompartilhadaCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UsuarioDoacao.
+     * Allows you to perform aggregations operations on a DoacaoCompartilhada.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {DoacaoCompartilhadaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7600,13 +7895,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UsuarioDoacaoAggregateArgs>(args: Subset<T, UsuarioDoacaoAggregateArgs>): Prisma.PrismaPromise<GetUsuarioDoacaoAggregateType<T>>
+    aggregate<T extends DoacaoCompartilhadaAggregateArgs>(args: Subset<T, DoacaoCompartilhadaAggregateArgs>): Prisma.PrismaPromise<GetDoacaoCompartilhadaAggregateType<T>>
 
     /**
-     * Group by UsuarioDoacao.
+     * Group by DoacaoCompartilhada.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsuarioDoacaoGroupByArgs} args - Group by arguments.
+     * @param {DoacaoCompartilhadaGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7621,14 +7916,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UsuarioDoacaoGroupByArgs,
+      T extends DoacaoCompartilhadaGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UsuarioDoacaoGroupByArgs['orderBy'] }
-        : { orderBy?: UsuarioDoacaoGroupByArgs['orderBy'] },
+        ? { orderBy: DoacaoCompartilhadaGroupByArgs['orderBy'] }
+        : { orderBy?: DoacaoCompartilhadaGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7677,20 +7972,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UsuarioDoacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsuarioDoacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, DoacaoCompartilhadaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDoacaoCompartilhadaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the UsuarioDoacao model
+   * Fields of the DoacaoCompartilhada model
    */
-  readonly fields: UsuarioDoacaoFieldRefs;
+  readonly fields: DoacaoCompartilhadaFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UsuarioDoacao.
+   * The delegate class that acts as a "Promise-like" for DoacaoCompartilhada.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UsuarioDoacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__DoacaoCompartilhadaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     doacao<T extends DoacaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoacaoDefaultArgs<ExtArgs>>): Prisma__DoacaoClient<$Result.GetResult<Prisma.$DoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -7720,424 +8015,1516 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the UsuarioDoacao model
+   * Fields of the DoacaoCompartilhada model
    */
-  interface UsuarioDoacaoFieldRefs {
-    readonly id: FieldRef<"UsuarioDoacao", 'String'>
-    readonly usuarioId: FieldRef<"UsuarioDoacao", 'String'>
-    readonly doacaoId: FieldRef<"UsuarioDoacao", 'String'>
-    readonly data: FieldRef<"UsuarioDoacao", 'DateTime'>
+  interface DoacaoCompartilhadaFieldRefs {
+    readonly id: FieldRef<"DoacaoCompartilhada", 'String'>
+    readonly usuarioId: FieldRef<"DoacaoCompartilhada", 'String'>
+    readonly doacaoId: FieldRef<"DoacaoCompartilhada", 'String'>
+    readonly data: FieldRef<"DoacaoCompartilhada", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * UsuarioDoacao findUnique
+   * DoacaoCompartilhada findUnique
    */
-  export type UsuarioDoacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter, which UsuarioDoacao to fetch.
+     * Filter, which DoacaoCompartilhada to fetch.
      */
-    where: UsuarioDoacaoWhereUniqueInput
+    where: DoacaoCompartilhadaWhereUniqueInput
   }
 
   /**
-   * UsuarioDoacao findUniqueOrThrow
+   * DoacaoCompartilhada findUniqueOrThrow
    */
-  export type UsuarioDoacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter, which UsuarioDoacao to fetch.
+     * Filter, which DoacaoCompartilhada to fetch.
      */
-    where: UsuarioDoacaoWhereUniqueInput
+    where: DoacaoCompartilhadaWhereUniqueInput
   }
 
   /**
-   * UsuarioDoacao findFirst
+   * DoacaoCompartilhada findFirst
    */
-  export type UsuarioDoacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter, which UsuarioDoacao to fetch.
+     * Filter, which DoacaoCompartilhada to fetch.
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UsuarioDoacaos to fetch.
+     * Determine the order of DoacaoCompartilhadas to fetch.
      */
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UsuarioDoacaos.
+     * Sets the position for searching for DoacaoCompartilhadas.
      */
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UsuarioDoacaos from the position of the cursor.
+     * Take `±n` DoacaoCompartilhadas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UsuarioDoacaos.
+     * Skip the first `n` DoacaoCompartilhadas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UsuarioDoacaos.
+     * Filter by unique combinations of DoacaoCompartilhadas.
      */
-    distinct?: UsuarioDoacaoScalarFieldEnum | UsuarioDoacaoScalarFieldEnum[]
+    distinct?: DoacaoCompartilhadaScalarFieldEnum | DoacaoCompartilhadaScalarFieldEnum[]
   }
 
   /**
-   * UsuarioDoacao findFirstOrThrow
+   * DoacaoCompartilhada findFirstOrThrow
    */
-  export type UsuarioDoacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter, which UsuarioDoacao to fetch.
+     * Filter, which DoacaoCompartilhada to fetch.
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UsuarioDoacaos to fetch.
+     * Determine the order of DoacaoCompartilhadas to fetch.
      */
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for UsuarioDoacaos.
+     * Sets the position for searching for DoacaoCompartilhadas.
      */
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UsuarioDoacaos from the position of the cursor.
+     * Take `±n` DoacaoCompartilhadas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UsuarioDoacaos.
+     * Skip the first `n` DoacaoCompartilhadas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of UsuarioDoacaos.
+     * Filter by unique combinations of DoacaoCompartilhadas.
      */
-    distinct?: UsuarioDoacaoScalarFieldEnum | UsuarioDoacaoScalarFieldEnum[]
+    distinct?: DoacaoCompartilhadaScalarFieldEnum | DoacaoCompartilhadaScalarFieldEnum[]
   }
 
   /**
-   * UsuarioDoacao findMany
+   * DoacaoCompartilhada findMany
    */
-  export type UsuarioDoacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter, which UsuarioDoacaos to fetch.
+     * Filter, which DoacaoCompartilhadas to fetch.
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of UsuarioDoacaos to fetch.
+     * Determine the order of DoacaoCompartilhadas to fetch.
      */
-    orderBy?: UsuarioDoacaoOrderByWithRelationInput | UsuarioDoacaoOrderByWithRelationInput[]
+    orderBy?: DoacaoCompartilhadaOrderByWithRelationInput | DoacaoCompartilhadaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing UsuarioDoacaos.
+     * Sets the position for listing DoacaoCompartilhadas.
      */
-    cursor?: UsuarioDoacaoWhereUniqueInput
+    cursor?: DoacaoCompartilhadaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` UsuarioDoacaos from the position of the cursor.
+     * Take `±n` DoacaoCompartilhadas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` UsuarioDoacaos.
+     * Skip the first `n` DoacaoCompartilhadas.
      */
     skip?: number
-    distinct?: UsuarioDoacaoScalarFieldEnum | UsuarioDoacaoScalarFieldEnum[]
+    distinct?: DoacaoCompartilhadaScalarFieldEnum | DoacaoCompartilhadaScalarFieldEnum[]
   }
 
   /**
-   * UsuarioDoacao create
+   * DoacaoCompartilhada create
    */
-  export type UsuarioDoacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * The data needed to create a UsuarioDoacao.
+     * The data needed to create a DoacaoCompartilhada.
      */
-    data: XOR<UsuarioDoacaoCreateInput, UsuarioDoacaoUncheckedCreateInput>
+    data: XOR<DoacaoCompartilhadaCreateInput, DoacaoCompartilhadaUncheckedCreateInput>
   }
 
   /**
-   * UsuarioDoacao createMany
+   * DoacaoCompartilhada createMany
    */
-  export type UsuarioDoacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many UsuarioDoacaos.
+     * The data used to create many DoacaoCompartilhadas.
      */
-    data: UsuarioDoacaoCreateManyInput | UsuarioDoacaoCreateManyInput[]
+    data: DoacaoCompartilhadaCreateManyInput | DoacaoCompartilhadaCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * UsuarioDoacao createManyAndReturn
+   * DoacaoCompartilhada createManyAndReturn
    */
-  export type UsuarioDoacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelectCreateManyAndReturn<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
-     * The data used to create many UsuarioDoacaos.
+     * The data used to create many DoacaoCompartilhadas.
      */
-    data: UsuarioDoacaoCreateManyInput | UsuarioDoacaoCreateManyInput[]
+    data: DoacaoCompartilhadaCreateManyInput | DoacaoCompartilhadaCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: DoacaoCompartilhadaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UsuarioDoacao update
+   * DoacaoCompartilhada update
    */
-  export type UsuarioDoacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * The data needed to update a UsuarioDoacao.
+     * The data needed to update a DoacaoCompartilhada.
      */
-    data: XOR<UsuarioDoacaoUpdateInput, UsuarioDoacaoUncheckedUpdateInput>
+    data: XOR<DoacaoCompartilhadaUpdateInput, DoacaoCompartilhadaUncheckedUpdateInput>
     /**
-     * Choose, which UsuarioDoacao to update.
+     * Choose, which DoacaoCompartilhada to update.
      */
-    where: UsuarioDoacaoWhereUniqueInput
+    where: DoacaoCompartilhadaWhereUniqueInput
   }
 
   /**
-   * UsuarioDoacao updateMany
+   * DoacaoCompartilhada updateMany
    */
-  export type UsuarioDoacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update UsuarioDoacaos.
+     * The data used to update DoacaoCompartilhadas.
      */
-    data: XOR<UsuarioDoacaoUpdateManyMutationInput, UsuarioDoacaoUncheckedUpdateManyInput>
+    data: XOR<DoacaoCompartilhadaUpdateManyMutationInput, DoacaoCompartilhadaUncheckedUpdateManyInput>
     /**
-     * Filter which UsuarioDoacaos to update
+     * Filter which DoacaoCompartilhadas to update
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
-     * Limit how many UsuarioDoacaos to update.
+     * Limit how many DoacaoCompartilhadas to update.
      */
     limit?: number
   }
 
   /**
-   * UsuarioDoacao updateManyAndReturn
+   * DoacaoCompartilhada updateManyAndReturn
    */
-  export type UsuarioDoacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
-     * The data used to update UsuarioDoacaos.
+     * The data used to update DoacaoCompartilhadas.
      */
-    data: XOR<UsuarioDoacaoUpdateManyMutationInput, UsuarioDoacaoUncheckedUpdateManyInput>
+    data: XOR<DoacaoCompartilhadaUpdateManyMutationInput, DoacaoCompartilhadaUncheckedUpdateManyInput>
     /**
-     * Filter which UsuarioDoacaos to update
+     * Filter which DoacaoCompartilhadas to update
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
-     * Limit how many UsuarioDoacaos to update.
+     * Limit how many DoacaoCompartilhadas to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: DoacaoCompartilhadaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UsuarioDoacao upsert
+   * DoacaoCompartilhada upsert
    */
-  export type UsuarioDoacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * The filter to search for the UsuarioDoacao to update in case it exists.
+     * The filter to search for the DoacaoCompartilhada to update in case it exists.
      */
-    where: UsuarioDoacaoWhereUniqueInput
+    where: DoacaoCompartilhadaWhereUniqueInput
     /**
-     * In case the UsuarioDoacao found by the `where` argument doesn't exist, create a new UsuarioDoacao with this data.
+     * In case the DoacaoCompartilhada found by the `where` argument doesn't exist, create a new DoacaoCompartilhada with this data.
      */
-    create: XOR<UsuarioDoacaoCreateInput, UsuarioDoacaoUncheckedCreateInput>
+    create: XOR<DoacaoCompartilhadaCreateInput, DoacaoCompartilhadaUncheckedCreateInput>
     /**
-     * In case the UsuarioDoacao was found with the provided `where` argument, update it with this data.
+     * In case the DoacaoCompartilhada was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UsuarioDoacaoUpdateInput, UsuarioDoacaoUncheckedUpdateInput>
+    update: XOR<DoacaoCompartilhadaUpdateInput, DoacaoCompartilhadaUncheckedUpdateInput>
   }
 
   /**
-   * UsuarioDoacao delete
+   * DoacaoCompartilhada delete
    */
-  export type UsuarioDoacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
     /**
-     * Filter which UsuarioDoacao to delete.
+     * Filter which DoacaoCompartilhada to delete.
      */
-    where: UsuarioDoacaoWhereUniqueInput
+    where: DoacaoCompartilhadaWhereUniqueInput
   }
 
   /**
-   * UsuarioDoacao deleteMany
+   * DoacaoCompartilhada deleteMany
    */
-  export type UsuarioDoacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UsuarioDoacaos to delete
+     * Filter which DoacaoCompartilhadas to delete
      */
-    where?: UsuarioDoacaoWhereInput
+    where?: DoacaoCompartilhadaWhereInput
     /**
-     * Limit how many UsuarioDoacaos to delete.
+     * Limit how many DoacaoCompartilhadas to delete.
      */
     limit?: number
   }
 
   /**
-   * UsuarioDoacao without action
+   * DoacaoCompartilhada without action
    */
-  export type UsuarioDoacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type DoacaoCompartilhadaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UsuarioDoacao
+     * Select specific fields to fetch from the DoacaoCompartilhada
      */
-    select?: UsuarioDoacaoSelect<ExtArgs> | null
+    select?: DoacaoCompartilhadaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UsuarioDoacao
+     * Omit specific fields from the DoacaoCompartilhada
      */
-    omit?: UsuarioDoacaoOmit<ExtArgs> | null
+    omit?: DoacaoCompartilhadaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UsuarioDoacaoInclude<ExtArgs> | null
+    include?: DoacaoCompartilhadaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LogAlteracaoDoacao
+   */
+
+  export type AggregateLogAlteracaoDoacao = {
+    _count: LogAlteracaoDoacaoCountAggregateOutputType | null
+    _min: LogAlteracaoDoacaoMinAggregateOutputType | null
+    _max: LogAlteracaoDoacaoMaxAggregateOutputType | null
+  }
+
+  export type LogAlteracaoDoacaoMinAggregateOutputType = {
+    id: string | null
+    doacaoId: string | null
+    alteradoPor: string | null
+    campo: string | null
+    valorAntigo: string | null
+    valorNovo: string | null
+    data: Date | null
+  }
+
+  export type LogAlteracaoDoacaoMaxAggregateOutputType = {
+    id: string | null
+    doacaoId: string | null
+    alteradoPor: string | null
+    campo: string | null
+    valorAntigo: string | null
+    valorNovo: string | null
+    data: Date | null
+  }
+
+  export type LogAlteracaoDoacaoCountAggregateOutputType = {
+    id: number
+    doacaoId: number
+    alteradoPor: number
+    campo: number
+    valorAntigo: number
+    valorNovo: number
+    data: number
+    _all: number
+  }
+
+
+  export type LogAlteracaoDoacaoMinAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    alteradoPor?: true
+    campo?: true
+    valorAntigo?: true
+    valorNovo?: true
+    data?: true
+  }
+
+  export type LogAlteracaoDoacaoMaxAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    alteradoPor?: true
+    campo?: true
+    valorAntigo?: true
+    valorNovo?: true
+    data?: true
+  }
+
+  export type LogAlteracaoDoacaoCountAggregateInputType = {
+    id?: true
+    doacaoId?: true
+    alteradoPor?: true
+    campo?: true
+    valorAntigo?: true
+    valorNovo?: true
+    data?: true
+    _all?: true
+  }
+
+  export type LogAlteracaoDoacaoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LogAlteracaoDoacao to aggregate.
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogAlteracaoDoacaos to fetch.
+     */
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogAlteracaoDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogAlteracaoDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LogAlteracaoDoacaos
+    **/
+    _count?: true | LogAlteracaoDoacaoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LogAlteracaoDoacaoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LogAlteracaoDoacaoMaxAggregateInputType
+  }
+
+  export type GetLogAlteracaoDoacaoAggregateType<T extends LogAlteracaoDoacaoAggregateArgs> = {
+        [P in keyof T & keyof AggregateLogAlteracaoDoacao]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLogAlteracaoDoacao[P]>
+      : GetScalarType<T[P], AggregateLogAlteracaoDoacao[P]>
+  }
+
+
+
+
+  export type LogAlteracaoDoacaoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LogAlteracaoDoacaoWhereInput
+    orderBy?: LogAlteracaoDoacaoOrderByWithAggregationInput | LogAlteracaoDoacaoOrderByWithAggregationInput[]
+    by: LogAlteracaoDoacaoScalarFieldEnum[] | LogAlteracaoDoacaoScalarFieldEnum
+    having?: LogAlteracaoDoacaoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LogAlteracaoDoacaoCountAggregateInputType | true
+    _min?: LogAlteracaoDoacaoMinAggregateInputType
+    _max?: LogAlteracaoDoacaoMaxAggregateInputType
+  }
+
+  export type LogAlteracaoDoacaoGroupByOutputType = {
+    id: string
+    doacaoId: string
+    alteradoPor: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data: Date
+    _count: LogAlteracaoDoacaoCountAggregateOutputType | null
+    _min: LogAlteracaoDoacaoMinAggregateOutputType | null
+    _max: LogAlteracaoDoacaoMaxAggregateOutputType | null
+  }
+
+  type GetLogAlteracaoDoacaoGroupByPayload<T extends LogAlteracaoDoacaoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LogAlteracaoDoacaoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LogAlteracaoDoacaoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LogAlteracaoDoacaoGroupByOutputType[P]>
+            : GetScalarType<T[P], LogAlteracaoDoacaoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LogAlteracaoDoacaoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    alteradoPor?: boolean
+    campo?: boolean
+    valorAntigo?: boolean
+    valorNovo?: boolean
+    data?: boolean
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["logAlteracaoDoacao"]>
+
+  export type LogAlteracaoDoacaoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    alteradoPor?: boolean
+    campo?: boolean
+    valorAntigo?: boolean
+    valorNovo?: boolean
+    data?: boolean
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["logAlteracaoDoacao"]>
+
+  export type LogAlteracaoDoacaoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    doacaoId?: boolean
+    alteradoPor?: boolean
+    campo?: boolean
+    valorAntigo?: boolean
+    valorNovo?: boolean
+    data?: boolean
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["logAlteracaoDoacao"]>
+
+  export type LogAlteracaoDoacaoSelectScalar = {
+    id?: boolean
+    doacaoId?: boolean
+    alteradoPor?: boolean
+    campo?: boolean
+    valorAntigo?: boolean
+    valorNovo?: boolean
+    data?: boolean
+  }
+
+  export type LogAlteracaoDoacaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "doacaoId" | "alteradoPor" | "campo" | "valorAntigo" | "valorNovo" | "data", ExtArgs["result"]["logAlteracaoDoacao"]>
+  export type LogAlteracaoDoacaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type LogAlteracaoDoacaoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type LogAlteracaoDoacaoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    doacao?: boolean | DoacaoDefaultArgs<ExtArgs>
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+
+  export type $LogAlteracaoDoacaoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LogAlteracaoDoacao"
+    objects: {
+      doacao: Prisma.$DoacaoPayload<ExtArgs>
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      doacaoId: string
+      alteradoPor: string
+      campo: string
+      valorAntigo: string
+      valorNovo: string
+      data: Date
+    }, ExtArgs["result"]["logAlteracaoDoacao"]>
+    composites: {}
+  }
+
+  type LogAlteracaoDoacaoGetPayload<S extends boolean | null | undefined | LogAlteracaoDoacaoDefaultArgs> = $Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload, S>
+
+  type LogAlteracaoDoacaoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LogAlteracaoDoacaoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LogAlteracaoDoacaoCountAggregateInputType | true
+    }
+
+  export interface LogAlteracaoDoacaoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LogAlteracaoDoacao'], meta: { name: 'LogAlteracaoDoacao' } }
+    /**
+     * Find zero or one LogAlteracaoDoacao that matches the filter.
+     * @param {LogAlteracaoDoacaoFindUniqueArgs} args - Arguments to find a LogAlteracaoDoacao
+     * @example
+     * // Get one LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LogAlteracaoDoacaoFindUniqueArgs>(args: SelectSubset<T, LogAlteracaoDoacaoFindUniqueArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LogAlteracaoDoacao that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LogAlteracaoDoacaoFindUniqueOrThrowArgs} args - Arguments to find a LogAlteracaoDoacao
+     * @example
+     * // Get one LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LogAlteracaoDoacaoFindUniqueOrThrowArgs>(args: SelectSubset<T, LogAlteracaoDoacaoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LogAlteracaoDoacao that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoFindFirstArgs} args - Arguments to find a LogAlteracaoDoacao
+     * @example
+     * // Get one LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LogAlteracaoDoacaoFindFirstArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoFindFirstArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LogAlteracaoDoacao that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoFindFirstOrThrowArgs} args - Arguments to find a LogAlteracaoDoacao
+     * @example
+     * // Get one LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LogAlteracaoDoacaoFindFirstOrThrowArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoFindFirstOrThrowArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LogAlteracaoDoacaos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LogAlteracaoDoacaos
+     * const logAlteracaoDoacaos = await prisma.logAlteracaoDoacao.findMany()
+     * 
+     * // Get first 10 LogAlteracaoDoacaos
+     * const logAlteracaoDoacaos = await prisma.logAlteracaoDoacao.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const logAlteracaoDoacaoWithIdOnly = await prisma.logAlteracaoDoacao.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LogAlteracaoDoacaoFindManyArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LogAlteracaoDoacao.
+     * @param {LogAlteracaoDoacaoCreateArgs} args - Arguments to create a LogAlteracaoDoacao.
+     * @example
+     * // Create one LogAlteracaoDoacao
+     * const LogAlteracaoDoacao = await prisma.logAlteracaoDoacao.create({
+     *   data: {
+     *     // ... data to create a LogAlteracaoDoacao
+     *   }
+     * })
+     * 
+     */
+    create<T extends LogAlteracaoDoacaoCreateArgs>(args: SelectSubset<T, LogAlteracaoDoacaoCreateArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LogAlteracaoDoacaos.
+     * @param {LogAlteracaoDoacaoCreateManyArgs} args - Arguments to create many LogAlteracaoDoacaos.
+     * @example
+     * // Create many LogAlteracaoDoacaos
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LogAlteracaoDoacaoCreateManyArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LogAlteracaoDoacaos and returns the data saved in the database.
+     * @param {LogAlteracaoDoacaoCreateManyAndReturnArgs} args - Arguments to create many LogAlteracaoDoacaos.
+     * @example
+     * // Create many LogAlteracaoDoacaos
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LogAlteracaoDoacaos and only return the `id`
+     * const logAlteracaoDoacaoWithIdOnly = await prisma.logAlteracaoDoacao.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LogAlteracaoDoacaoCreateManyAndReturnArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LogAlteracaoDoacao.
+     * @param {LogAlteracaoDoacaoDeleteArgs} args - Arguments to delete one LogAlteracaoDoacao.
+     * @example
+     * // Delete one LogAlteracaoDoacao
+     * const LogAlteracaoDoacao = await prisma.logAlteracaoDoacao.delete({
+     *   where: {
+     *     // ... filter to delete one LogAlteracaoDoacao
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LogAlteracaoDoacaoDeleteArgs>(args: SelectSubset<T, LogAlteracaoDoacaoDeleteArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LogAlteracaoDoacao.
+     * @param {LogAlteracaoDoacaoUpdateArgs} args - Arguments to update one LogAlteracaoDoacao.
+     * @example
+     * // Update one LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LogAlteracaoDoacaoUpdateArgs>(args: SelectSubset<T, LogAlteracaoDoacaoUpdateArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LogAlteracaoDoacaos.
+     * @param {LogAlteracaoDoacaoDeleteManyArgs} args - Arguments to filter LogAlteracaoDoacaos to delete.
+     * @example
+     * // Delete a few LogAlteracaoDoacaos
+     * const { count } = await prisma.logAlteracaoDoacao.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LogAlteracaoDoacaoDeleteManyArgs>(args?: SelectSubset<T, LogAlteracaoDoacaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LogAlteracaoDoacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LogAlteracaoDoacaos
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LogAlteracaoDoacaoUpdateManyArgs>(args: SelectSubset<T, LogAlteracaoDoacaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LogAlteracaoDoacaos and returns the data updated in the database.
+     * @param {LogAlteracaoDoacaoUpdateManyAndReturnArgs} args - Arguments to update many LogAlteracaoDoacaos.
+     * @example
+     * // Update many LogAlteracaoDoacaos
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LogAlteracaoDoacaos and only return the `id`
+     * const logAlteracaoDoacaoWithIdOnly = await prisma.logAlteracaoDoacao.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LogAlteracaoDoacaoUpdateManyAndReturnArgs>(args: SelectSubset<T, LogAlteracaoDoacaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LogAlteracaoDoacao.
+     * @param {LogAlteracaoDoacaoUpsertArgs} args - Arguments to update or create a LogAlteracaoDoacao.
+     * @example
+     * // Update or create a LogAlteracaoDoacao
+     * const logAlteracaoDoacao = await prisma.logAlteracaoDoacao.upsert({
+     *   create: {
+     *     // ... data to create a LogAlteracaoDoacao
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LogAlteracaoDoacao we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LogAlteracaoDoacaoUpsertArgs>(args: SelectSubset<T, LogAlteracaoDoacaoUpsertArgs<ExtArgs>>): Prisma__LogAlteracaoDoacaoClient<$Result.GetResult<Prisma.$LogAlteracaoDoacaoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LogAlteracaoDoacaos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoCountArgs} args - Arguments to filter LogAlteracaoDoacaos to count.
+     * @example
+     * // Count the number of LogAlteracaoDoacaos
+     * const count = await prisma.logAlteracaoDoacao.count({
+     *   where: {
+     *     // ... the filter for the LogAlteracaoDoacaos we want to count
+     *   }
+     * })
+    **/
+    count<T extends LogAlteracaoDoacaoCountArgs>(
+      args?: Subset<T, LogAlteracaoDoacaoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LogAlteracaoDoacaoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LogAlteracaoDoacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LogAlteracaoDoacaoAggregateArgs>(args: Subset<T, LogAlteracaoDoacaoAggregateArgs>): Prisma.PrismaPromise<GetLogAlteracaoDoacaoAggregateType<T>>
+
+    /**
+     * Group by LogAlteracaoDoacao.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LogAlteracaoDoacaoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LogAlteracaoDoacaoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LogAlteracaoDoacaoGroupByArgs['orderBy'] }
+        : { orderBy?: LogAlteracaoDoacaoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LogAlteracaoDoacaoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLogAlteracaoDoacaoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LogAlteracaoDoacao model
+   */
+  readonly fields: LogAlteracaoDoacaoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LogAlteracaoDoacao.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LogAlteracaoDoacaoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    doacao<T extends DoacaoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DoacaoDefaultArgs<ExtArgs>>): Prisma__DoacaoClient<$Result.GetResult<Prisma.$DoacaoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LogAlteracaoDoacao model
+   */
+  interface LogAlteracaoDoacaoFieldRefs {
+    readonly id: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly doacaoId: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly alteradoPor: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly campo: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly valorAntigo: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly valorNovo: FieldRef<"LogAlteracaoDoacao", 'String'>
+    readonly data: FieldRef<"LogAlteracaoDoacao", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LogAlteracaoDoacao findUnique
+   */
+  export type LogAlteracaoDoacaoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which LogAlteracaoDoacao to fetch.
+     */
+    where: LogAlteracaoDoacaoWhereUniqueInput
+  }
+
+  /**
+   * LogAlteracaoDoacao findUniqueOrThrow
+   */
+  export type LogAlteracaoDoacaoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which LogAlteracaoDoacao to fetch.
+     */
+    where: LogAlteracaoDoacaoWhereUniqueInput
+  }
+
+  /**
+   * LogAlteracaoDoacao findFirst
+   */
+  export type LogAlteracaoDoacaoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which LogAlteracaoDoacao to fetch.
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogAlteracaoDoacaos to fetch.
+     */
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LogAlteracaoDoacaos.
+     */
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogAlteracaoDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogAlteracaoDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LogAlteracaoDoacaos.
+     */
+    distinct?: LogAlteracaoDoacaoScalarFieldEnum | LogAlteracaoDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * LogAlteracaoDoacao findFirstOrThrow
+   */
+  export type LogAlteracaoDoacaoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which LogAlteracaoDoacao to fetch.
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogAlteracaoDoacaos to fetch.
+     */
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LogAlteracaoDoacaos.
+     */
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogAlteracaoDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogAlteracaoDoacaos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LogAlteracaoDoacaos.
+     */
+    distinct?: LogAlteracaoDoacaoScalarFieldEnum | LogAlteracaoDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * LogAlteracaoDoacao findMany
+   */
+  export type LogAlteracaoDoacaoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter, which LogAlteracaoDoacaos to fetch.
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LogAlteracaoDoacaos to fetch.
+     */
+    orderBy?: LogAlteracaoDoacaoOrderByWithRelationInput | LogAlteracaoDoacaoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LogAlteracaoDoacaos.
+     */
+    cursor?: LogAlteracaoDoacaoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LogAlteracaoDoacaos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LogAlteracaoDoacaos.
+     */
+    skip?: number
+    distinct?: LogAlteracaoDoacaoScalarFieldEnum | LogAlteracaoDoacaoScalarFieldEnum[]
+  }
+
+  /**
+   * LogAlteracaoDoacao create
+   */
+  export type LogAlteracaoDoacaoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LogAlteracaoDoacao.
+     */
+    data: XOR<LogAlteracaoDoacaoCreateInput, LogAlteracaoDoacaoUncheckedCreateInput>
+  }
+
+  /**
+   * LogAlteracaoDoacao createMany
+   */
+  export type LogAlteracaoDoacaoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LogAlteracaoDoacaos.
+     */
+    data: LogAlteracaoDoacaoCreateManyInput | LogAlteracaoDoacaoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LogAlteracaoDoacao createManyAndReturn
+   */
+  export type LogAlteracaoDoacaoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * The data used to create many LogAlteracaoDoacaos.
+     */
+    data: LogAlteracaoDoacaoCreateManyInput | LogAlteracaoDoacaoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LogAlteracaoDoacao update
+   */
+  export type LogAlteracaoDoacaoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LogAlteracaoDoacao.
+     */
+    data: XOR<LogAlteracaoDoacaoUpdateInput, LogAlteracaoDoacaoUncheckedUpdateInput>
+    /**
+     * Choose, which LogAlteracaoDoacao to update.
+     */
+    where: LogAlteracaoDoacaoWhereUniqueInput
+  }
+
+  /**
+   * LogAlteracaoDoacao updateMany
+   */
+  export type LogAlteracaoDoacaoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LogAlteracaoDoacaos.
+     */
+    data: XOR<LogAlteracaoDoacaoUpdateManyMutationInput, LogAlteracaoDoacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which LogAlteracaoDoacaos to update
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * Limit how many LogAlteracaoDoacaos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LogAlteracaoDoacao updateManyAndReturn
+   */
+  export type LogAlteracaoDoacaoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * The data used to update LogAlteracaoDoacaos.
+     */
+    data: XOR<LogAlteracaoDoacaoUpdateManyMutationInput, LogAlteracaoDoacaoUncheckedUpdateManyInput>
+    /**
+     * Filter which LogAlteracaoDoacaos to update
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * Limit how many LogAlteracaoDoacaos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LogAlteracaoDoacao upsert
+   */
+  export type LogAlteracaoDoacaoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LogAlteracaoDoacao to update in case it exists.
+     */
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    /**
+     * In case the LogAlteracaoDoacao found by the `where` argument doesn't exist, create a new LogAlteracaoDoacao with this data.
+     */
+    create: XOR<LogAlteracaoDoacaoCreateInput, LogAlteracaoDoacaoUncheckedCreateInput>
+    /**
+     * In case the LogAlteracaoDoacao was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LogAlteracaoDoacaoUpdateInput, LogAlteracaoDoacaoUncheckedUpdateInput>
+  }
+
+  /**
+   * LogAlteracaoDoacao delete
+   */
+  export type LogAlteracaoDoacaoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
+    /**
+     * Filter which LogAlteracaoDoacao to delete.
+     */
+    where: LogAlteracaoDoacaoWhereUniqueInput
+  }
+
+  /**
+   * LogAlteracaoDoacao deleteMany
+   */
+  export type LogAlteracaoDoacaoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LogAlteracaoDoacaos to delete
+     */
+    where?: LogAlteracaoDoacaoWhereInput
+    /**
+     * Limit how many LogAlteracaoDoacaos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LogAlteracaoDoacao without action
+   */
+  export type LogAlteracaoDoacaoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LogAlteracaoDoacao
+     */
+    select?: LogAlteracaoDoacaoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LogAlteracaoDoacao
+     */
+    omit?: LogAlteracaoDoacaoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LogAlteracaoDoacaoInclude<ExtArgs> | null
   }
 
 
@@ -8160,7 +9547,11 @@ export namespace Prisma {
     nome: 'nome',
     email: 'email',
     senha: 'senha',
-    criadoEm: 'criadoEm'
+    tipo: 'tipo',
+    criadoEm: 'criadoEm',
+    telefone: 'telefone',
+    ativo: 'ativo',
+    fotoUrl: 'fotoUrl'
   };
 
   export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
@@ -8184,10 +9575,10 @@ export namespace Prisma {
     data: 'data',
     tipoProduto: 'tipoProduto',
     produto: 'produto',
+    status: 'status',
     usuarioId: 'usuarioId',
     campanhaId: 'campanhaId',
     categoriaId: 'categoriaId',
-    status: 'status',
     localId: 'localId'
   };
 
@@ -8196,7 +9587,12 @@ export namespace Prisma {
 
   export const CategoriaScalarFieldEnum: {
     id: 'id',
-    nome: 'nome'
+    nome: 'nome',
+    descricao: 'descricao',
+    iconeUrl: 'iconeUrl',
+    ativo: 'ativo',
+    criadaEm: 'criadaEm',
+    atualizadaEm: 'atualizadaEm'
   };
 
   export type CategoriaScalarFieldEnum = (typeof CategoriaScalarFieldEnum)[keyof typeof CategoriaScalarFieldEnum]
@@ -8212,14 +9608,27 @@ export namespace Prisma {
   export type LocalScalarFieldEnum = (typeof LocalScalarFieldEnum)[keyof typeof LocalScalarFieldEnum]
 
 
-  export const UsuarioDoacaoScalarFieldEnum: {
+  export const DoacaoCompartilhadaScalarFieldEnum: {
     id: 'id',
     usuarioId: 'usuarioId',
     doacaoId: 'doacaoId',
     data: 'data'
   };
 
-  export type UsuarioDoacaoScalarFieldEnum = (typeof UsuarioDoacaoScalarFieldEnum)[keyof typeof UsuarioDoacaoScalarFieldEnum]
+  export type DoacaoCompartilhadaScalarFieldEnum = (typeof DoacaoCompartilhadaScalarFieldEnum)[keyof typeof DoacaoCompartilhadaScalarFieldEnum]
+
+
+  export const LogAlteracaoDoacaoScalarFieldEnum: {
+    id: 'id',
+    doacaoId: 'doacaoId',
+    alteradoPor: 'alteradoPor',
+    campo: 'campo',
+    valorAntigo: 'valorAntigo',
+    valorNovo: 'valorNovo',
+    data: 'data'
+  };
+
+  export type LogAlteracaoDoacaoScalarFieldEnum = (typeof LogAlteracaoDoacaoScalarFieldEnum)[keyof typeof LogAlteracaoDoacaoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8236,6 +9645,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -8258,6 +9675,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TipoUsuario'
+   */
+  export type EnumTipoUsuarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoUsuario'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoUsuario[]'
+   */
+  export type ListEnumTipoUsuarioFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoUsuario[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -8268,6 +9699,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -8338,10 +9776,15 @@ export namespace Prisma {
     nome?: StringFilter<"Usuario"> | string
     email?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
+    tipo?: EnumTipoUsuarioFilter<"Usuario"> | $Enums.TipoUsuario
     criadoEm?: DateTimeFilter<"Usuario"> | Date | string
+    telefone?: StringNullableFilter<"Usuario"> | string | null
+    ativo?: BoolFilter<"Usuario"> | boolean
+    fotoUrl?: StringNullableFilter<"Usuario"> | string | null
+    campanhasCriadas?: CampanhaListRelationFilter
     doacoes?: DoacaoListRelationFilter
-    campanhas?: CampanhaListRelationFilter
-    usuarioDoacoes?: UsuarioDoacaoListRelationFilter
+    doacoesCompartilhadas?: DoacaoCompartilhadaListRelationFilter
+    historicoDeAlteracoes?: LogAlteracaoDoacaoListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -8349,10 +9792,15 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    tipo?: SortOrder
     criadoEm?: SortOrder
+    telefone?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    fotoUrl?: SortOrderInput | SortOrder
+    campanhasCriadas?: CampanhaOrderByRelationAggregateInput
     doacoes?: DoacaoOrderByRelationAggregateInput
-    campanhas?: CampanhaOrderByRelationAggregateInput
-    usuarioDoacoes?: UsuarioDoacaoOrderByRelationAggregateInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaOrderByRelationAggregateInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -8363,10 +9811,15 @@ export namespace Prisma {
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
     nome?: StringFilter<"Usuario"> | string
     senha?: StringFilter<"Usuario"> | string
+    tipo?: EnumTipoUsuarioFilter<"Usuario"> | $Enums.TipoUsuario
     criadoEm?: DateTimeFilter<"Usuario"> | Date | string
+    telefone?: StringNullableFilter<"Usuario"> | string | null
+    ativo?: BoolFilter<"Usuario"> | boolean
+    fotoUrl?: StringNullableFilter<"Usuario"> | string | null
+    campanhasCriadas?: CampanhaListRelationFilter
     doacoes?: DoacaoListRelationFilter
-    campanhas?: CampanhaListRelationFilter
-    usuarioDoacoes?: UsuarioDoacaoListRelationFilter
+    doacoesCompartilhadas?: DoacaoCompartilhadaListRelationFilter
+    historicoDeAlteracoes?: LogAlteracaoDoacaoListRelationFilter
   }, "id" | "email">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -8374,7 +9827,11 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    tipo?: SortOrder
     criadoEm?: SortOrder
+    telefone?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    fotoUrl?: SortOrderInput | SortOrder
     _count?: UsuarioCountOrderByAggregateInput
     _max?: UsuarioMaxOrderByAggregateInput
     _min?: UsuarioMinOrderByAggregateInput
@@ -8388,7 +9845,11 @@ export namespace Prisma {
     nome?: StringWithAggregatesFilter<"Usuario"> | string
     email?: StringWithAggregatesFilter<"Usuario"> | string
     senha?: StringWithAggregatesFilter<"Usuario"> | string
+    tipo?: EnumTipoUsuarioWithAggregatesFilter<"Usuario"> | $Enums.TipoUsuario
     criadoEm?: DateTimeWithAggregatesFilter<"Usuario"> | Date | string
+    telefone?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
+    ativo?: BoolWithAggregatesFilter<"Usuario"> | boolean
+    fotoUrl?: StringNullableWithAggregatesFilter<"Usuario"> | string | null
   }
 
   export type CampanhaWhereInput = {
@@ -8465,16 +9926,17 @@ export namespace Prisma {
     data?: DateTimeFilter<"Doacao"> | Date | string
     tipoProduto?: EnumTipoProdutoFilter<"Doacao"> | $Enums.TipoProduto
     produto?: StringFilter<"Doacao"> | string
+    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
     usuarioId?: StringFilter<"Doacao"> | string
     campanhaId?: StringFilter<"Doacao"> | string
     categoriaId?: StringFilter<"Doacao"> | string
-    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
     localId?: StringFilter<"Doacao"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     campanha?: XOR<CampanhaScalarRelationFilter, CampanhaWhereInput>
     categoria?: XOR<CategoriaScalarRelationFilter, CategoriaWhereInput>
     local?: XOR<LocalScalarRelationFilter, LocalWhereInput>
-    usuarioDoacoes?: UsuarioDoacaoListRelationFilter
+    compartilhamentos?: DoacaoCompartilhadaListRelationFilter
+    logsAlteracoes?: LogAlteracaoDoacaoListRelationFilter
   }
 
   export type DoacaoOrderByWithRelationInput = {
@@ -8483,16 +9945,17 @@ export namespace Prisma {
     data?: SortOrder
     tipoProduto?: SortOrder
     produto?: SortOrder
+    status?: SortOrder
     usuarioId?: SortOrder
     campanhaId?: SortOrder
     categoriaId?: SortOrder
-    status?: SortOrder
     localId?: SortOrder
     usuario?: UsuarioOrderByWithRelationInput
     campanha?: CampanhaOrderByWithRelationInput
     categoria?: CategoriaOrderByWithRelationInput
     local?: LocalOrderByWithRelationInput
-    usuarioDoacoes?: UsuarioDoacaoOrderByRelationAggregateInput
+    compartilhamentos?: DoacaoCompartilhadaOrderByRelationAggregateInput
+    logsAlteracoes?: LogAlteracaoDoacaoOrderByRelationAggregateInput
   }
 
   export type DoacaoWhereUniqueInput = Prisma.AtLeast<{
@@ -8504,16 +9967,17 @@ export namespace Prisma {
     data?: DateTimeFilter<"Doacao"> | Date | string
     tipoProduto?: EnumTipoProdutoFilter<"Doacao"> | $Enums.TipoProduto
     produto?: StringFilter<"Doacao"> | string
+    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
     usuarioId?: StringFilter<"Doacao"> | string
     campanhaId?: StringFilter<"Doacao"> | string
     categoriaId?: StringFilter<"Doacao"> | string
-    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
     localId?: StringFilter<"Doacao"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     campanha?: XOR<CampanhaScalarRelationFilter, CampanhaWhereInput>
     categoria?: XOR<CategoriaScalarRelationFilter, CategoriaWhereInput>
     local?: XOR<LocalScalarRelationFilter, LocalWhereInput>
-    usuarioDoacoes?: UsuarioDoacaoListRelationFilter
+    compartilhamentos?: DoacaoCompartilhadaListRelationFilter
+    logsAlteracoes?: LogAlteracaoDoacaoListRelationFilter
   }, "id">
 
   export type DoacaoOrderByWithAggregationInput = {
@@ -8522,10 +9986,10 @@ export namespace Prisma {
     data?: SortOrder
     tipoProduto?: SortOrder
     produto?: SortOrder
+    status?: SortOrder
     usuarioId?: SortOrder
     campanhaId?: SortOrder
     categoriaId?: SortOrder
-    status?: SortOrder
     localId?: SortOrder
     _count?: DoacaoCountOrderByAggregateInput
     _avg?: DoacaoAvgOrderByAggregateInput
@@ -8543,10 +10007,10 @@ export namespace Prisma {
     data?: DateTimeWithAggregatesFilter<"Doacao"> | Date | string
     tipoProduto?: EnumTipoProdutoWithAggregatesFilter<"Doacao"> | $Enums.TipoProduto
     produto?: StringWithAggregatesFilter<"Doacao"> | string
+    status?: EnumStatusDoacaoWithAggregatesFilter<"Doacao"> | $Enums.StatusDoacao
     usuarioId?: StringWithAggregatesFilter<"Doacao"> | string
     campanhaId?: StringWithAggregatesFilter<"Doacao"> | string
     categoriaId?: StringWithAggregatesFilter<"Doacao"> | string
-    status?: EnumStatusDoacaoWithAggregatesFilter<"Doacao"> | $Enums.StatusDoacao
     localId?: StringWithAggregatesFilter<"Doacao"> | string
   }
 
@@ -8556,27 +10020,47 @@ export namespace Prisma {
     NOT?: CategoriaWhereInput | CategoriaWhereInput[]
     id?: StringFilter<"Categoria"> | string
     nome?: StringFilter<"Categoria"> | string
+    descricao?: StringNullableFilter<"Categoria"> | string | null
+    iconeUrl?: StringNullableFilter<"Categoria"> | string | null
+    ativo?: BoolFilter<"Categoria"> | boolean
+    criadaEm?: DateTimeFilter<"Categoria"> | Date | string
+    atualizadaEm?: DateTimeFilter<"Categoria"> | Date | string
     doacoes?: DoacaoListRelationFilter
   }
 
   export type CategoriaOrderByWithRelationInput = {
     id?: SortOrder
     nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    iconeUrl?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    criadaEm?: SortOrder
+    atualizadaEm?: SortOrder
     doacoes?: DoacaoOrderByRelationAggregateInput
   }
 
   export type CategoriaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    nome?: string
     AND?: CategoriaWhereInput | CategoriaWhereInput[]
     OR?: CategoriaWhereInput[]
     NOT?: CategoriaWhereInput | CategoriaWhereInput[]
-    nome?: StringFilter<"Categoria"> | string
+    descricao?: StringNullableFilter<"Categoria"> | string | null
+    iconeUrl?: StringNullableFilter<"Categoria"> | string | null
+    ativo?: BoolFilter<"Categoria"> | boolean
+    criadaEm?: DateTimeFilter<"Categoria"> | Date | string
+    atualizadaEm?: DateTimeFilter<"Categoria"> | Date | string
     doacoes?: DoacaoListRelationFilter
-  }, "id">
+  }, "id" | "nome">
 
   export type CategoriaOrderByWithAggregationInput = {
     id?: SortOrder
     nome?: SortOrder
+    descricao?: SortOrderInput | SortOrder
+    iconeUrl?: SortOrderInput | SortOrder
+    ativo?: SortOrder
+    criadaEm?: SortOrder
+    atualizadaEm?: SortOrder
     _count?: CategoriaCountOrderByAggregateInput
     _max?: CategoriaMaxOrderByAggregateInput
     _min?: CategoriaMinOrderByAggregateInput
@@ -8588,6 +10072,11 @@ export namespace Prisma {
     NOT?: CategoriaScalarWhereWithAggregatesInput | CategoriaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Categoria"> | string
     nome?: StringWithAggregatesFilter<"Categoria"> | string
+    descricao?: StringNullableWithAggregatesFilter<"Categoria"> | string | null
+    iconeUrl?: StringNullableWithAggregatesFilter<"Categoria"> | string | null
+    ativo?: BoolWithAggregatesFilter<"Categoria"> | boolean
+    criadaEm?: DateTimeWithAggregatesFilter<"Categoria"> | Date | string
+    atualizadaEm?: DateTimeWithAggregatesFilter<"Categoria"> | Date | string
   }
 
   export type LocalWhereInput = {
@@ -8640,19 +10129,19 @@ export namespace Prisma {
     pais?: StringWithAggregatesFilter<"Local"> | string
   }
 
-  export type UsuarioDoacaoWhereInput = {
-    AND?: UsuarioDoacaoWhereInput | UsuarioDoacaoWhereInput[]
-    OR?: UsuarioDoacaoWhereInput[]
-    NOT?: UsuarioDoacaoWhereInput | UsuarioDoacaoWhereInput[]
-    id?: StringFilter<"UsuarioDoacao"> | string
-    usuarioId?: StringFilter<"UsuarioDoacao"> | string
-    doacaoId?: StringFilter<"UsuarioDoacao"> | string
-    data?: DateTimeFilter<"UsuarioDoacao"> | Date | string
+  export type DoacaoCompartilhadaWhereInput = {
+    AND?: DoacaoCompartilhadaWhereInput | DoacaoCompartilhadaWhereInput[]
+    OR?: DoacaoCompartilhadaWhereInput[]
+    NOT?: DoacaoCompartilhadaWhereInput | DoacaoCompartilhadaWhereInput[]
+    id?: StringFilter<"DoacaoCompartilhada"> | string
+    usuarioId?: StringFilter<"DoacaoCompartilhada"> | string
+    doacaoId?: StringFilter<"DoacaoCompartilhada"> | string
+    data?: DateTimeFilter<"DoacaoCompartilhada"> | Date | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     doacao?: XOR<DoacaoScalarRelationFilter, DoacaoWhereInput>
   }
 
-  export type UsuarioDoacaoOrderByWithRelationInput = {
+  export type DoacaoCompartilhadaOrderByWithRelationInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     doacaoId?: SortOrder
@@ -8661,36 +10150,105 @@ export namespace Prisma {
     doacao?: DoacaoOrderByWithRelationInput
   }
 
-  export type UsuarioDoacaoWhereUniqueInput = Prisma.AtLeast<{
+  export type DoacaoCompartilhadaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: UsuarioDoacaoWhereInput | UsuarioDoacaoWhereInput[]
-    OR?: UsuarioDoacaoWhereInput[]
-    NOT?: UsuarioDoacaoWhereInput | UsuarioDoacaoWhereInput[]
-    usuarioId?: StringFilter<"UsuarioDoacao"> | string
-    doacaoId?: StringFilter<"UsuarioDoacao"> | string
-    data?: DateTimeFilter<"UsuarioDoacao"> | Date | string
+    usuarioId_doacaoId?: DoacaoCompartilhadaUsuarioIdDoacaoIdCompoundUniqueInput
+    AND?: DoacaoCompartilhadaWhereInput | DoacaoCompartilhadaWhereInput[]
+    OR?: DoacaoCompartilhadaWhereInput[]
+    NOT?: DoacaoCompartilhadaWhereInput | DoacaoCompartilhadaWhereInput[]
+    usuarioId?: StringFilter<"DoacaoCompartilhada"> | string
+    doacaoId?: StringFilter<"DoacaoCompartilhada"> | string
+    data?: DateTimeFilter<"DoacaoCompartilhada"> | Date | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     doacao?: XOR<DoacaoScalarRelationFilter, DoacaoWhereInput>
-  }, "id">
+  }, "id" | "usuarioId_doacaoId">
 
-  export type UsuarioDoacaoOrderByWithAggregationInput = {
+  export type DoacaoCompartilhadaOrderByWithAggregationInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     doacaoId?: SortOrder
     data?: SortOrder
-    _count?: UsuarioDoacaoCountOrderByAggregateInput
-    _max?: UsuarioDoacaoMaxOrderByAggregateInput
-    _min?: UsuarioDoacaoMinOrderByAggregateInput
+    _count?: DoacaoCompartilhadaCountOrderByAggregateInput
+    _max?: DoacaoCompartilhadaMaxOrderByAggregateInput
+    _min?: DoacaoCompartilhadaMinOrderByAggregateInput
   }
 
-  export type UsuarioDoacaoScalarWhereWithAggregatesInput = {
-    AND?: UsuarioDoacaoScalarWhereWithAggregatesInput | UsuarioDoacaoScalarWhereWithAggregatesInput[]
-    OR?: UsuarioDoacaoScalarWhereWithAggregatesInput[]
-    NOT?: UsuarioDoacaoScalarWhereWithAggregatesInput | UsuarioDoacaoScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"UsuarioDoacao"> | string
-    usuarioId?: StringWithAggregatesFilter<"UsuarioDoacao"> | string
-    doacaoId?: StringWithAggregatesFilter<"UsuarioDoacao"> | string
-    data?: DateTimeWithAggregatesFilter<"UsuarioDoacao"> | Date | string
+  export type DoacaoCompartilhadaScalarWhereWithAggregatesInput = {
+    AND?: DoacaoCompartilhadaScalarWhereWithAggregatesInput | DoacaoCompartilhadaScalarWhereWithAggregatesInput[]
+    OR?: DoacaoCompartilhadaScalarWhereWithAggregatesInput[]
+    NOT?: DoacaoCompartilhadaScalarWhereWithAggregatesInput | DoacaoCompartilhadaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DoacaoCompartilhada"> | string
+    usuarioId?: StringWithAggregatesFilter<"DoacaoCompartilhada"> | string
+    doacaoId?: StringWithAggregatesFilter<"DoacaoCompartilhada"> | string
+    data?: DateTimeWithAggregatesFilter<"DoacaoCompartilhada"> | Date | string
+  }
+
+  export type LogAlteracaoDoacaoWhereInput = {
+    AND?: LogAlteracaoDoacaoWhereInput | LogAlteracaoDoacaoWhereInput[]
+    OR?: LogAlteracaoDoacaoWhereInput[]
+    NOT?: LogAlteracaoDoacaoWhereInput | LogAlteracaoDoacaoWhereInput[]
+    id?: StringFilter<"LogAlteracaoDoacao"> | string
+    doacaoId?: StringFilter<"LogAlteracaoDoacao"> | string
+    alteradoPor?: StringFilter<"LogAlteracaoDoacao"> | string
+    campo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorAntigo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorNovo?: StringFilter<"LogAlteracaoDoacao"> | string
+    data?: DateTimeFilter<"LogAlteracaoDoacao"> | Date | string
+    doacao?: XOR<DoacaoScalarRelationFilter, DoacaoWhereInput>
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+  }
+
+  export type LogAlteracaoDoacaoOrderByWithRelationInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    alteradoPor?: SortOrder
+    campo?: SortOrder
+    valorAntigo?: SortOrder
+    valorNovo?: SortOrder
+    data?: SortOrder
+    doacao?: DoacaoOrderByWithRelationInput
+    usuario?: UsuarioOrderByWithRelationInput
+  }
+
+  export type LogAlteracaoDoacaoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LogAlteracaoDoacaoWhereInput | LogAlteracaoDoacaoWhereInput[]
+    OR?: LogAlteracaoDoacaoWhereInput[]
+    NOT?: LogAlteracaoDoacaoWhereInput | LogAlteracaoDoacaoWhereInput[]
+    doacaoId?: StringFilter<"LogAlteracaoDoacao"> | string
+    alteradoPor?: StringFilter<"LogAlteracaoDoacao"> | string
+    campo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorAntigo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorNovo?: StringFilter<"LogAlteracaoDoacao"> | string
+    data?: DateTimeFilter<"LogAlteracaoDoacao"> | Date | string
+    doacao?: XOR<DoacaoScalarRelationFilter, DoacaoWhereInput>
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+  }, "id">
+
+  export type LogAlteracaoDoacaoOrderByWithAggregationInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    alteradoPor?: SortOrder
+    campo?: SortOrder
+    valorAntigo?: SortOrder
+    valorNovo?: SortOrder
+    data?: SortOrder
+    _count?: LogAlteracaoDoacaoCountOrderByAggregateInput
+    _max?: LogAlteracaoDoacaoMaxOrderByAggregateInput
+    _min?: LogAlteracaoDoacaoMinOrderByAggregateInput
+  }
+
+  export type LogAlteracaoDoacaoScalarWhereWithAggregatesInput = {
+    AND?: LogAlteracaoDoacaoScalarWhereWithAggregatesInput | LogAlteracaoDoacaoScalarWhereWithAggregatesInput[]
+    OR?: LogAlteracaoDoacaoScalarWhereWithAggregatesInput[]
+    NOT?: LogAlteracaoDoacaoScalarWhereWithAggregatesInput | LogAlteracaoDoacaoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    doacaoId?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    alteradoPor?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    campo?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    valorAntigo?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    valorNovo?: StringWithAggregatesFilter<"LogAlteracaoDoacao"> | string
+    data?: DateTimeWithAggregatesFilter<"LogAlteracaoDoacao"> | Date | string
   }
 
   export type UsuarioCreateInput = {
@@ -8698,10 +10256,15 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaCreateNestedManyWithoutCriadorInput
     doacoes?: DoacaoCreateNestedManyWithoutUsuarioInput
-    campanhas?: CampanhaCreateNestedManyWithoutCriadorInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -8709,10 +10272,15 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
     doacoes?: DoacaoUncheckedCreateNestedManyWithoutUsuarioInput
-    campanhas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
@@ -8720,10 +10288,15 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUpdateManyWithoutCriadorNestedInput
     doacoes?: DoacaoUpdateManyWithoutUsuarioNestedInput
-    campanhas?: CampanhaUpdateManyWithoutCriadorNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -8731,10 +10304,15 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
     doacoes?: DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
-    campanhas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -8742,7 +10320,11 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
   }
 
   export type UsuarioUpdateManyMutationInput = {
@@ -8750,7 +10332,11 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UsuarioUncheckedUpdateManyInput = {
@@ -8758,7 +10344,11 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CampanhaCreateInput = {
@@ -8767,7 +10357,7 @@ export namespace Prisma {
     descricao: string
     meta: number
     criadaEm?: Date | string
-    criador: UsuarioCreateNestedOneWithoutCampanhasInput
+    criador: UsuarioCreateNestedOneWithoutCampanhasCriadasInput
     doacoes?: DoacaoCreateNestedManyWithoutCampanhaInput
   }
 
@@ -8787,7 +10377,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     meta?: FloatFieldUpdateOperationsInput | number
     criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
-    criador?: UsuarioUpdateOneRequiredWithoutCampanhasNestedInput
+    criador?: UsuarioUpdateOneRequiredWithoutCampanhasCriadasNestedInput
     doacoes?: DoacaoUpdateManyWithoutCampanhaNestedInput
   }
 
@@ -8838,7 +10428,8 @@ export namespace Prisma {
     campanha: CampanhaCreateNestedOneWithoutDoacoesInput
     categoria: CategoriaCreateNestedOneWithoutDoacoesInput
     local: LocalCreateNestedOneWithoutDoacoesInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoUncheckedCreateInput = {
@@ -8847,12 +10438,13 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoUpdateInput = {
@@ -8866,7 +10458,8 @@ export namespace Prisma {
     campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
     categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
     local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateInput = {
@@ -8875,12 +10468,13 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoCreateManyInput = {
@@ -8889,10 +10483,10 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
   }
 
@@ -8911,50 +10505,85 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CategoriaCreateInput = {
     id?: string
     nome: string
+    descricao?: string | null
+    iconeUrl?: string | null
+    ativo?: boolean
+    criadaEm?: Date | string
+    atualizadaEm?: Date | string
     doacoes?: DoacaoCreateNestedManyWithoutCategoriaInput
   }
 
   export type CategoriaUncheckedCreateInput = {
     id?: string
     nome: string
+    descricao?: string | null
+    iconeUrl?: string | null
+    ativo?: boolean
+    criadaEm?: Date | string
+    atualizadaEm?: Date | string
     doacoes?: DoacaoUncheckedCreateNestedManyWithoutCategoriaInput
   }
 
   export type CategoriaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
     doacoes?: DoacaoUpdateManyWithoutCategoriaNestedInput
   }
 
   export type CategoriaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
     doacoes?: DoacaoUncheckedUpdateManyWithoutCategoriaNestedInput
   }
 
   export type CategoriaCreateManyInput = {
     id?: string
     nome: string
+    descricao?: string | null
+    iconeUrl?: string | null
+    ativo?: boolean
+    criadaEm?: Date | string
+    atualizadaEm?: Date | string
   }
 
   export type CategoriaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LocalCreateInput = {
@@ -9010,50 +10639,118 @@ export namespace Prisma {
     pais?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UsuarioDoacaoCreateInput = {
+  export type DoacaoCompartilhadaCreateInput = {
     id?: string
     data?: Date | string
-    usuario: UsuarioCreateNestedOneWithoutUsuarioDoacoesInput
-    doacao: DoacaoCreateNestedOneWithoutUsuarioDoacoesInput
+    usuario: UsuarioCreateNestedOneWithoutDoacoesCompartilhadasInput
+    doacao: DoacaoCreateNestedOneWithoutCompartilhamentosInput
   }
 
-  export type UsuarioDoacaoUncheckedCreateInput = {
-    id?: string
-    usuarioId: string
-    doacaoId: string
-    data?: Date | string
-  }
-
-  export type UsuarioDoacaoUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: UsuarioUpdateOneRequiredWithoutUsuarioDoacoesNestedInput
-    doacao?: DoacaoUpdateOneRequiredWithoutUsuarioDoacoesNestedInput
-  }
-
-  export type UsuarioDoacaoUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    usuarioId?: StringFieldUpdateOperationsInput | string
-    doacaoId?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UsuarioDoacaoCreateManyInput = {
+  export type DoacaoCompartilhadaUncheckedCreateInput = {
     id?: string
     usuarioId: string
     doacaoId: string
     data?: Date | string
   }
 
-  export type UsuarioDoacaoUpdateManyMutationInput = {
+  export type DoacaoCompartilhadaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuarioUpdateOneRequiredWithoutDoacoesCompartilhadasNestedInput
+    doacao?: DoacaoUpdateOneRequiredWithoutCompartilhamentosNestedInput
+  }
+
+  export type DoacaoCompartilhadaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    usuarioId?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DoacaoCompartilhadaCreateManyInput = {
+    id?: string
+    usuarioId: string
+    doacaoId: string
+    data?: Date | string
+  }
+
+  export type DoacaoCompartilhadaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuarioDoacaoUncheckedUpdateManyInput = {
+  export type DoacaoCompartilhadaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     doacaoId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoCreateInput = {
+    id?: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+    doacao: DoacaoCreateNestedOneWithoutLogsAlteracoesInput
+    usuario: UsuarioCreateNestedOneWithoutHistoricoDeAlteracoesInput
+  }
+
+  export type LogAlteracaoDoacaoUncheckedCreateInput = {
+    id?: string
+    doacaoId: string
+    alteradoPor: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+  }
+
+  export type LogAlteracaoDoacaoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacao?: DoacaoUpdateOneRequiredWithoutLogsAlteracoesNestedInput
+    usuario?: UsuarioUpdateOneRequiredWithoutHistoricoDeAlteracoesNestedInput
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    alteradoPor?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoCreateManyInput = {
+    id?: string
+    doacaoId: string
+    alteradoPor: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+  }
+
+  export type LogAlteracaoDoacaoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    alteradoPor?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9072,6 +10769,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type EnumTipoUsuarioFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoUsuario | EnumTipoUsuarioFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoUsuarioFilter<$PrismaModel> | $Enums.TipoUsuario
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9083,10 +10787,24 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type DoacaoListRelationFilter = {
-    every?: DoacaoWhereInput
-    some?: DoacaoWhereInput
-    none?: DoacaoWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type CampanhaListRelationFilter = {
@@ -9095,21 +10813,42 @@ export namespace Prisma {
     none?: CampanhaWhereInput
   }
 
-  export type UsuarioDoacaoListRelationFilter = {
-    every?: UsuarioDoacaoWhereInput
-    some?: UsuarioDoacaoWhereInput
-    none?: UsuarioDoacaoWhereInput
+  export type DoacaoListRelationFilter = {
+    every?: DoacaoWhereInput
+    some?: DoacaoWhereInput
+    none?: DoacaoWhereInput
   }
 
-  export type DoacaoOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type DoacaoCompartilhadaListRelationFilter = {
+    every?: DoacaoCompartilhadaWhereInput
+    some?: DoacaoCompartilhadaWhereInput
+    none?: DoacaoCompartilhadaWhereInput
+  }
+
+  export type LogAlteracaoDoacaoListRelationFilter = {
+    every?: LogAlteracaoDoacaoWhereInput
+    some?: LogAlteracaoDoacaoWhereInput
+    none?: LogAlteracaoDoacaoWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CampanhaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type UsuarioDoacaoOrderByRelationAggregateInput = {
+  export type DoacaoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DoacaoCompartilhadaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LogAlteracaoDoacaoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9118,7 +10857,11 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    tipo?: SortOrder
     criadoEm?: SortOrder
+    telefone?: SortOrder
+    ativo?: SortOrder
+    fotoUrl?: SortOrder
   }
 
   export type UsuarioMaxOrderByAggregateInput = {
@@ -9126,7 +10869,11 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    tipo?: SortOrder
     criadoEm?: SortOrder
+    telefone?: SortOrder
+    ativo?: SortOrder
+    fotoUrl?: SortOrder
   }
 
   export type UsuarioMinOrderByAggregateInput = {
@@ -9134,7 +10881,11 @@ export namespace Prisma {
     nome?: SortOrder
     email?: SortOrder
     senha?: SortOrder
+    tipo?: SortOrder
     criadoEm?: SortOrder
+    telefone?: SortOrder
+    ativo?: SortOrder
+    fotoUrl?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -9155,6 +10906,16 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type EnumTipoUsuarioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoUsuario | EnumTipoUsuarioFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoUsuarioWithAggregatesFilter<$PrismaModel> | $Enums.TipoUsuario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoUsuarioFilter<$PrismaModel>
+    _max?: NestedEnumTipoUsuarioFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9167,6 +10928,32 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -9271,10 +11058,10 @@ export namespace Prisma {
     data?: SortOrder
     tipoProduto?: SortOrder
     produto?: SortOrder
+    status?: SortOrder
     usuarioId?: SortOrder
     campanhaId?: SortOrder
     categoriaId?: SortOrder
-    status?: SortOrder
     localId?: SortOrder
   }
 
@@ -9288,10 +11075,10 @@ export namespace Prisma {
     data?: SortOrder
     tipoProduto?: SortOrder
     produto?: SortOrder
+    status?: SortOrder
     usuarioId?: SortOrder
     campanhaId?: SortOrder
     categoriaId?: SortOrder
-    status?: SortOrder
     localId?: SortOrder
   }
 
@@ -9301,10 +11088,10 @@ export namespace Prisma {
     data?: SortOrder
     tipoProduto?: SortOrder
     produto?: SortOrder
+    status?: SortOrder
     usuarioId?: SortOrder
     campanhaId?: SortOrder
     categoriaId?: SortOrder
-    status?: SortOrder
     localId?: SortOrder
   }
 
@@ -9335,16 +11122,31 @@ export namespace Prisma {
   export type CategoriaCountOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
+    descricao?: SortOrder
+    iconeUrl?: SortOrder
+    ativo?: SortOrder
+    criadaEm?: SortOrder
+    atualizadaEm?: SortOrder
   }
 
   export type CategoriaMaxOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
+    descricao?: SortOrder
+    iconeUrl?: SortOrder
+    ativo?: SortOrder
+    criadaEm?: SortOrder
+    atualizadaEm?: SortOrder
   }
 
   export type CategoriaMinOrderByAggregateInput = {
     id?: SortOrder
     nome?: SortOrder
+    descricao?: SortOrder
+    iconeUrl?: SortOrder
+    ativo?: SortOrder
+    criadaEm?: SortOrder
+    atualizadaEm?: SortOrder
   }
 
   export type LocalCountOrderByAggregateInput = {
@@ -9373,32 +11175,60 @@ export namespace Prisma {
     isNot?: DoacaoWhereInput
   }
 
-  export type UsuarioDoacaoCountOrderByAggregateInput = {
+  export type DoacaoCompartilhadaUsuarioIdDoacaoIdCompoundUniqueInput = {
+    usuarioId: string
+    doacaoId: string
+  }
+
+  export type DoacaoCompartilhadaCountOrderByAggregateInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     doacaoId?: SortOrder
     data?: SortOrder
   }
 
-  export type UsuarioDoacaoMaxOrderByAggregateInput = {
+  export type DoacaoCompartilhadaMaxOrderByAggregateInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     doacaoId?: SortOrder
     data?: SortOrder
   }
 
-  export type UsuarioDoacaoMinOrderByAggregateInput = {
+  export type DoacaoCompartilhadaMinOrderByAggregateInput = {
     id?: SortOrder
     usuarioId?: SortOrder
     doacaoId?: SortOrder
     data?: SortOrder
   }
 
-  export type DoacaoCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
-    createMany?: DoacaoCreateManyUsuarioInputEnvelope
-    connect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+  export type LogAlteracaoDoacaoCountOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    alteradoPor?: SortOrder
+    campo?: SortOrder
+    valorAntigo?: SortOrder
+    valorNovo?: SortOrder
+    data?: SortOrder
+  }
+
+  export type LogAlteracaoDoacaoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    alteradoPor?: SortOrder
+    campo?: SortOrder
+    valorAntigo?: SortOrder
+    valorNovo?: SortOrder
+    data?: SortOrder
+  }
+
+  export type LogAlteracaoDoacaoMinOrderByAggregateInput = {
+    id?: SortOrder
+    doacaoId?: SortOrder
+    alteradoPor?: SortOrder
+    campo?: SortOrder
+    valorAntigo?: SortOrder
+    valorNovo?: SortOrder
+    data?: SortOrder
   }
 
   export type CampanhaCreateNestedManyWithoutCriadorInput = {
@@ -9408,18 +11238,25 @@ export namespace Prisma {
     connect?: CampanhaWhereUniqueInput | CampanhaWhereUniqueInput[]
   }
 
-  export type UsuarioDoacaoCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput> | UsuarioDoacaoCreateWithoutUsuarioInput[] | UsuarioDoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutUsuarioInput | UsuarioDoacaoCreateOrConnectWithoutUsuarioInput[]
-    createMany?: UsuarioDoacaoCreateManyUsuarioInputEnvelope
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-  }
-
-  export type DoacaoUncheckedCreateNestedManyWithoutUsuarioInput = {
+  export type DoacaoCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
     createMany?: DoacaoCreateManyUsuarioInputEnvelope
     connect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+  }
+
+  export type DoacaoCompartilhadaCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput> | DoacaoCompartilhadaCreateWithoutUsuarioInput[] | DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput | DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: DoacaoCompartilhadaCreateManyUsuarioInputEnvelope
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+  }
+
+  export type LogAlteracaoDoacaoCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput> | LogAlteracaoDoacaoCreateWithoutUsuarioInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput | LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyUsuarioInputEnvelope
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
   }
 
   export type CampanhaUncheckedCreateNestedManyWithoutCriadorInput = {
@@ -9429,33 +11266,45 @@ export namespace Prisma {
     connect?: CampanhaWhereUniqueInput | CampanhaWhereUniqueInput[]
   }
 
-  export type UsuarioDoacaoUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput> | UsuarioDoacaoCreateWithoutUsuarioInput[] | UsuarioDoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutUsuarioInput | UsuarioDoacaoCreateOrConnectWithoutUsuarioInput[]
-    createMany?: UsuarioDoacaoCreateManyUsuarioInputEnvelope
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
+  export type DoacaoUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
+    createMany?: DoacaoCreateManyUsuarioInputEnvelope
+    connect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+  }
+
+  export type DoacaoCompartilhadaUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput> | DoacaoCompartilhadaCreateWithoutUsuarioInput[] | DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput | DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: DoacaoCompartilhadaCreateManyUsuarioInputEnvelope
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+  }
+
+  export type LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput> | LogAlteracaoDoacaoCreateWithoutUsuarioInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput | LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyUsuarioInputEnvelope
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
+  export type EnumTipoUsuarioFieldUpdateOperationsInput = {
+    set?: $Enums.TipoUsuario
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type DoacaoUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
-    upsert?: DoacaoUpsertWithWhereUniqueWithoutUsuarioInput | DoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: DoacaoCreateManyUsuarioInputEnvelope
-    set?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
-    disconnect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
-    delete?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
-    connect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
-    update?: DoacaoUpdateWithWhereUniqueWithoutUsuarioInput | DoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: DoacaoUpdateManyWithWhereWithoutUsuarioInput | DoacaoUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type CampanhaUpdateManyWithoutCriadorNestedInput = {
@@ -9472,21 +11321,7 @@ export namespace Prisma {
     deleteMany?: CampanhaScalarWhereInput | CampanhaScalarWhereInput[]
   }
 
-  export type UsuarioDoacaoUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput> | UsuarioDoacaoCreateWithoutUsuarioInput[] | UsuarioDoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutUsuarioInput | UsuarioDoacaoCreateOrConnectWithoutUsuarioInput[]
-    upsert?: UsuarioDoacaoUpsertWithWhereUniqueWithoutUsuarioInput | UsuarioDoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: UsuarioDoacaoCreateManyUsuarioInputEnvelope
-    set?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    disconnect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    delete?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    update?: UsuarioDoacaoUpdateWithWhereUniqueWithoutUsuarioInput | UsuarioDoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: UsuarioDoacaoUpdateManyWithWhereWithoutUsuarioInput | UsuarioDoacaoUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
-  }
-
-  export type DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput = {
+  export type DoacaoUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
     upsert?: DoacaoUpsertWithWhereUniqueWithoutUsuarioInput | DoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
@@ -9498,6 +11333,34 @@ export namespace Prisma {
     update?: DoacaoUpdateWithWhereUniqueWithoutUsuarioInput | DoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
     updateMany?: DoacaoUpdateManyWithWhereWithoutUsuarioInput | DoacaoUpdateManyWithWhereWithoutUsuarioInput[]
     deleteMany?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
+  }
+
+  export type DoacaoCompartilhadaUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput> | DoacaoCompartilhadaCreateWithoutUsuarioInput[] | DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput | DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: DoacaoCompartilhadaUpsertWithWhereUniqueWithoutUsuarioInput | DoacaoCompartilhadaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: DoacaoCompartilhadaCreateManyUsuarioInputEnvelope
+    set?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    disconnect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    delete?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    update?: DoacaoCompartilhadaUpdateWithWhereUniqueWithoutUsuarioInput | DoacaoCompartilhadaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: DoacaoCompartilhadaUpdateManyWithWhereWithoutUsuarioInput | DoacaoCompartilhadaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
+  }
+
+  export type LogAlteracaoDoacaoUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput> | LogAlteracaoDoacaoCreateWithoutUsuarioInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput | LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput[]
+    upsert?: LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutUsuarioInput | LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyUsuarioInputEnvelope
+    set?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    disconnect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    delete?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    update?: LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutUsuarioInput | LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: LogAlteracaoDoacaoUpdateManyWithWhereWithoutUsuarioInput | LogAlteracaoDoacaoUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
   }
 
   export type CampanhaUncheckedUpdateManyWithoutCriadorNestedInput = {
@@ -9514,23 +11377,51 @@ export namespace Prisma {
     deleteMany?: CampanhaScalarWhereInput | CampanhaScalarWhereInput[]
   }
 
-  export type UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput> | UsuarioDoacaoCreateWithoutUsuarioInput[] | UsuarioDoacaoUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutUsuarioInput | UsuarioDoacaoCreateOrConnectWithoutUsuarioInput[]
-    upsert?: UsuarioDoacaoUpsertWithWhereUniqueWithoutUsuarioInput | UsuarioDoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: UsuarioDoacaoCreateManyUsuarioInputEnvelope
-    set?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    disconnect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    delete?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    update?: UsuarioDoacaoUpdateWithWhereUniqueWithoutUsuarioInput | UsuarioDoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: UsuarioDoacaoUpdateManyWithWhereWithoutUsuarioInput | UsuarioDoacaoUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
+  export type DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput> | DoacaoCreateWithoutUsuarioInput[] | DoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioInput | DoacaoCreateOrConnectWithoutUsuarioInput[]
+    upsert?: DoacaoUpsertWithWhereUniqueWithoutUsuarioInput | DoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: DoacaoCreateManyUsuarioInputEnvelope
+    set?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+    disconnect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+    delete?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+    connect?: DoacaoWhereUniqueInput | DoacaoWhereUniqueInput[]
+    update?: DoacaoUpdateWithWhereUniqueWithoutUsuarioInput | DoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: DoacaoUpdateManyWithWhereWithoutUsuarioInput | DoacaoUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
   }
 
-  export type UsuarioCreateNestedOneWithoutCampanhasInput = {
-    create?: XOR<UsuarioCreateWithoutCampanhasInput, UsuarioUncheckedCreateWithoutCampanhasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutCampanhasInput
+  export type DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput> | DoacaoCompartilhadaCreateWithoutUsuarioInput[] | DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput | DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: DoacaoCompartilhadaUpsertWithWhereUniqueWithoutUsuarioInput | DoacaoCompartilhadaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: DoacaoCompartilhadaCreateManyUsuarioInputEnvelope
+    set?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    disconnect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    delete?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    update?: DoacaoCompartilhadaUpdateWithWhereUniqueWithoutUsuarioInput | DoacaoCompartilhadaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: DoacaoCompartilhadaUpdateManyWithWhereWithoutUsuarioInput | DoacaoCompartilhadaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput> | LogAlteracaoDoacaoCreateWithoutUsuarioInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput | LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput[]
+    upsert?: LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutUsuarioInput | LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyUsuarioInputEnvelope
+    set?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    disconnect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    delete?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    update?: LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutUsuarioInput | LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: LogAlteracaoDoacaoUpdateManyWithWhereWithoutUsuarioInput | LogAlteracaoDoacaoUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
+  }
+
+  export type UsuarioCreateNestedOneWithoutCampanhasCriadasInput = {
+    create?: XOR<UsuarioCreateWithoutCampanhasCriadasInput, UsuarioUncheckedCreateWithoutCampanhasCriadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutCampanhasCriadasInput
     connect?: UsuarioWhereUniqueInput
   }
 
@@ -9556,12 +11447,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type UsuarioUpdateOneRequiredWithoutCampanhasNestedInput = {
-    create?: XOR<UsuarioCreateWithoutCampanhasInput, UsuarioUncheckedCreateWithoutCampanhasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutCampanhasInput
-    upsert?: UsuarioUpsertWithoutCampanhasInput
+  export type UsuarioUpdateOneRequiredWithoutCampanhasCriadasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutCampanhasCriadasInput, UsuarioUncheckedCreateWithoutCampanhasCriadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutCampanhasCriadasInput
+    upsert?: UsuarioUpsertWithoutCampanhasCriadasInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutCampanhasInput, UsuarioUpdateWithoutCampanhasInput>, UsuarioUncheckedUpdateWithoutCampanhasInput>
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutCampanhasCriadasInput, UsuarioUpdateWithoutCampanhasCriadasInput>, UsuarioUncheckedUpdateWithoutCampanhasCriadasInput>
   }
 
   export type DoacaoUpdateManyWithoutCampanhaNestedInput = {
@@ -9616,18 +11507,32 @@ export namespace Prisma {
     connect?: LocalWhereUniqueInput
   }
 
-  export type UsuarioDoacaoCreateNestedManyWithoutDoacaoInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput> | UsuarioDoacaoCreateWithoutDoacaoInput[] | UsuarioDoacaoUncheckedCreateWithoutDoacaoInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutDoacaoInput | UsuarioDoacaoCreateOrConnectWithoutDoacaoInput[]
-    createMany?: UsuarioDoacaoCreateManyDoacaoInputEnvelope
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
+  export type DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput> | DoacaoCompartilhadaCreateWithoutDoacaoInput[] | DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput | DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput[]
+    createMany?: DoacaoCompartilhadaCreateManyDoacaoInputEnvelope
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
   }
 
-  export type UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput> | UsuarioDoacaoCreateWithoutDoacaoInput[] | UsuarioDoacaoUncheckedCreateWithoutDoacaoInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutDoacaoInput | UsuarioDoacaoCreateOrConnectWithoutDoacaoInput[]
-    createMany?: UsuarioDoacaoCreateManyDoacaoInputEnvelope
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
+  export type LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput> | LogAlteracaoDoacaoCreateWithoutDoacaoInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput | LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyDoacaoInputEnvelope
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+  }
+
+  export type DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput> | DoacaoCompartilhadaCreateWithoutDoacaoInput[] | DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput | DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput[]
+    createMany?: DoacaoCompartilhadaCreateManyDoacaoInputEnvelope
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+  }
+
+  export type LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput> | LogAlteracaoDoacaoCreateWithoutDoacaoInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput | LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyDoacaoInputEnvelope
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
   }
 
   export type EnumTipoProdutoFieldUpdateOperationsInput = {
@@ -9670,32 +11575,60 @@ export namespace Prisma {
     update?: XOR<XOR<LocalUpdateToOneWithWhereWithoutDoacoesInput, LocalUpdateWithoutDoacoesInput>, LocalUncheckedUpdateWithoutDoacoesInput>
   }
 
-  export type UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput> | UsuarioDoacaoCreateWithoutDoacaoInput[] | UsuarioDoacaoUncheckedCreateWithoutDoacaoInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutDoacaoInput | UsuarioDoacaoCreateOrConnectWithoutDoacaoInput[]
-    upsert?: UsuarioDoacaoUpsertWithWhereUniqueWithoutDoacaoInput | UsuarioDoacaoUpsertWithWhereUniqueWithoutDoacaoInput[]
-    createMany?: UsuarioDoacaoCreateManyDoacaoInputEnvelope
-    set?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    disconnect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    delete?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    update?: UsuarioDoacaoUpdateWithWhereUniqueWithoutDoacaoInput | UsuarioDoacaoUpdateWithWhereUniqueWithoutDoacaoInput[]
-    updateMany?: UsuarioDoacaoUpdateManyWithWhereWithoutDoacaoInput | UsuarioDoacaoUpdateManyWithWhereWithoutDoacaoInput[]
-    deleteMany?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
+  export type DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput> | DoacaoCompartilhadaCreateWithoutDoacaoInput[] | DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput | DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput[]
+    upsert?: DoacaoCompartilhadaUpsertWithWhereUniqueWithoutDoacaoInput | DoacaoCompartilhadaUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: DoacaoCompartilhadaCreateManyDoacaoInputEnvelope
+    set?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    disconnect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    delete?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    update?: DoacaoCompartilhadaUpdateWithWhereUniqueWithoutDoacaoInput | DoacaoCompartilhadaUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: DoacaoCompartilhadaUpdateManyWithWhereWithoutDoacaoInput | DoacaoCompartilhadaUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
   }
 
-  export type UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput = {
-    create?: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput> | UsuarioDoacaoCreateWithoutDoacaoInput[] | UsuarioDoacaoUncheckedCreateWithoutDoacaoInput[]
-    connectOrCreate?: UsuarioDoacaoCreateOrConnectWithoutDoacaoInput | UsuarioDoacaoCreateOrConnectWithoutDoacaoInput[]
-    upsert?: UsuarioDoacaoUpsertWithWhereUniqueWithoutDoacaoInput | UsuarioDoacaoUpsertWithWhereUniqueWithoutDoacaoInput[]
-    createMany?: UsuarioDoacaoCreateManyDoacaoInputEnvelope
-    set?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    disconnect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    delete?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    connect?: UsuarioDoacaoWhereUniqueInput | UsuarioDoacaoWhereUniqueInput[]
-    update?: UsuarioDoacaoUpdateWithWhereUniqueWithoutDoacaoInput | UsuarioDoacaoUpdateWithWhereUniqueWithoutDoacaoInput[]
-    updateMany?: UsuarioDoacaoUpdateManyWithWhereWithoutDoacaoInput | UsuarioDoacaoUpdateManyWithWhereWithoutDoacaoInput[]
-    deleteMany?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
+  export type LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput> | LogAlteracaoDoacaoCreateWithoutDoacaoInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput | LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput[]
+    upsert?: LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutDoacaoInput | LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyDoacaoInputEnvelope
+    set?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    disconnect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    delete?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    update?: LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutDoacaoInput | LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: LogAlteracaoDoacaoUpdateManyWithWhereWithoutDoacaoInput | LogAlteracaoDoacaoUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
+  }
+
+  export type DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput> | DoacaoCompartilhadaCreateWithoutDoacaoInput[] | DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput | DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput[]
+    upsert?: DoacaoCompartilhadaUpsertWithWhereUniqueWithoutDoacaoInput | DoacaoCompartilhadaUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: DoacaoCompartilhadaCreateManyDoacaoInputEnvelope
+    set?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    disconnect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    delete?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    connect?: DoacaoCompartilhadaWhereUniqueInput | DoacaoCompartilhadaWhereUniqueInput[]
+    update?: DoacaoCompartilhadaUpdateWithWhereUniqueWithoutDoacaoInput | DoacaoCompartilhadaUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: DoacaoCompartilhadaUpdateManyWithWhereWithoutDoacaoInput | DoacaoCompartilhadaUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput = {
+    create?: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput> | LogAlteracaoDoacaoCreateWithoutDoacaoInput[] | LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput[]
+    connectOrCreate?: LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput | LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput[]
+    upsert?: LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutDoacaoInput | LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutDoacaoInput[]
+    createMany?: LogAlteracaoDoacaoCreateManyDoacaoInputEnvelope
+    set?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    disconnect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    delete?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    connect?: LogAlteracaoDoacaoWhereUniqueInput | LogAlteracaoDoacaoWhereUniqueInput[]
+    update?: LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutDoacaoInput | LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutDoacaoInput[]
+    updateMany?: LogAlteracaoDoacaoUpdateManyWithWhereWithoutDoacaoInput | LogAlteracaoDoacaoUpdateManyWithWhereWithoutDoacaoInput[]
+    deleteMany?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
   }
 
   export type DoacaoCreateNestedManyWithoutCategoriaInput = {
@@ -9782,32 +11715,60 @@ export namespace Prisma {
     deleteMany?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
   }
 
-  export type UsuarioCreateNestedOneWithoutUsuarioDoacoesInput = {
-    create?: XOR<UsuarioCreateWithoutUsuarioDoacoesInput, UsuarioUncheckedCreateWithoutUsuarioDoacoesInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutUsuarioDoacoesInput
+  export type UsuarioCreateNestedOneWithoutDoacoesCompartilhadasInput = {
+    create?: XOR<UsuarioCreateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedCreateWithoutDoacoesCompartilhadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDoacoesCompartilhadasInput
     connect?: UsuarioWhereUniqueInput
   }
 
-  export type DoacaoCreateNestedOneWithoutUsuarioDoacoesInput = {
-    create?: XOR<DoacaoCreateWithoutUsuarioDoacoesInput, DoacaoUncheckedCreateWithoutUsuarioDoacoesInput>
-    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioDoacoesInput
+  export type DoacaoCreateNestedOneWithoutCompartilhamentosInput = {
+    create?: XOR<DoacaoCreateWithoutCompartilhamentosInput, DoacaoUncheckedCreateWithoutCompartilhamentosInput>
+    connectOrCreate?: DoacaoCreateOrConnectWithoutCompartilhamentosInput
     connect?: DoacaoWhereUniqueInput
   }
 
-  export type UsuarioUpdateOneRequiredWithoutUsuarioDoacoesNestedInput = {
-    create?: XOR<UsuarioCreateWithoutUsuarioDoacoesInput, UsuarioUncheckedCreateWithoutUsuarioDoacoesInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutUsuarioDoacoesInput
-    upsert?: UsuarioUpsertWithoutUsuarioDoacoesInput
+  export type UsuarioUpdateOneRequiredWithoutDoacoesCompartilhadasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedCreateWithoutDoacoesCompartilhadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutDoacoesCompartilhadasInput
+    upsert?: UsuarioUpsertWithoutDoacoesCompartilhadasInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutUsuarioDoacoesInput, UsuarioUpdateWithoutUsuarioDoacoesInput>, UsuarioUncheckedUpdateWithoutUsuarioDoacoesInput>
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutDoacoesCompartilhadasInput, UsuarioUpdateWithoutDoacoesCompartilhadasInput>, UsuarioUncheckedUpdateWithoutDoacoesCompartilhadasInput>
   }
 
-  export type DoacaoUpdateOneRequiredWithoutUsuarioDoacoesNestedInput = {
-    create?: XOR<DoacaoCreateWithoutUsuarioDoacoesInput, DoacaoUncheckedCreateWithoutUsuarioDoacoesInput>
-    connectOrCreate?: DoacaoCreateOrConnectWithoutUsuarioDoacoesInput
-    upsert?: DoacaoUpsertWithoutUsuarioDoacoesInput
+  export type DoacaoUpdateOneRequiredWithoutCompartilhamentosNestedInput = {
+    create?: XOR<DoacaoCreateWithoutCompartilhamentosInput, DoacaoUncheckedCreateWithoutCompartilhamentosInput>
+    connectOrCreate?: DoacaoCreateOrConnectWithoutCompartilhamentosInput
+    upsert?: DoacaoUpsertWithoutCompartilhamentosInput
     connect?: DoacaoWhereUniqueInput
-    update?: XOR<XOR<DoacaoUpdateToOneWithWhereWithoutUsuarioDoacoesInput, DoacaoUpdateWithoutUsuarioDoacoesInput>, DoacaoUncheckedUpdateWithoutUsuarioDoacoesInput>
+    update?: XOR<XOR<DoacaoUpdateToOneWithWhereWithoutCompartilhamentosInput, DoacaoUpdateWithoutCompartilhamentosInput>, DoacaoUncheckedUpdateWithoutCompartilhamentosInput>
+  }
+
+  export type DoacaoCreateNestedOneWithoutLogsAlteracoesInput = {
+    create?: XOR<DoacaoCreateWithoutLogsAlteracoesInput, DoacaoUncheckedCreateWithoutLogsAlteracoesInput>
+    connectOrCreate?: DoacaoCreateOrConnectWithoutLogsAlteracoesInput
+    connect?: DoacaoWhereUniqueInput
+  }
+
+  export type UsuarioCreateNestedOneWithoutHistoricoDeAlteracoesInput = {
+    create?: XOR<UsuarioCreateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedCreateWithoutHistoricoDeAlteracoesInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutHistoricoDeAlteracoesInput
+    connect?: UsuarioWhereUniqueInput
+  }
+
+  export type DoacaoUpdateOneRequiredWithoutLogsAlteracoesNestedInput = {
+    create?: XOR<DoacaoCreateWithoutLogsAlteracoesInput, DoacaoUncheckedCreateWithoutLogsAlteracoesInput>
+    connectOrCreate?: DoacaoCreateOrConnectWithoutLogsAlteracoesInput
+    upsert?: DoacaoUpsertWithoutLogsAlteracoesInput
+    connect?: DoacaoWhereUniqueInput
+    update?: XOR<XOR<DoacaoUpdateToOneWithWhereWithoutLogsAlteracoesInput, DoacaoUpdateWithoutLogsAlteracoesInput>, DoacaoUncheckedUpdateWithoutLogsAlteracoesInput>
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutHistoricoDeAlteracoesNestedInput = {
+    create?: XOR<UsuarioCreateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedCreateWithoutHistoricoDeAlteracoesInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutHistoricoDeAlteracoesInput
+    upsert?: UsuarioUpsertWithoutHistoricoDeAlteracoesInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutHistoricoDeAlteracoesInput, UsuarioUpdateWithoutHistoricoDeAlteracoesInput>, UsuarioUncheckedUpdateWithoutHistoricoDeAlteracoesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9824,6 +11785,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedEnumTipoUsuarioFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoUsuario | EnumTipoUsuarioFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoUsuarioFilter<$PrismaModel> | $Enums.TipoUsuario
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9833,6 +11801,25 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -9863,6 +11850,16 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumTipoUsuarioWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoUsuario | EnumTipoUsuarioFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoUsuario[] | ListEnumTipoUsuarioFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoUsuarioWithAggregatesFilter<$PrismaModel> | $Enums.TipoUsuario
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoUsuarioFilter<$PrismaModel>
+    _max?: NestedEnumTipoUsuarioFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9875,6 +11872,42 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -9938,42 +11971,6 @@ export namespace Prisma {
     _max?: NestedEnumStatusDoacaoFilter<$PrismaModel>
   }
 
-  export type DoacaoCreateWithoutUsuarioInput = {
-    id?: string
-    valor: number
-    data?: Date | string
-    tipoProduto: $Enums.TipoProduto
-    produto: string
-    status?: $Enums.StatusDoacao
-    campanha: CampanhaCreateNestedOneWithoutDoacoesInput
-    categoria: CategoriaCreateNestedOneWithoutDoacoesInput
-    local: LocalCreateNestedOneWithoutDoacoesInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutDoacaoInput
-  }
-
-  export type DoacaoUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    valor: number
-    data?: Date | string
-    tipoProduto: $Enums.TipoProduto
-    produto: string
-    campanhaId: string
-    categoriaId: string
-    status?: $Enums.StatusDoacao
-    localId: string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
-  }
-
-  export type DoacaoCreateOrConnectWithoutUsuarioInput = {
-    where: DoacaoWhereUniqueInput
-    create: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type DoacaoCreateManyUsuarioInputEnvelope = {
-    data: DoacaoCreateManyUsuarioInput | DoacaoCreateManyUsuarioInput[]
-    skipDuplicates?: boolean
-  }
-
   export type CampanhaCreateWithoutCriadorInput = {
     id?: string
     titulo: string
@@ -10002,58 +11999,92 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UsuarioDoacaoCreateWithoutUsuarioInput = {
+  export type DoacaoCreateWithoutUsuarioInput = {
     id?: string
+    valor: number
     data?: Date | string
-    doacao: DoacaoCreateNestedOneWithoutUsuarioDoacoesInput
+    tipoProduto: $Enums.TipoProduto
+    produto: string
+    status?: $Enums.StatusDoacao
+    campanha: CampanhaCreateNestedOneWithoutDoacoesInput
+    categoria: CategoriaCreateNestedOneWithoutDoacoesInput
+    local: LocalCreateNestedOneWithoutDoacoesInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
-  export type UsuarioDoacaoUncheckedCreateWithoutUsuarioInput = {
+  export type DoacaoUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    valor: number
+    data?: Date | string
+    tipoProduto: $Enums.TipoProduto
+    produto: string
+    status?: $Enums.StatusDoacao
+    campanhaId: string
+    categoriaId: string
+    localId: string
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type DoacaoCreateOrConnectWithoutUsuarioInput = {
+    where: DoacaoWhereUniqueInput
+    create: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type DoacaoCreateManyUsuarioInputEnvelope = {
+    data: DoacaoCreateManyUsuarioInput | DoacaoCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DoacaoCompartilhadaCreateWithoutUsuarioInput = {
+    id?: string
+    data?: Date | string
+    doacao: DoacaoCreateNestedOneWithoutCompartilhamentosInput
+  }
+
+  export type DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput = {
     id?: string
     doacaoId: string
     data?: Date | string
   }
 
-  export type UsuarioDoacaoCreateOrConnectWithoutUsuarioInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    create: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput>
+  export type DoacaoCompartilhadaCreateOrConnectWithoutUsuarioInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    create: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput>
   }
 
-  export type UsuarioDoacaoCreateManyUsuarioInputEnvelope = {
-    data: UsuarioDoacaoCreateManyUsuarioInput | UsuarioDoacaoCreateManyUsuarioInput[]
+  export type DoacaoCompartilhadaCreateManyUsuarioInputEnvelope = {
+    data: DoacaoCompartilhadaCreateManyUsuarioInput | DoacaoCompartilhadaCreateManyUsuarioInput[]
     skipDuplicates?: boolean
   }
 
-  export type DoacaoUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: DoacaoWhereUniqueInput
-    update: XOR<DoacaoUpdateWithoutUsuarioInput, DoacaoUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput>
+  export type LogAlteracaoDoacaoCreateWithoutUsuarioInput = {
+    id?: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+    doacao: DoacaoCreateNestedOneWithoutLogsAlteracoesInput
   }
 
-  export type DoacaoUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: DoacaoWhereUniqueInput
-    data: XOR<DoacaoUpdateWithoutUsuarioInput, DoacaoUncheckedUpdateWithoutUsuarioInput>
+  export type LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    doacaoId: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
   }
 
-  export type DoacaoUpdateManyWithWhereWithoutUsuarioInput = {
-    where: DoacaoScalarWhereInput
-    data: XOR<DoacaoUpdateManyMutationInput, DoacaoUncheckedUpdateManyWithoutUsuarioInput>
+  export type LogAlteracaoDoacaoCreateOrConnectWithoutUsuarioInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    create: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput>
   }
 
-  export type DoacaoScalarWhereInput = {
-    AND?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
-    OR?: DoacaoScalarWhereInput[]
-    NOT?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
-    id?: StringFilter<"Doacao"> | string
-    valor?: FloatFilter<"Doacao"> | number
-    data?: DateTimeFilter<"Doacao"> | Date | string
-    tipoProduto?: EnumTipoProdutoFilter<"Doacao"> | $Enums.TipoProduto
-    produto?: StringFilter<"Doacao"> | string
-    usuarioId?: StringFilter<"Doacao"> | string
-    campanhaId?: StringFilter<"Doacao"> | string
-    categoriaId?: StringFilter<"Doacao"> | string
-    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
-    localId?: StringFilter<"Doacao"> | string
+  export type LogAlteracaoDoacaoCreateManyUsuarioInputEnvelope = {
+    data: LogAlteracaoDoacaoCreateManyUsuarioInput | LogAlteracaoDoacaoCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
   }
 
   export type CampanhaUpsertWithWhereUniqueWithoutCriadorInput = {
@@ -10084,55 +12115,126 @@ export namespace Prisma {
     criadorId?: StringFilter<"Campanha"> | string
   }
 
-  export type UsuarioDoacaoUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    update: XOR<UsuarioDoacaoUpdateWithoutUsuarioInput, UsuarioDoacaoUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<UsuarioDoacaoCreateWithoutUsuarioInput, UsuarioDoacaoUncheckedCreateWithoutUsuarioInput>
+  export type DoacaoUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: DoacaoWhereUniqueInput
+    update: XOR<DoacaoUpdateWithoutUsuarioInput, DoacaoUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<DoacaoCreateWithoutUsuarioInput, DoacaoUncheckedCreateWithoutUsuarioInput>
   }
 
-  export type UsuarioDoacaoUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    data: XOR<UsuarioDoacaoUpdateWithoutUsuarioInput, UsuarioDoacaoUncheckedUpdateWithoutUsuarioInput>
+  export type DoacaoUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: DoacaoWhereUniqueInput
+    data: XOR<DoacaoUpdateWithoutUsuarioInput, DoacaoUncheckedUpdateWithoutUsuarioInput>
   }
 
-  export type UsuarioDoacaoUpdateManyWithWhereWithoutUsuarioInput = {
-    where: UsuarioDoacaoScalarWhereInput
-    data: XOR<UsuarioDoacaoUpdateManyMutationInput, UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioInput>
+  export type DoacaoUpdateManyWithWhereWithoutUsuarioInput = {
+    where: DoacaoScalarWhereInput
+    data: XOR<DoacaoUpdateManyMutationInput, DoacaoUncheckedUpdateManyWithoutUsuarioInput>
   }
 
-  export type UsuarioDoacaoScalarWhereInput = {
-    AND?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
-    OR?: UsuarioDoacaoScalarWhereInput[]
-    NOT?: UsuarioDoacaoScalarWhereInput | UsuarioDoacaoScalarWhereInput[]
-    id?: StringFilter<"UsuarioDoacao"> | string
-    usuarioId?: StringFilter<"UsuarioDoacao"> | string
-    doacaoId?: StringFilter<"UsuarioDoacao"> | string
-    data?: DateTimeFilter<"UsuarioDoacao"> | Date | string
+  export type DoacaoScalarWhereInput = {
+    AND?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
+    OR?: DoacaoScalarWhereInput[]
+    NOT?: DoacaoScalarWhereInput | DoacaoScalarWhereInput[]
+    id?: StringFilter<"Doacao"> | string
+    valor?: FloatFilter<"Doacao"> | number
+    data?: DateTimeFilter<"Doacao"> | Date | string
+    tipoProduto?: EnumTipoProdutoFilter<"Doacao"> | $Enums.TipoProduto
+    produto?: StringFilter<"Doacao"> | string
+    status?: EnumStatusDoacaoFilter<"Doacao"> | $Enums.StatusDoacao
+    usuarioId?: StringFilter<"Doacao"> | string
+    campanhaId?: StringFilter<"Doacao"> | string
+    categoriaId?: StringFilter<"Doacao"> | string
+    localId?: StringFilter<"Doacao"> | string
   }
 
-  export type UsuarioCreateWithoutCampanhasInput = {
+  export type DoacaoCompartilhadaUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    update: XOR<DoacaoCompartilhadaUpdateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<DoacaoCompartilhadaCreateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type DoacaoCompartilhadaUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    data: XOR<DoacaoCompartilhadaUpdateWithoutUsuarioInput, DoacaoCompartilhadaUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type DoacaoCompartilhadaUpdateManyWithWhereWithoutUsuarioInput = {
+    where: DoacaoCompartilhadaScalarWhereInput
+    data: XOR<DoacaoCompartilhadaUpdateManyMutationInput, DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type DoacaoCompartilhadaScalarWhereInput = {
+    AND?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
+    OR?: DoacaoCompartilhadaScalarWhereInput[]
+    NOT?: DoacaoCompartilhadaScalarWhereInput | DoacaoCompartilhadaScalarWhereInput[]
+    id?: StringFilter<"DoacaoCompartilhada"> | string
+    usuarioId?: StringFilter<"DoacaoCompartilhada"> | string
+    doacaoId?: StringFilter<"DoacaoCompartilhada"> | string
+    data?: DateTimeFilter<"DoacaoCompartilhada"> | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    update: XOR<LogAlteracaoDoacaoUpdateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<LogAlteracaoDoacaoCreateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    data: XOR<LogAlteracaoDoacaoUpdateWithoutUsuarioInput, LogAlteracaoDoacaoUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type LogAlteracaoDoacaoUpdateManyWithWhereWithoutUsuarioInput = {
+    where: LogAlteracaoDoacaoScalarWhereInput
+    data: XOR<LogAlteracaoDoacaoUpdateManyMutationInput, LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type LogAlteracaoDoacaoScalarWhereInput = {
+    AND?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
+    OR?: LogAlteracaoDoacaoScalarWhereInput[]
+    NOT?: LogAlteracaoDoacaoScalarWhereInput | LogAlteracaoDoacaoScalarWhereInput[]
+    id?: StringFilter<"LogAlteracaoDoacao"> | string
+    doacaoId?: StringFilter<"LogAlteracaoDoacao"> | string
+    alteradoPor?: StringFilter<"LogAlteracaoDoacao"> | string
+    campo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorAntigo?: StringFilter<"LogAlteracaoDoacao"> | string
+    valorNovo?: StringFilter<"LogAlteracaoDoacao"> | string
+    data?: DateTimeFilter<"LogAlteracaoDoacao"> | Date | string
+  }
+
+  export type UsuarioCreateWithoutCampanhasCriadasInput = {
     id?: string
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
     doacoes?: DoacaoCreateNestedManyWithoutUsuarioInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioUncheckedCreateWithoutCampanhasInput = {
+  export type UsuarioUncheckedCreateWithoutCampanhasCriadasInput = {
     id?: string
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
     doacoes?: DoacaoUncheckedCreateNestedManyWithoutUsuarioInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioCreateOrConnectWithoutCampanhasInput = {
+  export type UsuarioCreateOrConnectWithoutCampanhasCriadasInput = {
     where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutCampanhasInput, UsuarioUncheckedCreateWithoutCampanhasInput>
+    create: XOR<UsuarioCreateWithoutCampanhasCriadasInput, UsuarioUncheckedCreateWithoutCampanhasCriadasInput>
   }
 
   export type DoacaoCreateWithoutCampanhaInput = {
@@ -10145,7 +12247,8 @@ export namespace Prisma {
     usuario: UsuarioCreateNestedOneWithoutDoacoesInput
     categoria: CategoriaCreateNestedOneWithoutDoacoesInput
     local: LocalCreateNestedOneWithoutDoacoesInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoUncheckedCreateWithoutCampanhaInput = {
@@ -10154,11 +12257,12 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoCreateOrConnectWithoutCampanhaInput = {
@@ -10171,35 +12275,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UsuarioUpsertWithoutCampanhasInput = {
-    update: XOR<UsuarioUpdateWithoutCampanhasInput, UsuarioUncheckedUpdateWithoutCampanhasInput>
-    create: XOR<UsuarioCreateWithoutCampanhasInput, UsuarioUncheckedCreateWithoutCampanhasInput>
+  export type UsuarioUpsertWithoutCampanhasCriadasInput = {
+    update: XOR<UsuarioUpdateWithoutCampanhasCriadasInput, UsuarioUncheckedUpdateWithoutCampanhasCriadasInput>
+    create: XOR<UsuarioCreateWithoutCampanhasCriadasInput, UsuarioUncheckedCreateWithoutCampanhasCriadasInput>
     where?: UsuarioWhereInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutCampanhasInput = {
+  export type UsuarioUpdateToOneWithWhereWithoutCampanhasCriadasInput = {
     where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutCampanhasInput, UsuarioUncheckedUpdateWithoutCampanhasInput>
+    data: XOR<UsuarioUpdateWithoutCampanhasCriadasInput, UsuarioUncheckedUpdateWithoutCampanhasCriadasInput>
   }
 
-  export type UsuarioUpdateWithoutCampanhasInput = {
+  export type UsuarioUpdateWithoutCampanhasCriadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     doacoes?: DoacaoUpdateManyWithoutUsuarioNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutCampanhasInput = {
+  export type UsuarioUncheckedUpdateWithoutCampanhasCriadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     doacoes?: DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type DoacaoUpsertWithWhereUniqueWithoutCampanhaInput = {
@@ -10223,9 +12337,14 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
-    campanhas?: CampanhaCreateNestedManyWithoutCriadorInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutUsuarioInput
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaCreateNestedManyWithoutCriadorInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutDoacoesInput = {
@@ -10233,9 +12352,14 @@ export namespace Prisma {
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
-    campanhas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutUsuarioInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutDoacoesInput = {
@@ -10249,7 +12373,7 @@ export namespace Prisma {
     descricao: string
     meta: number
     criadaEm?: Date | string
-    criador: UsuarioCreateNestedOneWithoutCampanhasInput
+    criador: UsuarioCreateNestedOneWithoutCampanhasCriadasInput
   }
 
   export type CampanhaUncheckedCreateWithoutDoacoesInput = {
@@ -10269,11 +12393,21 @@ export namespace Prisma {
   export type CategoriaCreateWithoutDoacoesInput = {
     id?: string
     nome: string
+    descricao?: string | null
+    iconeUrl?: string | null
+    ativo?: boolean
+    criadaEm?: Date | string
+    atualizadaEm?: Date | string
   }
 
   export type CategoriaUncheckedCreateWithoutDoacoesInput = {
     id?: string
     nome: string
+    descricao?: string | null
+    iconeUrl?: string | null
+    ativo?: boolean
+    criadaEm?: Date | string
+    atualizadaEm?: Date | string
   }
 
   export type CategoriaCreateOrConnectWithoutDoacoesInput = {
@@ -10300,25 +12434,53 @@ export namespace Prisma {
     create: XOR<LocalCreateWithoutDoacoesInput, LocalUncheckedCreateWithoutDoacoesInput>
   }
 
-  export type UsuarioDoacaoCreateWithoutDoacaoInput = {
+  export type DoacaoCompartilhadaCreateWithoutDoacaoInput = {
     id?: string
     data?: Date | string
-    usuario: UsuarioCreateNestedOneWithoutUsuarioDoacoesInput
+    usuario: UsuarioCreateNestedOneWithoutDoacoesCompartilhadasInput
   }
 
-  export type UsuarioDoacaoUncheckedCreateWithoutDoacaoInput = {
+  export type DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput = {
     id?: string
     usuarioId: string
     data?: Date | string
   }
 
-  export type UsuarioDoacaoCreateOrConnectWithoutDoacaoInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    create: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput>
+  export type DoacaoCompartilhadaCreateOrConnectWithoutDoacaoInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    create: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput>
   }
 
-  export type UsuarioDoacaoCreateManyDoacaoInputEnvelope = {
-    data: UsuarioDoacaoCreateManyDoacaoInput | UsuarioDoacaoCreateManyDoacaoInput[]
+  export type DoacaoCompartilhadaCreateManyDoacaoInputEnvelope = {
+    data: DoacaoCompartilhadaCreateManyDoacaoInput | DoacaoCompartilhadaCreateManyDoacaoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LogAlteracaoDoacaoCreateWithoutDoacaoInput = {
+    id?: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+    usuario: UsuarioCreateNestedOneWithoutHistoricoDeAlteracoesInput
+  }
+
+  export type LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput = {
+    id?: string
+    alteradoPor: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
+  }
+
+  export type LogAlteracaoDoacaoCreateOrConnectWithoutDoacaoInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    create: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput>
+  }
+
+  export type LogAlteracaoDoacaoCreateManyDoacaoInputEnvelope = {
+    data: LogAlteracaoDoacaoCreateManyDoacaoInput | LogAlteracaoDoacaoCreateManyDoacaoInput[]
     skipDuplicates?: boolean
   }
 
@@ -10338,9 +12500,14 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
-    campanhas?: CampanhaUpdateManyWithoutCriadorNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutUsuarioNestedInput
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUpdateManyWithoutCriadorNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutDoacoesInput = {
@@ -10348,9 +12515,14 @@ export namespace Prisma {
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
-    campanhas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type CampanhaUpsertWithoutDoacoesInput = {
@@ -10370,7 +12542,7 @@ export namespace Prisma {
     descricao?: StringFieldUpdateOperationsInput | string
     meta?: FloatFieldUpdateOperationsInput | number
     criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
-    criador?: UsuarioUpdateOneRequiredWithoutCampanhasNestedInput
+    criador?: UsuarioUpdateOneRequiredWithoutCampanhasCriadasNestedInput
   }
 
   export type CampanhaUncheckedUpdateWithoutDoacoesInput = {
@@ -10396,11 +12568,21 @@ export namespace Prisma {
   export type CategoriaUpdateWithoutDoacoesInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriaUncheckedUpdateWithoutDoacoesInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    iconeUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    atualizadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LocalUpsertWithoutDoacoesInput = {
@@ -10428,20 +12610,36 @@ export namespace Prisma {
     pais?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UsuarioDoacaoUpsertWithWhereUniqueWithoutDoacaoInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    update: XOR<UsuarioDoacaoUpdateWithoutDoacaoInput, UsuarioDoacaoUncheckedUpdateWithoutDoacaoInput>
-    create: XOR<UsuarioDoacaoCreateWithoutDoacaoInput, UsuarioDoacaoUncheckedCreateWithoutDoacaoInput>
+  export type DoacaoCompartilhadaUpsertWithWhereUniqueWithoutDoacaoInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    update: XOR<DoacaoCompartilhadaUpdateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedUpdateWithoutDoacaoInput>
+    create: XOR<DoacaoCompartilhadaCreateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedCreateWithoutDoacaoInput>
   }
 
-  export type UsuarioDoacaoUpdateWithWhereUniqueWithoutDoacaoInput = {
-    where: UsuarioDoacaoWhereUniqueInput
-    data: XOR<UsuarioDoacaoUpdateWithoutDoacaoInput, UsuarioDoacaoUncheckedUpdateWithoutDoacaoInput>
+  export type DoacaoCompartilhadaUpdateWithWhereUniqueWithoutDoacaoInput = {
+    where: DoacaoCompartilhadaWhereUniqueInput
+    data: XOR<DoacaoCompartilhadaUpdateWithoutDoacaoInput, DoacaoCompartilhadaUncheckedUpdateWithoutDoacaoInput>
   }
 
-  export type UsuarioDoacaoUpdateManyWithWhereWithoutDoacaoInput = {
-    where: UsuarioDoacaoScalarWhereInput
-    data: XOR<UsuarioDoacaoUpdateManyMutationInput, UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoInput>
+  export type DoacaoCompartilhadaUpdateManyWithWhereWithoutDoacaoInput = {
+    where: DoacaoCompartilhadaScalarWhereInput
+    data: XOR<DoacaoCompartilhadaUpdateManyMutationInput, DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoInput>
+  }
+
+  export type LogAlteracaoDoacaoUpsertWithWhereUniqueWithoutDoacaoInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    update: XOR<LogAlteracaoDoacaoUpdateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedUpdateWithoutDoacaoInput>
+    create: XOR<LogAlteracaoDoacaoCreateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedCreateWithoutDoacaoInput>
+  }
+
+  export type LogAlteracaoDoacaoUpdateWithWhereUniqueWithoutDoacaoInput = {
+    where: LogAlteracaoDoacaoWhereUniqueInput
+    data: XOR<LogAlteracaoDoacaoUpdateWithoutDoacaoInput, LogAlteracaoDoacaoUncheckedUpdateWithoutDoacaoInput>
+  }
+
+  export type LogAlteracaoDoacaoUpdateManyWithWhereWithoutDoacaoInput = {
+    where: LogAlteracaoDoacaoScalarWhereInput
+    data: XOR<LogAlteracaoDoacaoUpdateManyMutationInput, LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoInput>
   }
 
   export type DoacaoCreateWithoutCategoriaInput = {
@@ -10454,7 +12652,8 @@ export namespace Prisma {
     usuario: UsuarioCreateNestedOneWithoutDoacoesInput
     campanha: CampanhaCreateNestedOneWithoutDoacoesInput
     local: LocalCreateNestedOneWithoutDoacoesInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoUncheckedCreateWithoutCategoriaInput = {
@@ -10463,11 +12662,12 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
-    status?: $Enums.StatusDoacao
     localId: string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoCreateOrConnectWithoutCategoriaInput = {
@@ -10506,7 +12706,8 @@ export namespace Prisma {
     usuario: UsuarioCreateNestedOneWithoutDoacoesInput
     campanha: CampanhaCreateNestedOneWithoutDoacoesInput
     categoria: CategoriaCreateNestedOneWithoutDoacoesInput
-    usuarioDoacoes?: UsuarioDoacaoCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoUncheckedCreateWithoutLocalInput = {
@@ -10515,11 +12716,12 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
-    usuarioDoacoes?: UsuarioDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
   }
 
   export type DoacaoCreateOrConnectWithoutLocalInput = {
@@ -10548,32 +12750,42 @@ export namespace Prisma {
     data: XOR<DoacaoUpdateManyMutationInput, DoacaoUncheckedUpdateManyWithoutLocalInput>
   }
 
-  export type UsuarioCreateWithoutUsuarioDoacoesInput = {
+  export type UsuarioCreateWithoutDoacoesCompartilhadasInput = {
     id?: string
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaCreateNestedManyWithoutCriadorInput
     doacoes?: DoacaoCreateNestedManyWithoutUsuarioInput
-    campanhas?: CampanhaCreateNestedManyWithoutCriadorInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioUncheckedCreateWithoutUsuarioDoacoesInput = {
+  export type UsuarioUncheckedCreateWithoutDoacoesCompartilhadasInput = {
     id?: string
     nome: string
     email: string
     senha: string
+    tipo?: $Enums.TipoUsuario
     criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
     doacoes?: DoacaoUncheckedCreateNestedManyWithoutUsuarioInput
-    campanhas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioCreateOrConnectWithoutUsuarioDoacoesInput = {
+  export type UsuarioCreateOrConnectWithoutDoacoesCompartilhadasInput = {
     where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutUsuarioDoacoesInput, UsuarioUncheckedCreateWithoutUsuarioDoacoesInput>
+    create: XOR<UsuarioCreateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedCreateWithoutDoacoesCompartilhadasInput>
   }
 
-  export type DoacaoCreateWithoutUsuarioDoacoesInput = {
+  export type DoacaoCreateWithoutCompartilhamentosInput = {
     id?: string
     valor: number
     data?: Date | string
@@ -10584,69 +12796,81 @@ export namespace Prisma {
     campanha: CampanhaCreateNestedOneWithoutDoacoesInput
     categoria: CategoriaCreateNestedOneWithoutDoacoesInput
     local: LocalCreateNestedOneWithoutDoacoesInput
+    logsAlteracoes?: LogAlteracaoDoacaoCreateNestedManyWithoutDoacaoInput
   }
 
-  export type DoacaoUncheckedCreateWithoutUsuarioDoacoesInput = {
+  export type DoacaoUncheckedCreateWithoutCompartilhamentosInput = {
     id?: string
     valor: number
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedCreateNestedManyWithoutDoacaoInput
   }
 
-  export type DoacaoCreateOrConnectWithoutUsuarioDoacoesInput = {
+  export type DoacaoCreateOrConnectWithoutCompartilhamentosInput = {
     where: DoacaoWhereUniqueInput
-    create: XOR<DoacaoCreateWithoutUsuarioDoacoesInput, DoacaoUncheckedCreateWithoutUsuarioDoacoesInput>
+    create: XOR<DoacaoCreateWithoutCompartilhamentosInput, DoacaoUncheckedCreateWithoutCompartilhamentosInput>
   }
 
-  export type UsuarioUpsertWithoutUsuarioDoacoesInput = {
-    update: XOR<UsuarioUpdateWithoutUsuarioDoacoesInput, UsuarioUncheckedUpdateWithoutUsuarioDoacoesInput>
-    create: XOR<UsuarioCreateWithoutUsuarioDoacoesInput, UsuarioUncheckedCreateWithoutUsuarioDoacoesInput>
+  export type UsuarioUpsertWithoutDoacoesCompartilhadasInput = {
+    update: XOR<UsuarioUpdateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedUpdateWithoutDoacoesCompartilhadasInput>
+    create: XOR<UsuarioCreateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedCreateWithoutDoacoesCompartilhadasInput>
     where?: UsuarioWhereInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutUsuarioDoacoesInput = {
+  export type UsuarioUpdateToOneWithWhereWithoutDoacoesCompartilhadasInput = {
     where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutUsuarioDoacoesInput, UsuarioUncheckedUpdateWithoutUsuarioDoacoesInput>
+    data: XOR<UsuarioUpdateWithoutDoacoesCompartilhadasInput, UsuarioUncheckedUpdateWithoutDoacoesCompartilhadasInput>
   }
 
-  export type UsuarioUpdateWithoutUsuarioDoacoesInput = {
+  export type UsuarioUpdateWithoutDoacoesCompartilhadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUpdateManyWithoutCriadorNestedInput
     doacoes?: DoacaoUpdateManyWithoutUsuarioNestedInput
-    campanhas?: CampanhaUpdateManyWithoutCriadorNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutUsuarioDoacoesInput = {
+  export type UsuarioUncheckedUpdateWithoutDoacoesCompartilhadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nome?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
     criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
     doacoes?: DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
-    campanhas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
+    historicoDeAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type DoacaoUpsertWithoutUsuarioDoacoesInput = {
-    update: XOR<DoacaoUpdateWithoutUsuarioDoacoesInput, DoacaoUncheckedUpdateWithoutUsuarioDoacoesInput>
-    create: XOR<DoacaoCreateWithoutUsuarioDoacoesInput, DoacaoUncheckedCreateWithoutUsuarioDoacoesInput>
+  export type DoacaoUpsertWithoutCompartilhamentosInput = {
+    update: XOR<DoacaoUpdateWithoutCompartilhamentosInput, DoacaoUncheckedUpdateWithoutCompartilhamentosInput>
+    create: XOR<DoacaoCreateWithoutCompartilhamentosInput, DoacaoUncheckedCreateWithoutCompartilhamentosInput>
     where?: DoacaoWhereInput
   }
 
-  export type DoacaoUpdateToOneWithWhereWithoutUsuarioDoacoesInput = {
+  export type DoacaoUpdateToOneWithWhereWithoutCompartilhamentosInput = {
     where?: DoacaoWhereInput
-    data: XOR<DoacaoUpdateWithoutUsuarioDoacoesInput, DoacaoUncheckedUpdateWithoutUsuarioDoacoesInput>
+    data: XOR<DoacaoUpdateWithoutCompartilhamentosInput, DoacaoUncheckedUpdateWithoutCompartilhamentosInput>
   }
 
-  export type DoacaoUpdateWithoutUsuarioDoacoesInput = {
+  export type DoacaoUpdateWithoutCompartilhamentosInput = {
     id?: StringFieldUpdateOperationsInput | string
     valor?: FloatFieldUpdateOperationsInput | number
     data?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10657,31 +12881,169 @@ export namespace Prisma {
     campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
     categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
     local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
-  export type DoacaoUncheckedUpdateWithoutUsuarioDoacoesInput = {
+  export type DoacaoUncheckedUpdateWithoutCompartilhamentosInput = {
     id?: StringFieldUpdateOperationsInput | string
     valor?: FloatFieldUpdateOperationsInput | number
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
   }
 
-  export type DoacaoCreateManyUsuarioInput = {
+  export type DoacaoCreateWithoutLogsAlteracoesInput = {
     id?: string
     valor: number
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
+    usuario: UsuarioCreateNestedOneWithoutDoacoesInput
+    campanha: CampanhaCreateNestedOneWithoutDoacoesInput
+    categoria: CategoriaCreateNestedOneWithoutDoacoesInput
+    local: LocalCreateNestedOneWithoutDoacoesInput
+    compartilhamentos?: DoacaoCompartilhadaCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type DoacaoUncheckedCreateWithoutLogsAlteracoesInput = {
+    id?: string
+    valor: number
+    data?: Date | string
+    tipoProduto: $Enums.TipoProduto
+    produto: string
+    status?: $Enums.StatusDoacao
+    usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
+    compartilhamentos?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutDoacaoInput
+  }
+
+  export type DoacaoCreateOrConnectWithoutLogsAlteracoesInput = {
+    where: DoacaoWhereUniqueInput
+    create: XOR<DoacaoCreateWithoutLogsAlteracoesInput, DoacaoUncheckedCreateWithoutLogsAlteracoesInput>
+  }
+
+  export type UsuarioCreateWithoutHistoricoDeAlteracoesInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    tipo?: $Enums.TipoUsuario
+    criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaCreateNestedManyWithoutCriadorInput
+    doacoes?: DoacaoCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutHistoricoDeAlteracoesInput = {
+    id?: string
+    nome: string
+    email: string
+    senha: string
+    tipo?: $Enums.TipoUsuario
+    criadoEm?: Date | string
+    telefone?: string | null
+    ativo?: boolean
+    fotoUrl?: string | null
+    campanhasCriadas?: CampanhaUncheckedCreateNestedManyWithoutCriadorInput
+    doacoes?: DoacaoUncheckedCreateNestedManyWithoutUsuarioInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutHistoricoDeAlteracoesInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedCreateWithoutHistoricoDeAlteracoesInput>
+  }
+
+  export type DoacaoUpsertWithoutLogsAlteracoesInput = {
+    update: XOR<DoacaoUpdateWithoutLogsAlteracoesInput, DoacaoUncheckedUpdateWithoutLogsAlteracoesInput>
+    create: XOR<DoacaoCreateWithoutLogsAlteracoesInput, DoacaoUncheckedCreateWithoutLogsAlteracoesInput>
+    where?: DoacaoWhereInput
+  }
+
+  export type DoacaoUpdateToOneWithWhereWithoutLogsAlteracoesInput = {
+    where?: DoacaoWhereInput
+    data: XOR<DoacaoUpdateWithoutLogsAlteracoesInput, DoacaoUncheckedUpdateWithoutLogsAlteracoesInput>
+  }
+
+  export type DoacaoUpdateWithoutLogsAlteracoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
+    produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
+    usuario?: UsuarioUpdateOneRequiredWithoutDoacoesNestedInput
+    campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
+    categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
+    local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type DoacaoUncheckedUpdateWithoutLogsAlteracoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
+    produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
+    usuarioId?: StringFieldUpdateOperationsInput | string
+    campanhaId?: StringFieldUpdateOperationsInput | string
+    categoriaId?: StringFieldUpdateOperationsInput | string
+    localId?: StringFieldUpdateOperationsInput | string
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type UsuarioUpsertWithoutHistoricoDeAlteracoesInput = {
+    update: XOR<UsuarioUpdateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedUpdateWithoutHistoricoDeAlteracoesInput>
+    create: XOR<UsuarioCreateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedCreateWithoutHistoricoDeAlteracoesInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutHistoricoDeAlteracoesInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutHistoricoDeAlteracoesInput, UsuarioUncheckedUpdateWithoutHistoricoDeAlteracoesInput>
+  }
+
+  export type UsuarioUpdateWithoutHistoricoDeAlteracoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
+    criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUpdateManyWithoutCriadorNestedInput
+    doacoes?: DoacaoUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutHistoricoDeAlteracoesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nome?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    senha?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoUsuarioFieldUpdateOperationsInput | $Enums.TipoUsuario
+    criadoEm?: DateTimeFieldUpdateOperationsInput | Date | string
+    telefone?: NullableStringFieldUpdateOperationsInput | string | null
+    ativo?: BoolFieldUpdateOperationsInput | boolean
+    fotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    campanhasCriadas?: CampanhaUncheckedUpdateManyWithoutCriadorNestedInput
+    doacoes?: DoacaoUncheckedUpdateManyWithoutUsuarioNestedInput
+    doacoesCompartilhadas?: DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type CampanhaCreateManyCriadorInput = {
@@ -10692,48 +13054,31 @@ export namespace Prisma {
     criadaEm?: Date | string
   }
 
-  export type UsuarioDoacaoCreateManyUsuarioInput = {
+  export type DoacaoCreateManyUsuarioInput = {
+    id?: string
+    valor: number
+    data?: Date | string
+    tipoProduto: $Enums.TipoProduto
+    produto: string
+    status?: $Enums.StatusDoacao
+    campanhaId: string
+    categoriaId: string
+    localId: string
+  }
+
+  export type DoacaoCompartilhadaCreateManyUsuarioInput = {
     id?: string
     doacaoId: string
     data?: Date | string
   }
 
-  export type DoacaoUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    valor?: FloatFieldUpdateOperationsInput | number
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
-    produto?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
-    campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
-    categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
-    local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput
-  }
-
-  export type DoacaoUncheckedUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    valor?: FloatFieldUpdateOperationsInput | number
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
-    produto?: StringFieldUpdateOperationsInput | string
-    campanhaId?: StringFieldUpdateOperationsInput | string
-    categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
-    localId?: StringFieldUpdateOperationsInput | string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
-  }
-
-  export type DoacaoUncheckedUpdateManyWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    valor?: FloatFieldUpdateOperationsInput | number
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
-    produto?: StringFieldUpdateOperationsInput | string
-    campanhaId?: StringFieldUpdateOperationsInput | string
-    categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
-    localId?: StringFieldUpdateOperationsInput | string
+  export type LogAlteracaoDoacaoCreateManyUsuarioInput = {
+    id?: string
+    doacaoId: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
   }
 
   export type CampanhaUpdateWithoutCriadorInput = {
@@ -10762,21 +13107,88 @@ export namespace Prisma {
     criadaEm?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuarioDoacaoUpdateWithoutUsuarioInput = {
+  export type DoacaoUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
+    valor?: FloatFieldUpdateOperationsInput | number
     data?: DateTimeFieldUpdateOperationsInput | Date | string
-    doacao?: DoacaoUpdateOneRequiredWithoutUsuarioDoacoesNestedInput
+    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
+    produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
+    campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
+    categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
+    local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
-  export type UsuarioDoacaoUncheckedUpdateWithoutUsuarioInput = {
+  export type DoacaoUncheckedUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
+    produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
+    campanhaId?: StringFieldUpdateOperationsInput | string
+    categoriaId?: StringFieldUpdateOperationsInput | string
+    localId?: StringFieldUpdateOperationsInput | string
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
+  }
+
+  export type DoacaoUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    valor?: FloatFieldUpdateOperationsInput | number
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
+    produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
+    campanhaId?: StringFieldUpdateOperationsInput | string
+    categoriaId?: StringFieldUpdateOperationsInput | string
+    localId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DoacaoCompartilhadaUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacao?: DoacaoUpdateOneRequiredWithoutCompartilhamentosNestedInput
+  }
+
+  export type DoacaoCompartilhadaUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     doacaoId?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuarioDoacaoUncheckedUpdateManyWithoutUsuarioInput = {
+  export type DoacaoCompartilhadaUncheckedUpdateManyWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     doacaoId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    doacao?: DoacaoUpdateOneRequiredWithoutLogsAlteracoesNestedInput
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    doacaoId?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10786,9 +13198,9 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
     localId: string
   }
 
@@ -10802,7 +13214,8 @@ export namespace Prisma {
     usuario?: UsuarioUpdateOneRequiredWithoutDoacoesNestedInput
     categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
     local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateWithoutCampanhaInput = {
@@ -10811,11 +13224,12 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateManyWithoutCampanhaInput = {
@@ -10824,33 +13238,69 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UsuarioDoacaoCreateManyDoacaoInput = {
+  export type DoacaoCompartilhadaCreateManyDoacaoInput = {
     id?: string
     usuarioId: string
     data?: Date | string
   }
 
-  export type UsuarioDoacaoUpdateWithoutDoacaoInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuario?: UsuarioUpdateOneRequiredWithoutUsuarioDoacoesNestedInput
+  export type LogAlteracaoDoacaoCreateManyDoacaoInput = {
+    id?: string
+    alteradoPor: string
+    campo: string
+    valorAntigo: string
+    valorNovo: string
+    data?: Date | string
   }
 
-  export type UsuarioDoacaoUncheckedUpdateWithoutDoacaoInput = {
+  export type DoacaoCompartilhadaUpdateWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuarioUpdateOneRequiredWithoutDoacoesCompartilhadasNestedInput
+  }
+
+  export type DoacaoCompartilhadaUncheckedUpdateWithoutDoacaoInput = {
     id?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoInput = {
+  export type DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoInput = {
     id?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUpdateWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    usuario?: UsuarioUpdateOneRequiredWithoutHistoricoDeAlteracoesNestedInput
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    alteradoPor?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    alteradoPor?: StringFieldUpdateOperationsInput | string
+    campo?: StringFieldUpdateOperationsInput | string
+    valorAntigo?: StringFieldUpdateOperationsInput | string
+    valorNovo?: StringFieldUpdateOperationsInput | string
     data?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10860,9 +13310,9 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
-    status?: $Enums.StatusDoacao
     localId: string
   }
 
@@ -10876,7 +13326,8 @@ export namespace Prisma {
     usuario?: UsuarioUpdateOneRequiredWithoutDoacoesNestedInput
     campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
     local?: LocalUpdateOneRequiredWithoutDoacoesNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateWithoutCategoriaInput = {
@@ -10885,11 +13336,12 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateManyWithoutCategoriaInput = {
@@ -10898,9 +13350,9 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     localId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -10910,10 +13362,10 @@ export namespace Prisma {
     data?: Date | string
     tipoProduto: $Enums.TipoProduto
     produto: string
+    status?: $Enums.StatusDoacao
     usuarioId: string
     campanhaId: string
     categoriaId: string
-    status?: $Enums.StatusDoacao
   }
 
   export type DoacaoUpdateWithoutLocalInput = {
@@ -10926,7 +13378,8 @@ export namespace Prisma {
     usuario?: UsuarioUpdateOneRequiredWithoutDoacoesNestedInput
     campanha?: CampanhaUpdateOneRequiredWithoutDoacoesNestedInput
     categoria?: CategoriaUpdateOneRequiredWithoutDoacoesNestedInput
-    usuarioDoacoes?: UsuarioDoacaoUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateWithoutLocalInput = {
@@ -10935,11 +13388,12 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
-    usuarioDoacoes?: UsuarioDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
+    compartilhamentos?: DoacaoCompartilhadaUncheckedUpdateManyWithoutDoacaoNestedInput
+    logsAlteracoes?: LogAlteracaoDoacaoUncheckedUpdateManyWithoutDoacaoNestedInput
   }
 
   export type DoacaoUncheckedUpdateManyWithoutLocalInput = {
@@ -10948,10 +13402,10 @@ export namespace Prisma {
     data?: DateTimeFieldUpdateOperationsInput | Date | string
     tipoProduto?: EnumTipoProdutoFieldUpdateOperationsInput | $Enums.TipoProduto
     produto?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
     usuarioId?: StringFieldUpdateOperationsInput | string
     campanhaId?: StringFieldUpdateOperationsInput | string
     categoriaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusDoacaoFieldUpdateOperationsInput | $Enums.StatusDoacao
   }
 
 

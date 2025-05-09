@@ -125,7 +125,11 @@ exports.Prisma.UsuarioScalarFieldEnum = {
   nome: 'nome',
   email: 'email',
   senha: 'senha',
-  criadoEm: 'criadoEm'
+  tipo: 'tipo',
+  criadoEm: 'criadoEm',
+  telefone: 'telefone',
+  ativo: 'ativo',
+  fotoUrl: 'fotoUrl'
 };
 
 exports.Prisma.CampanhaScalarFieldEnum = {
@@ -143,16 +147,21 @@ exports.Prisma.DoacaoScalarFieldEnum = {
   data: 'data',
   tipoProduto: 'tipoProduto',
   produto: 'produto',
+  status: 'status',
   usuarioId: 'usuarioId',
   campanhaId: 'campanhaId',
   categoriaId: 'categoriaId',
-  status: 'status',
   localId: 'localId'
 };
 
 exports.Prisma.CategoriaScalarFieldEnum = {
   id: 'id',
-  nome: 'nome'
+  nome: 'nome',
+  descricao: 'descricao',
+  iconeUrl: 'iconeUrl',
+  ativo: 'ativo',
+  criadaEm: 'criadaEm',
+  atualizadaEm: 'atualizadaEm'
 };
 
 exports.Prisma.LocalScalarFieldEnum = {
@@ -162,10 +171,20 @@ exports.Prisma.LocalScalarFieldEnum = {
   pais: 'pais'
 };
 
-exports.Prisma.UsuarioDoacaoScalarFieldEnum = {
+exports.Prisma.DoacaoCompartilhadaScalarFieldEnum = {
   id: 'id',
   usuarioId: 'usuarioId',
   doacaoId: 'doacaoId',
+  data: 'data'
+};
+
+exports.Prisma.LogAlteracaoDoacaoScalarFieldEnum = {
+  id: 'id',
+  doacaoId: 'doacaoId',
+  alteradoPor: 'alteradoPor',
+  campo: 'campo',
+  valorAntigo: 'valorAntigo',
+  valorNovo: 'valorNovo',
   data: 'data'
 };
 
@@ -178,6 +197,17 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.TipoUsuario = exports.$Enums.TipoUsuario = {
+  ADMIN: 'ADMIN',
+  DOADOR: 'DOADOR',
+  COMUM: 'COMUM'
+};
+
 exports.TipoProduto = exports.$Enums.TipoProduto = {
   ANIMAL: 'ANIMAL',
   LIVRO: 'LIVRO',
@@ -197,7 +227,8 @@ exports.Prisma.ModelName = {
   Doacao: 'Doacao',
   Categoria: 'Categoria',
   Local: 'Local',
-  UsuarioDoacao: 'UsuarioDoacao'
+  DoacaoCompartilhada: 'DoacaoCompartilhada',
+  LogAlteracaoDoacao: 'LogAlteracaoDoacao'
 };
 
 /**
