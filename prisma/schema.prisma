@@ -19,13 +19,14 @@ enum TipoProduto {
 
 enum StatusDoacao {
   PENDENTE
+  EXCLUIDO 
   FEITA
 }
 
 enum TipoUsuario {
   ADMIN
   DOADOR
-  COMUM
+  DONATARIO 
 }
 
 // Modelo de Usuário
@@ -34,7 +35,7 @@ model Usuario {
   nome                   String
   email                  String                @unique
   senha                  String
-  tipo                   TipoUsuario           @default(COMUM)
+  tipo                   TipoUsuario           @default(DONATARIO)
   criadoEm               DateTime              @default(now())
   telefone               String?
   ativo                  Boolean               @default(true)
@@ -42,8 +43,9 @@ model Usuario {
 
   campanhasCriadas       Campanha[]            @relation("CampanhasCriadas")
   doacoes                Doacao[]
-  doacoesCompartilhadas  DoacaoCompartilhada[]
+
   historicoDeAlteracoes  LogAlteracaoDoacao[]  @relation("UsuarioHistorico")
+  feedbacks           Feedback[]
 
   @@index([criadoEm]) // Índice para consultas por data de criação
 }
@@ -59,6 +61,7 @@ model Campanha {
   criadorId    String
   criador      Usuario     @relation("CampanhasCriadas", fields: [criadorId], references: [id])
   doacoes      Doacao[]
+  feedbacks           Feedback[]
 }
 
 // Modelo de Doação
@@ -82,11 +85,14 @@ model Doacao {
   localId             String
   local               Local                 @relation(fields: [localId], references: [id])
 
-  compartilhamentos   DoacaoCompartilhada[]
+ 
+ 
   logsAlteracoes      LogAlteracaoDoacao[]
+  feedbacks           Feedback[]
 
   @@index([status]) // Índice para consultas por status
   @@index([data])   // Índice para consultas por data
+
 }
 
 // Modelo de Categoria
@@ -113,18 +119,7 @@ model Local {
   doacoes   Doacao[]
 }
 
-// Modelo de Doação Compartilhada
-model DoacaoCompartilhada {
-  id         String    @id @default(uuid())
-  usuarioId  String
-  doacaoId   String
-  data       DateTime  @default(now())
 
-  usuario    Usuario   @relation(fields: [usuarioId], references: [id])
-  doacao     Doacao    @relation(fields: [doacaoId], references: [id])
-
-  @@unique([usuarioId, doacaoId]) // Garante que a mesma doação não seja compartilhada duas vezes pelo mesmo usuário
-}
 
 // Modelo de Log de Alterações em Doações
 model LogAlteracaoDoacao {
@@ -139,4 +134,20 @@ model LogAlteracaoDoacao {
   valorAntigo String    // Valor anterior do campo
   valorNovo   String    // Novo valor do campo
   data        DateTime  @default(now())
+}
+
+model Feedback {
+  id          String     @id @default(uuid())
+  mensagem    String
+  nota        Int        @default(5)
+  criadoEm    DateTime   @default(now())
+
+  usuarioId   String
+  usuario     Usuario    @relation(fields: [usuarioId], references: [id])
+
+  doacaoId    String?
+  doacao      Doacao?    @relation(fields: [doacaoId], references: [id])
+
+  campanhaId  String?
+  campanha    Campanha?  @relation(fields: [campanhaId], references: [id])
 }

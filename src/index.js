@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-// import { PrismaClient } from "@prisma/client";
+
 
 import livrosRoutes from "./routes/livros.routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
@@ -10,11 +10,16 @@ import usersRoutes from "./routes/users.routes.js"; // Importando a rota de usu√
 import routerRoupas from "./routes/roupas.routes.js"; // Importando a rota de roupas
 import routerEletronicos from "./routes/eletronicos.routes.js"; // Importando a rota de eletr√¥nicos
 
+
+
+
 const app = express();
 // const prisma = new  PrismaClient()
 
 app.use(cors());
 app.use(express.json());
+
+
 
 app.use("/livros", livrosRoutes);
 app.use("/locais", lugaresRoutes);

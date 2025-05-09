@@ -171,13 +171,6 @@ exports.Prisma.LocalScalarFieldEnum = {
   pais: 'pais'
 };
 
-exports.Prisma.DoacaoCompartilhadaScalarFieldEnum = {
-  id: 'id',
-  usuarioId: 'usuarioId',
-  doacaoId: 'doacaoId',
-  data: 'data'
-};
-
 exports.Prisma.LogAlteracaoDoacaoScalarFieldEnum = {
   id: 'id',
   doacaoId: 'doacaoId',
@@ -186,6 +179,16 @@ exports.Prisma.LogAlteracaoDoacaoScalarFieldEnum = {
   valorAntigo: 'valorAntigo',
   valorNovo: 'valorNovo',
   data: 'data'
+};
+
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  mensagem: 'mensagem',
+  nota: 'nota',
+  criadoEm: 'criadoEm',
+  usuarioId: 'usuarioId',
+  doacaoId: 'doacaoId',
+  campanhaId: 'campanhaId'
 };
 
 exports.Prisma.SortOrder = {
@@ -205,7 +208,7 @@ exports.Prisma.NullsOrder = {
 exports.TipoUsuario = exports.$Enums.TipoUsuario = {
   ADMIN: 'ADMIN',
   DOADOR: 'DOADOR',
-  COMUM: 'COMUM'
+  DONATARIO: 'DONATARIO'
 };
 
 exports.TipoProduto = exports.$Enums.TipoProduto = {
@@ -218,6 +221,7 @@ exports.TipoProduto = exports.$Enums.TipoProduto = {
 
 exports.StatusDoacao = exports.$Enums.StatusDoacao = {
   PENDENTE: 'PENDENTE',
+  EXCLUIDO: 'EXCLUIDO',
   FEITA: 'FEITA'
 };
 
@@ -227,8 +231,8 @@ exports.Prisma.ModelName = {
   Doacao: 'Doacao',
   Categoria: 'Categoria',
   Local: 'Local',
-  DoacaoCompartilhada: 'DoacaoCompartilhada',
-  LogAlteracaoDoacao: 'LogAlteracaoDoacao'
+  LogAlteracaoDoacao: 'LogAlteracaoDoacao',
+  Feedback: 'Feedback'
 };
 
 /**
