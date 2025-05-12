@@ -6,7 +6,7 @@ import livrosRoutes from "./routes/livros.routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
 import tipoProdutoRoutes from './routes/tipoProduto.Routes.js';
 import animaisRoutes from "./routes/animais.routes.js";
-import usersRoutes from "./routes/users.routes.js"; // Importando a rota de usuários
+// import usersRoutes from "./routes/users.routes.js"; // Importando a rota de usuários
 import routerRoupas from "./routes/roupas.routes.js"; // Importando a rota de roupas
 import routerEletronicos from "./routes/eletronicos.routes.js"; // Importando a rota de eletrônicos
 

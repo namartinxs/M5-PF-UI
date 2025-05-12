@@ -1,45 +1,79 @@
-let locais = [];
+import { getLocais,postLocal,  updateLocal , deleteLocal} from '../service/locais.service.js'
 
-//método GET para retorna os locais cadastrados
-export const getLocais = (req, res) => {
-  return res.status(200).json(locais);
-};
-
-//método POST para adicionar novos locais 
-export const postLocal = (req, res) => {
-  const { regiao, estado, cidade, endereco } = req.body;
-
-  if (!regiao || !estado || !cidade || !endereco) {
-    return res.status(400).json("Todos os campos são obrigatórios.");
+class LugaresController {
+  async getLocais(req,res){
+    const lugares = await getLocais();
+    res.status(200).json({ lugares});
   }
 
-  const novoLocal = {
-    id: Date.now(),
-    regiao,
-    estado,
-    cidade,
-    endereco,
-    data_criacao: new Date()
-  };
+  async cadastraLocal(req,res){
+    const {
+      cidade,
+      estado,
+      pais,
+      doacoes
+    } = req.body;
 
-  locais.push(novoLocal);
-  return res.status(201).json("Local cadastrado com sucesso.");
-};
+    if(
+      !cidade || !estado || !pais || !doacoes
+    ){
+      res.status(400).json({
+        message:"Você deve fornecer todos os campos"
+      });
 
-//método PUT para atualizar locais existentes 
-export const updateLocal = (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = locais.findIndex((l) => l.id === id);
+      const local = await postLocal({
+              cidade,
+      estado,
+      pais,
+      doacoes
+      });
+      res.status(201).json({
+        message:"local cadastrado com sucesso!", animal
+      })
+    }
+    
+    
+  }
+  async deleteLocais(req, res) {
+const { id } = req.params;
+const local = await deleteLocal(id);
+ if(!local){
+  return res.status(404).json({
+  message:"local não encontrado."
+  });
+}
+res.status(200).json({
+  message: "local deltado com sucesso!",localDeletado: local
+})
+}
 
-  if (index === -1) return res.status(404).json("Local não encontrado.");
+async atualizaLocal(req,res){
+  const { id } = req.params;
+  const {
+          cidade,
+      estado,
+      pais,
+      doacoes
+  } = req.body;
 
-  locais[index] = { ...locais[index], ...req.body };
-  return res.status(200).json("Informações do local atualizadas com sucesso.");
-};
+if(
+  !cidade||
+  !estado ||
+  !pais ||
+  !doacoes 
+){
+     res.status(400).json({ message: "Você deve fornecer todos os campos" });
+}
+const updated = await updateLocal(id,{          cidade,
+      estado,
+      pais,
+      doacoe});
+      if(!updated)
+        return res.status(404).json({
+      message: "Animal não encontrado."
+      })
+      res.status(200).json({ message: "Animal atualizado completamente!", animal: updated})
+}
+}
 
-//métodod DELETE para excluir locais existentes 
-export const deleteLocal = (req, res) => {
-  const id = parseInt(req.params.id);
-  locais = locais.filter((l) => l.id !== id);
-  return res.status(200).json("Local removido com sucesso.");
-};
+export default new LugaresController ;

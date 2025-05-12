@@ -1,14 +1,18 @@
-import express from "express";
-import { addUser, deleteUser, getUsers, updateUser } from "../controllers/user.Controller.js";
+// import express from "express";
+// import { loginUser  } from "../controllers/user.Controller.js";
+// import { verifyToken } from "../middleware/auth.middleware.js";
 
-const router = express.Router()
+// const router = express.Router();
 
-router.get("/", getUsers)
+// router.post("/login", loginUser); // Rota pública para login
 
-router.post("/", addUser)
+// router.get("/", verifyToken, getUsers);
+//  // Protegida com middleware
+// router.post("/", verifyToken, addUser);
+//  // Protegida com middleware
+// router.put("/:id", verifyToken, updateUser); 
+// // Protegida com middleware
+// router.delete("/:id", verifyToken, deleteUser); 
+// // Protegida com middleware
 
-router.put("/:id", updateUser)
-
-router.delete("/:id", deleteUser)
-
-export default router
+// export default router;
