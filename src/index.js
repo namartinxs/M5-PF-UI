@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 
 
-import livrosRoutes from "./routes/livros.routes.js";
+import doacoesRoutes from "./routes/doacoes.Routes.js";
 import lugaresRoutes from './routes/lugares.Routes.js';
 import tipoProdutoRoutes from './routes/tipoProduto.Routes.js';
 import animaisRoutes from "./routes/animais.routes.js";
@@ -21,7 +21,7 @@ app.use(express.json());
 
 
 
-app.use("/livros", livrosRoutes);
+app.use("/doacoes", doacoesRoutes); 
 app.use("/locais", lugaresRoutes);
 app.use("/produtos", tipoProdutoRoutes);
 app.use("/animais", animaisRoutes);
