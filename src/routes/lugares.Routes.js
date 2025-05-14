@@ -1,6 +1,10 @@
 import express from "express";
 import  LugaresController  from '../controllers/lugares.Controller.js'
 
+
+
+
+
 const router = express.Router();
 
 router.get("/", LugaresController.getLocais() )

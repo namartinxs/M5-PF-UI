@@ -1,3 +1,5 @@
+import { prisma } from "../lib/prismaClient.js"; // caminho correto
+
 import { getLocais,postLocal,  updateLocal , deleteLocal} from '../service/locais.service.js'
 
 class LugaresController {
