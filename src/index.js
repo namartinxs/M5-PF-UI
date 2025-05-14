@@ -1,35 +1,29 @@
+
 import express from "express";
 import cors from "cors";
 
 
-import doacoesRoutes from "./routes/doacoes.Routes.js";
-import lugaresRoutes from './routes/lugares.Routes.js';
-import tipoProdutoRoutes from './routes/tipoProduto.Routes.js';
-import animaisRoutes from "./routes/animais.routes.js";
-// import usersRoutes from "./routes/users.routes.js"; // Importando a rota de usuários
-import routerRoupas from "./routes/roupas.routes.js"; // Importando a rota de roupas
-import routerEletronicos from "./routes/eletronicos.routes.js"; // Importando a rota de eletrônicos
-
-
-
+import feedbackRoutes from "../src/routes/feedbacks.routes.js";
+import doacoesRouters from "./routes/doacoes.routes.js";
 
 const app = express();
-// const prisma = new  PrismaClient()
 
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
 
 
-app.use("/doacoes", doacoesRoutes); 
-app.use("/locais", lugaresRoutes);
-app.use("/produtos", tipoProdutoRoutes);
-app.use("/animais", animaisRoutes);
-app.use("/users", usersRoutes); // Registrando a rota de usuários
-app.use("/roupas", routerRoupas); // Registrando a rota de roupas
-app.use("/eletronicos", routerEletronicos); // Registrando a rota de eletrônicos
+// Rotas
+app.use("/feedbacks", feedbackRoutes);
 
-app.listen(8800, () => {
-  console.log("Servidor rodando na porta 8800");
+
+
+// Inicialização do servidor
+const PORT = process.env.PORT || 8800;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
+
 export default app;
