@@ -1,5 +1,6 @@
-import {getDoacoes, postDoacao, updateDoacao,deleteDoacao,} from "../service/doacoes.service.js";
-  import { logEvents } from "../middlewares/logger.middleware.js";
+import {getDoacoes, postDoacao, updateDoacao,deleteDoacao,} 
+from "../service/doacoes.service.js";
+  
   
   class DoacoesController {
     async getDoacoes(req, res) {
