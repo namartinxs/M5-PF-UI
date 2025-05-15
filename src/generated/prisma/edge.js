@@ -217,7 +217,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\User\\Desktop\\M4---PROJETO-FINAL\\src\\generated\\prisma",
+      "value": "C:\\Users\\elian\\OneDrive\\Desktop\\M4---PROJETO-FINAL\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -231,12 +231,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\User\\Desktop\\M4---PROJETO-FINAL\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\elian\\OneDrive\\Desktop\\M4---PROJETO-FINAL\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
