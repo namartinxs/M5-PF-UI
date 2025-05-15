@@ -156,3 +156,6 @@ model Feedback {
   campanhaId  String?
   campanha    Campanha?  @relation(fields: [campanhaId], references: [id])
 }
+
+model pedidos de ajuda e campanhas
+
