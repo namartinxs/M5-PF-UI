@@ -1,12 +1,12 @@
 import express from "express";
-import { getLocais, postLocal, updateLocal, deleteLocal } 
-from "../controllers/locais.Controller.js";
+import  locaisController from "../controllers/locais.Controller.js"; 
+
 
 const router = express.Router();
 
-router.get("/", getLocais)
-router.post("/cadastro", postLocal)
-router.put("/update/:id", updateLocal)
-router.delete("/delete/:id", deleteLocal)
+router.get("/", locaisController.getLocais)
+router.post("/cadastro", locaisController.cadastraLocal)
+router.put("/update/:id", locaisController.atualizaLocal)
+router.delete("/delete/:id", locaisController.deleteLocais)
 
 export default router;

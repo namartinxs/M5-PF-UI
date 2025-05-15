@@ -1,5 +1,5 @@
 import { getLocais, postLocal, updateLocal, deleteLocal } from '../service/locais.service.js';
-import { logEvents } from "../middlewares/logger.middleware.js";
+
 
 
 class LugaresController {
