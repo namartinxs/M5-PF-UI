@@ -4,7 +4,7 @@ import {
   criarLivro,
   atualizarLivro,
   deletarLivro
-} from '../controllers/livros.controller.js';
+}  from '../controllers/livros.controller.js';
 
 const router = Router();
 
