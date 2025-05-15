@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
   // output   = "../src/generated/prisma"
 }
 
@@ -157,4 +158,3 @@ model Feedback {
   campanha    Campanha?  @relation(fields: [campanhaId], references: [id])
 }
 
-model pedidos 
