@@ -218,7 +218,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\elian\\OneDrive\\Desktop\\M4---PROJETO-FINAL\\src\\generated\\prisma",
+      "value": "C:\\Users\\User\\Desktop\\M4---PROJETO-FINAL\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -229,14 +229,19 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\elian\\OneDrive\\Desktop\\M4---PROJETO-FINAL\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\User\\Desktop\\M4---PROJETO-FINAL\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": "../../../.env",
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
@@ -254,8 +259,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum TipoProduto {\n  ANIMAL\n  LIVRO\n  ROUPA\n  LUGAR\n  ELETRONICO\n}\n\nenum StatusDoacao {\n  PENDENTE\n  EXCLUIDO\n  FEITA\n}\n\nenum TipoUsuario {\n  ADMIN\n  DOADOR\n  DONATARIO\n}\n\n// Modelo de Usuário\nmodel Usuario {\n  id       String      @id @default(uuid())\n  nome     String\n  email    String      @unique\n  senha    String\n  tipo     TipoUsuario @default(DONATARIO)\n  criadoEm DateTime    @default(now())\n  telefone String?\n  ativo    Boolean     @default(true)\n  fotoUrl  String?\n\n  campanhasCriadas Campanha[] @relation(\"CampanhasCriadas\")\n  doacoes          Doacao[]\n\n  historicoDeAlteracoes LogAlteracaoDoacao[] @relation(\"UsuarioHistorico\")\n  feedbacks             Feedback[]\n\n  @@index([criadoEm]) // Índice para consultas por data de criação\n}\n\n// Modelo de Campanha\nmodel Campanha {\n  id        String   @id @default(uuid())\n  titulo    String\n  descricao String\n  meta      Float\n  criadaEm  DateTime @default(now())\n\n  criadorId String\n  criador   Usuario    @relation(\"CampanhasCriadas\", fields: [criadorId], references: [id])\n  doacoes   Doacao[]\n  feedbacks Feedback[]\n}\n\n// Modelo de Doação\nmodel Doacao {\n  id          String       @id @default(uuid())\n  valor       Float\n  data        DateTime     @default(now())\n  tipoProduto TipoProduto\n  produto     String\n  status      StatusDoacao @default(PENDENTE)\n\n  usuarioId String\n  usuario   Usuario @relation(fields: [usuarioId], references: [id])\n\n  campanhaId String\n  campanha   Campanha @relation(fields: [campanhaId], references: [id])\n\n  categoriaId String\n  categoria   Categoria @relation(fields: [categoriaId], references: [id])\n\n  localId String\n  local   Local  @relation(fields: [localId], references: [id])\n\n  logsAlteracoes LogAlteracaoDoacao[]\n  feedbacks      Feedback[]\n\n  @@index([status]) // Índice para consultas por status\n  @@index([data]) // Índice para consultas por data\n}\n\n// Modelo de Categoria\nmodel Categoria {\n  id           String   @id @default(uuid())\n  nome         String   @unique\n  descricao    String? // Explicação da categoria\n  iconeUrl     String? // URL para exibir um ícone no front\n  ativo        Boolean  @default(true) // Controle de visibilidade\n  criadaEm     DateTime @default(now())\n  atualizadaEm DateTime @updatedAt\n\n  doacoes Doacao[]\n\n  @@index([nome]) // Índice para consultas por nome\n}\n\n// Modelo de Local\nmodel Local {\n  id      String   @id @default(uuid())\n  cidade  String\n  estado  String\n  pais    String\n  doacoes Doacao[]\n}\n\n// Modelo de Log de Alterações em Doações\nmodel LogAlteracaoDoacao {\n  id       String @id @default(uuid())\n  doacaoId String\n  doacao   Doacao @relation(fields: [doacaoId], references: [id])\n\n  alteradoPor String\n  usuario     Usuario @relation(\"UsuarioHistorico\", fields: [alteradoPor], references: [id])\n\n  campo       String // Nome do campo alterado\n  valorAntigo String // Valor anterior do campo\n  valorNovo   String // Novo valor do campo\n  data        DateTime @default(now())\n}\n\nmodel Feedback {\n  id       String   @id @default(uuid())\n  mensagem String\n  nota     Int      @default(5)\n  criadoEm DateTime @default(now())\n\n  usuarioId String\n  usuario   Usuario @relation(fields: [usuarioId], references: [id])\n\n  doacaoId String?\n  doacao   Doacao? @relation(fields: [doacaoId], references: [id])\n\n  campanhaId String?\n  campanha   Campanha? @relation(fields: [campanhaId], references: [id])\n}\n",
-  "inlineSchemaHash": "2c830f1354a29e00674b2800b35abfb6f8165f57f0317be79cb53f26a4c66c99",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\"]\n  output        = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum TipoProduto {\n  ANIMAL\n  LIVRO\n  ROUPA\n  LUGAR\n  ELETRONICO\n}\n\nenum StatusDoacao {\n  PENDENTE\n  EXCLUIDO\n  FEITA\n}\n\nenum TipoUsuario {\n  ADMIN\n  DOADOR\n  DONATARIO\n}\n\n// Modelo de Usuário\nmodel Usuario {\n  id       String      @id @default(uuid())\n  nome     String\n  email    String      @unique\n  senha    String\n  tipo     TipoUsuario @default(DONATARIO)\n  criadoEm DateTime    @default(now())\n  telefone String?\n  ativo    Boolean     @default(true)\n  fotoUrl  String?\n\n  campanhasCriadas Campanha[] @relation(\"CampanhasCriadas\")\n  doacoes          Doacao[]\n\n  historicoDeAlteracoes LogAlteracaoDoacao[] @relation(\"UsuarioHistorico\")\n  feedbacks             Feedback[]\n\n  @@index([criadoEm]) // Índice para consultas por data de criação\n}\n\n// Modelo de Campanha\nmodel Campanha {\n  id        String   @id @default(uuid())\n  titulo    String\n  descricao String\n  meta      Float\n  criadaEm  DateTime @default(now())\n\n  criadorId String\n  criador   Usuario    @relation(\"CampanhasCriadas\", fields: [criadorId], references: [id])\n  doacoes   Doacao[]\n  feedbacks Feedback[]\n}\n\n// Modelo de Doação\nmodel Doacao {\n  id          String       @id @default(uuid())\n  valor       Float\n  data        DateTime     @default(now())\n  tipoProduto TipoProduto\n  produto     String\n  status      StatusDoacao @default(PENDENTE)\n\n  usuarioId String\n  usuario   Usuario @relation(fields: [usuarioId], references: [id])\n\n  campanhaId String\n  campanha   Campanha @relation(fields: [campanhaId], references: [id])\n\n  categoriaId String\n  categoria   Categoria @relation(fields: [categoriaId], references: [id])\n\n  localId String\n  local   Local  @relation(fields: [localId], references: [id])\n\n  logsAlteracoes LogAlteracaoDoacao[]\n  feedbacks      Feedback[]\n\n  @@index([status]) // Índice para consultas por status\n  @@index([data]) // Índice para consultas por data\n}\n\n// Modelo de Categoria\nmodel Categoria {\n  id           String   @id @default(uuid())\n  nome         String   @unique\n  descricao    String? // Explicação da categoria\n  iconeUrl     String? // URL para exibir um ícone no front\n  ativo        Boolean  @default(true) // Controle de visibilidade\n  criadaEm     DateTime @default(now())\n  atualizadaEm DateTime @updatedAt\n\n  doacoes Doacao[]\n\n  @@index([nome]) // Índice para consultas por nome\n}\n\n// Modelo de Local\nmodel Local {\n  id      String   @id @default(uuid())\n  cidade  String\n  estado  String\n  pais    String\n  doacoes Doacao[]\n}\n\n// Modelo de Log de Alterações em Doações\nmodel LogAlteracaoDoacao {\n  id       String @id @default(uuid())\n  doacaoId String\n  doacao   Doacao @relation(fields: [doacaoId], references: [id])\n\n  alteradoPor String\n  usuario     Usuario @relation(\"UsuarioHistorico\", fields: [alteradoPor], references: [id])\n\n  campo       String // Nome do campo alterado\n  valorAntigo String // Valor anterior do campo\n  valorNovo   String // Novo valor do campo\n  data        DateTime @default(now())\n}\n\nmodel Feedback {\n  id       String   @id @default(uuid())\n  mensagem String\n  nota     Int      @default(5)\n  criadoEm DateTime @default(now())\n\n  usuarioId String\n  usuario   Usuario @relation(fields: [usuarioId], references: [id])\n\n  doacaoId String?\n  doacao   Doacao? @relation(fields: [doacaoId], references: [id])\n\n  campanhaId String?\n  campanha   Campanha? @relation(fields: [campanhaId], references: [id])\n}\n",
+  "inlineSchemaHash": "877c94e975c96dac011facabc24dd7ecdeaceb40fbbc1cda9bd3fe547cbc0f0f",
   "copyEngine": true
 }
 
@@ -296,6 +301,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/generated/prisma/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/prisma/schema.prisma")
