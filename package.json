@@ -2,11 +2,11 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API do projeto final",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon index.js",
     "build": "prisma generate",
     "prisma:migrate": "prisma migrate dev --schema=prisma/schema.prisma",
     "prisma:generate": "prisma generate --schema=prisma/schema.prisma",
