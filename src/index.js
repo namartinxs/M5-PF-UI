@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 
 
-import feedbackRoutes from "../src/routes/feedbacks.routes.js";
+import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRouters from "./routes/doacoes.routes.js";
 import locaisRouters from "./routes/locais.routes.js";
 import campanhasRouters from "./routes/campanhas.routes.js";
