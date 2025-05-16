@@ -3,7 +3,7 @@ import {
     criarCampanha as criarCampanhaService,
     atualizarCampanha as atualizarCampanhaService,
     removerCampanha as removerCampanhaService
-} from '../service/campanhas.services.js';
+} from '../service/campanhas.service.js';
 
 // Listar todos os campanha
 async function listarCampanhas(req, res) {
