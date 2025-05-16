@@ -1,10 +1,13 @@
+
 import express from "express";
 import cors from "cors";
-// import router from "../src/routes/users.routes.js"
-import feedbackRoutes from "./routes/feedbacks.routes.js";
-import doacoesRoutes from "./routes/doacoes.Routes.js"; 
- import campanhaRoutes from "./routes/campanhas.router.js"; // Importando as rotas de campanha
- import locaisroutes from "./routes/locais.Routes.js"; // Importando as rotas de locais
+
+
+import feedbackRoutes from "../src/routes/feedbacks.routes.js";
+import doacoesRouters from "./routes/doacoes.routes.js";
+import locaisRouters from "./routes/locais.routes.js";
+import campanhasRouters from "./routes/campanhas.routes.js";
+
 
 const app = express();
 
@@ -13,11 +16,12 @@ app.use(cors());
 app.use(express.json());
 
 // Rotas
-// app.use("/user",routerUser)
 app.use("/feedbacks", feedbackRoutes);
-app.use("/doacoes", doacoesRoutes); 
-app.use("/campanha", campanhaRoutes); // Rota para campanha de ajuda/campanhas
-app.use("/locais", locaisroutes); // Rota para locais
+app.use("/doacoes", doacoesRouters);
+app.use("/locais", locaisRouters);
+app.use("/campanhas", campanhasRouters);
+
+
 // Inicialização do servidor
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
