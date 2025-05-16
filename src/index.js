@@ -5,6 +5,7 @@ import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRoutes from "./routes/doacoes.Routes.js"; 
  import campanhaRoutes from "./routes/campanhas.router.js"; // Importando as rotas de campanha
  import locaisroutes from "./routes/locais.Routes.js"; // Importando as rotas de locais
+ import logDoacaoRoutes from "./routes/logDoacao.routes.js";
 
 const app = express();
 
@@ -13,7 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 // Rotas
-// app.use("/user",routerUser)
+// app.use("/user",routerUser
+app.use("/logs-alteracao", logDoacaoRoutes);
 app.use("/feedbacks", feedbackRoutes);
 app.use("/doacoes", doacoesRoutes); 
 app.use("/campanha", campanhaRoutes); // Rota para campanha de ajuda/campanhas
