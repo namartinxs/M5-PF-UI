@@ -24,7 +24,7 @@ export default function authMiddleware(req, res, next) {
 
     // 3. Decodifica e valida o token
     const decoded = jwt.verify(token, JWT_SECRET);
-    
+
     // 4. Injeta dados na requisição
     req.userId = decoded.id;
     req.tipoUsuario = decoded.tipoUsuario;
@@ -45,11 +45,9 @@ export default function authMiddleware(req, res, next) {
         errorMessage = 'Falha na autenticação.';
     }
 
-    return res.status(401).json({ 
+    return res.status(401).json({
       error: errorMessage,
       details: process.env.NODE_ENV === 'development' ? error.message : undefined // Opcional: mostra detalhes apenas em dev
     });
   }
 }
-
-export 
