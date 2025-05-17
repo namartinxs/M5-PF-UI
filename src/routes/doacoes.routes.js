@@ -1,5 +1,5 @@
 import express from "express";
-import DoacoesController from "../controllers/doacoes.Controller.js";
+import DoacoesController from "../controllers/doacoes.controller.js";
 
 const router = express.Router();
 

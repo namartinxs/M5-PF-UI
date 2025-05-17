@@ -1,5 +1,5 @@
 import express from "express";
-import  locaisController from "../controllers/locais.Controller.js"; 
+import  locaisController from "../controllers/locais.controller.js";
 
 
 const router = express.Router();
