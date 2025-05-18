@@ -13,7 +13,7 @@
     "prisma:studio": "prisma studio --schema=prisma/schema.prisma"
   },
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.8.2",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "express": "^5.1.0",
