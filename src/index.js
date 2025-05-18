@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-
+import logDoacaoRoutes from "./routes/logDoacao.routes.js"
 import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRouters from "./routes/doacoes.routes.js";
 import locaisRouters from "./routes/locais.routes.js";
@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
 });
 
 // Rotas
+// app.use("/user",routerUser
+app.use("/logs-alteracao",logDoacaoRoutes );
 app.use("/feedbacks", feedbackRoutes);
 app.use("/doacoes", doacoesRouters);
 app.use("/locais", locaisRouters);
