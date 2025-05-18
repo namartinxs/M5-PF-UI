@@ -5,6 +5,7 @@ import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRouters from "./routes/doacoes.routes.js";
 import locaisRouters from "./routes/locais.routes.js";
 import campanhasRouters from "./routes/campanhas.routes.js";
+import routerCategoria from "./routes/categoria.routes.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/feedbacks", feedbackRoutes);
 app.use("/doacoes", doacoesRouters);
 app.use("/locais", locaisRouters);
 app.use("/campanhas", campanhasRouters);
+app.use("/categorias", routerCategoria);
 
 // Inicialização do servidor
 const PORT = process.env.PORT || 8800;
