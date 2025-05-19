@@ -46,13 +46,13 @@ model Usuario {
   ativo                  Boolean               @default(true)
   fotoUrl                String?
 
+  // Relações corrigidas
   campanhasCriadas       Campanha[]            @relation("CampanhasCriadas")
   doacoes                Doacao[]
-
   historicoDeAlteracoes  LogAlteracaoDoacao[]  @relation("UsuarioHistorico")
-  feedbacks           Feedback[]
+  feedbacks              Feedback[]
 
-  @@index([criadoEm]) // Índice para consultas por data de criação
+  @@index([criadoEm])
 }
 
 // Modelo de Campanha
