@@ -227,59 +227,6 @@ export { swaggerUi, swaggerDocs };
  *         description: Local deletado
  */
 
-
-/**
- * @swagger
- * /users:
- *   post:
- *     summary: Cria um novo usuário
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               nome:
- *                 type: string
- *               email:
- *                 type: string
- *               senha:
- *                 type: string
- *     responses:
- *       201:
- *         description: Usuário criado
- *   get:
- *     summary: Lista todos os usuários
- *     responses:
- *       200:
- *         description: Lista de usuários
- *   put:
- *     summary: Atualiza um usuário pelo ID
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID do usuário
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Usuário atualizado
- *   delete:
- *     summary: Deleta um usuário pelo ID
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: ID do usuário
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Usuário deletado
- */
-
 /**
  * @swagger
  * /categoria:
@@ -381,4 +328,159 @@ export { swaggerUi, swaggerDocs };
  *     responses:
  *       200:
  *         description: Registro removido
+ */
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     tags: [Autenticação]
+ *     summary: Realiza login e retorna um token JWT
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: exemplo@email.com
+ *               senha:
+ *                 type: string
+ *                 example: senha123
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *       401:
+ *         description: Credenciais inválidas
+ */
+
+/**
+ * @swagger
+ * /reset-password:
+ *   post:
+ *     tags: [Autenticação]
+ *     summary: Solicita redefinição de senha
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: exemplo@email.com
+ *     responses:
+ *       200:
+ *         description: E-mail de redefinição enviado
+ *       404:
+ *         description: Usuário não encontrado
+ */
+
+/**
+ * @swagger
+ * /me:
+ *   get:
+ *     tags: [Usuários]
+ *     summary: Retorna os dados do usuário logado
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dados do usuário
+ *       401:
+ *         description: Token inválido ou ausente
+ */
+
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     tags: [Usuários]
+ *     summary: Lista todos os usuários
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de usuários
+ *   post:
+ *     tags: [Usuários]
+ *     summary: Cria um novo usuário
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               senha:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Usuário criado com sucesso
+ */
+
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     tags: [Usuários]
+ *     summary: Atualiza os dados de um usuário
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID do usuário
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Usuário atualizado com sucesso
+ *       404:
+ *         description: Usuário não encontrado
+ *
+ *   delete:
+ *     tags: [Usuários]
+ *     summary: Remove um usuário
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do usuário a ser deletado
+ *     responses:
+ *       200:
+ *         description: Usuário deletado com sucesso
+ *       404:
+ *         description: Usuário não encontrado
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
  */

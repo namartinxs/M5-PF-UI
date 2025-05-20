@@ -18,6 +18,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+//exibir interface da documentação swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 app.get("/", (req, res) => {
   res.status(200).json({ message: "API funcionando corretamente!" });
 });
