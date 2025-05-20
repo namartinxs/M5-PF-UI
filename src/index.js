@@ -6,6 +6,8 @@ import doacoesRouters from "./routes/doacoes.routes.js";
 import locaisRouters from "./routes/locais.routes.js";
 import campanhasRouters from "./routes/campanhas.routes.js";
 import routerCategoria from "./routes/categoria.routes.js";
+import routerUser from "./routes/users.routes.js";
+import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 
@@ -18,13 +20,17 @@ app.get("/", (req, res) => {
 });
 
 // Rotas
-// app.use("/user",routerUser
 app.use("/logs-alteracao",logDoacaoRoutes );
 app.use("/feedbacks", feedbackRoutes);
 app.use("/doacoes", doacoesRouters);
 app.use("/locais", locaisRouters);
 app.use("/campanhas", campanhasRouters);
 app.use("/categorias", routerCategoria);
+app.use("/", routerUser);
+app.use('/auth', authRoutes);
+app.put('/test-put/:id', (req, res) => {
+  res.json({ message: `Rota PUT de teste acessada com ID: ${req.params.id}`, body: req.body });
+});
 
 // Inicialização do servidor
 const PORT = process.env.PORT || 8800;
