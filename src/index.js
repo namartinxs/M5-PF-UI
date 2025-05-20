@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import { swaggerUi, swaggerDocs } from './swagger.js';
+
 import logDoacaoRoutes from "./routes/logDoacao.routes.js"
 import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRouters from "./routes/doacoes.routes.js";
@@ -9,6 +11,7 @@ import routerCategoria from "./routes/categoria.routes.js";
 import routerUser from "./routes/users.routes.js";
 import authRoutes from './routes/auth.routes.js';
 
+//const { swaggerUi, swaggerDocs } = require('./swagger');
 const app = express();
 
 // Middlewares
@@ -36,6 +39,8 @@ app.put('/test-put/:id', (req, res) => {
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Documentação disponível em ${PORT}`);
+
 });
 
 export default app;
