@@ -9,6 +9,7 @@ import locaisRouters from "./routes/locais.routes.js";
 import campanhasRouters from "./routes/campanhas.routes.js";
 import routerCategoria from "./routes/categoria.routes.js";
 import routerUser from "./routes/users.routes.js";
+import authRoutes from './routes/auth.routes.js';
 
 //const { swaggerUi, swaggerDocs } = require('./swagger');
 const app = express();
@@ -22,29 +23,17 @@ app.get("/", (req, res) => {
 });
 
 // Rotas
-app.use("/user",routerUser);
 app.use("/logs-alteracao",logDoacaoRoutes );
 app.use("/feedbacks", feedbackRoutes);
 app.use("/doacoes", doacoesRouters);
 app.use("/locais", locaisRouters);
 app.use("/campanhas", campanhasRouters);
 app.use("/categorias", routerCategoria);
-
-// Documentação Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// Rotas
-app.use("/user",routerUser);
-app.use('/campanha', campanhasRouters);
-app.use('/doacoes', doacoesRouters);
-app.use('/feedback', feedbackRoutes);
-app.use('/locais', locaisRouters);
-app.use("/categorias", routerCategoria);
-app.use("/logs-alteracao",logDoacaoRoutes );
-
-
-//app.use('/users', usersRoutes);
-
+app.use("/", routerUser);
+app.use('/auth', authRoutes);
+app.put('/test-put/:id', (req, res) => {
+  res.json({ message: `Rota PUT de teste acessada com ID: ${req.params.id}`, body: req.body });
+});
 
 // Inicialização do servidor
 const PORT = process.env.PORT || 8800;
