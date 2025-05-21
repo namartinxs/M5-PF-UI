@@ -410,7 +410,7 @@ export { swaggerUi, swaggerDocs };
 
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     tags: [Autenticação]
  *     summary: Realiza login e retorna um token JWT
@@ -432,7 +432,7 @@ export { swaggerUi, swaggerDocs };
  *         description: Login bem-sucedido
  *       401:
  *         description: Credenciais inválidas
- * /reset-password:
+ * /users/reset-password:
  *   post:
  *     tags: [Autenticação]
  *     summary: Solicita redefinição de senha
@@ -455,7 +455,7 @@ export { swaggerUi, swaggerDocs };
 
 /**
  * @swagger
- * /me:
+ * /users/me:
  *   get:
  *     tags: [Usuários]
  *     summary: Retorna os dados do usuário logado
@@ -466,7 +466,7 @@ export { swaggerUi, swaggerDocs };
  *         description: Dados do usuário
  *       401:
  *         description: Token inválido ou ausente
- * /users:
+ * /users/users:
  *   get:
  *     tags: [Usuários]
  *     summary: Lista todos os usuários
@@ -494,7 +494,7 @@ export { swaggerUi, swaggerDocs };
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
- * /users/{id}:
+ * /users/users/{id}:
  *   put:
  *     tags: [Usuários]
  *     summary: Atualiza os dados de um usuário
