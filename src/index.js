@@ -36,7 +36,7 @@ app.use("/doacoes", doacoesRouters);
 app.use("/locais", locaisRouters);
 app.use("/campanhas", campanhasRouters);
 app.use("/categorias", routerCategoria);
-app.use("/", routerUser);
+app.use("/users", routerUser);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/auth', authRoutes);
 app.put('/test-put/:id', (req, res) => {
