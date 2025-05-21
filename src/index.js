@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { swaggerUi, swaggerDocs } from './swagger.js';
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 import logDoacaoRoutes from "./routes/logDoacao.routes.js"
 import feedbackRoutes from "./routes/feedbacks.routes.js";
 import doacoesRouters from "./routes/doacoes.routes.js";
@@ -18,9 +19,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//exibir interface da documentação swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// Para resolver __dirname em ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Servir a documentação MkDocs na rota /docs
+app.use('/docs', express.static(path.join(__dirname, '../mkdocs.yml')));
 app.get("/", (req, res) => {
   res.status(200).json({ message: "API funcionando corretamente!" });
 });

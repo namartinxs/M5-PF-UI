@@ -1,6 +1,6 @@
 site_name: API Solidária de Doações
 theme:
-  name: material
+  name: readthedocs
 
 nav:
   - Início: index.md
