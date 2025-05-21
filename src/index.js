@@ -37,6 +37,7 @@ app.use("/locais", locaisRouters);
 app.use("/campanhas", campanhasRouters);
 app.use("/categorias", routerCategoria);
 app.use("/", routerUser);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/auth', authRoutes);
 app.put('/test-put/:id', (req, res) => {
   res.json({ message: `Rota PUT de teste acessada com ID: ${req.params.id}`, body: req.body });
