@@ -42,7 +42,7 @@ app.put('/test-put/:id', (req, res) => {
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
-  console.log(`Documentação disponível em ${PORT}`);
+  console.log(`Documentação disponível em http://localhost:8800/api-docs`);
 
 });
 
