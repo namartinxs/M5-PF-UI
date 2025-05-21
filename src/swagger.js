@@ -466,7 +466,7 @@ export { swaggerUi, swaggerDocs };
  *         description: Dados do usuário
  *       401:
  *         description: Token inválido ou ausente
- * /users/users:
+ * /users/:
  *   get:
  *     tags: [Usuários]
  *     summary: Lista todos os usuários
