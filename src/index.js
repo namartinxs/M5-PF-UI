@@ -24,7 +24,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Servir a documentação MkDocs na rota /docs
-app.use('/docs', express.static(path.join(__dirname, '../mkdocs.yml')));
+app.use('/docs', express.static(path.join(__dirname, '../site')));
 app.get("/", (req, res) => {
   res.status(200).json({ message: "API funcionando corretamente!" });
 });
