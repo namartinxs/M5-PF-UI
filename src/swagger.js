@@ -8,7 +8,7 @@ const swaggerOptions = {
     info: {
       title: 'API Documentation',
       version: '1.0.0',
-      description: 'API para gerenciamento de dados',
+      description: 'API Solidária de Doações',
     },
     servers: [
       {
