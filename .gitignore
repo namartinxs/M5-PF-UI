@@ -27,4 +27,8 @@ build
 .DS_Store
 Thumbs.db
 
+# Ambiente Virtual
+venv/
+
+
 .gitignore
