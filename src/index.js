@@ -12,7 +12,6 @@ import routerCategoria from "./routes/categoria.routes.js";
 import routerUser from "./routes/users.routes.js";
 import authRoutes from './routes/auth.routes.js';
 
-//const { swaggerUi, swaggerDocs } = require('./swagger');
 const app = express();
 
 // Middlewares

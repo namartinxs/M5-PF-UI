@@ -15,7 +15,7 @@ class UserController {
       console.log('Dados recebidos:', req.body);
 
       // Mapeia os nomes dos campos para o padrão do service
-      const { name: nome, email, password: senha, tipoUsuario: tipo } = req.body;
+      const {  nome, email,  senha,  tipo } = req.body;
 
       // Validações
       if (!nome || !email || !senha) {
