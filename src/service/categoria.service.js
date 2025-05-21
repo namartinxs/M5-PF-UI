@@ -7,7 +7,7 @@ export async function listarCategorias() {
 }   
 export async function buscarCategoriaPorId(id) {
     return await prisma.categoria.findUnique({
-        where: { id: Number(id) }
+        where: { id:id }
     });
 }
 export async function criarCategoria(dados) {
@@ -15,12 +15,12 @@ export async function criarCategoria(dados) {
 }
 export async function atualizarCategoria(id, dados) {
     return await prisma.categoria.update({
-        where: { id: Number(id) },
+        where: { id: id },
         data: dados
     });
 }
 
 export async function removerCategoria(id) {
-    await prisma.categoria.delete({ where: { id: Number(id) } });
+    await prisma.categoria.delete({ where: { id: id } });
     return true;
 }

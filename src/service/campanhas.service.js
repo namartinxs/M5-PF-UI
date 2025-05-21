@@ -12,13 +12,13 @@ async function criarCampanha(dados) {
 
 async function atualizarCampanha(id, dados) {
     return await prisma.campanha.update({
-        where: { id: Number(id) },
+        where: { id: id },
         data: dados
     });
 }
 
 async function removerCampanha(id) {
-    await prisma.campanha.delete({ where: { id: Number(id) } });
+    await prisma.campanha.delete({ where: { id: id } });
     return true;
 }
 

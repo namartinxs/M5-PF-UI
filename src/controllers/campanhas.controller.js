@@ -28,7 +28,7 @@ async function criarCampanha(req, res) {
         const novoCampanha = await criarCampanhaService({
             titulo,
             descricao,
-            usuarioId: Number(usuarioId),
+            usuarioId: usuarioId,
             dataLimite,
             criadoEm: new Date()
         });
