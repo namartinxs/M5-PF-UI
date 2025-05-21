@@ -1,0 +1,10 @@
+site_name: API Solidária de Doações
+theme:
+  name: material
+
+nav:
+  - Início: index.md
+  - Apresentação: apresentacao.md
+  - Tecnologias: tecnologias.md
+  - Hospedagem: hospedagem.md
+  - Integrantes: integrantes.md
