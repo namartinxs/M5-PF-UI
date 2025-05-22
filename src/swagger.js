@@ -235,7 +235,6 @@ export { swaggerUi, swaggerDocs };
  *     responses:
  *       200:
  *         description: Lista de categorias
-
  *   post:
  *     summary: Cria uma nova categoria
  *     requestBody:
@@ -253,14 +252,12 @@ export { swaggerUi, swaggerDocs };
  *                 type: string
  *               descricao:
  *                 type: string
- *                dataLimite:
+ *               dataLimite:
  *                 type: string
- *               format: date-time
- *                   type: string
+ *                 format: date-time
  *     responses:
  *       201:
  *         description: Categoria criada com sucesso
-
  *   put:
  *     summary: Atualiza uma categoria pelo ID
  *     parameters:
@@ -279,20 +276,18 @@ export { swaggerUi, swaggerDocs };
  *             properties:
  *               nome:
  *                 type: string
- *                   titulo:
+ *               titulo:
  *                 type: string
  *               usuarioId:
  *                 type: string
  *               descricao:
  *                 type: string
- *                dataLimite:
+ *               dataLimite:
  *                 type: string
- *               format: date-time
- *                   type: string
+ *                 format: date-time
  *     responses:
  *       200:
  *         description: Categoria atualizada com sucesso
-
  *   delete:
  *     summary: Remove uma categoria pelo ID
  *     parameters:
