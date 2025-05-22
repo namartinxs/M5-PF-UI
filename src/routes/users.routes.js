@@ -10,7 +10,7 @@ const routerUser = express.Router();
 // ======================================
 
 // Registro de usuário
-routerUser.post('/', userController.createUser);
+routerUser.post('/users/', userController.createUser);
 
 // Login (gera token JWT)
 routerUser.post('/login', authController.login);
