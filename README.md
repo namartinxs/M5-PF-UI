@@ -7,22 +7,21 @@ A API Solidária de Doações é uma solução backend RESTful para facilitar a 
 A proposta é aumentar a eficiência, transparência e visibilidade das campanhas sociais, facilitando a comunicação com doadores e o controle das arrecadações. A API foi desenvolvida com Node.js, Express, Prisma e PostgreSQL, seguindo boas práticas de desenvolvimento e testes automatizados.
 
 
-## Documentação do Projeto
+## Documentaçôes do Projeto
 
-Para rodar a documentação localmente, você precisa ter Python e MkDocs instalados.
+
 
 ### Como rodar a documentação
 
-No terminal, dentro da pasta do projeto, rode o comando:
+rota da documentação das requisições
 
 ```bash
-python -m mkdocs serve
+https://m4-projeto-final-qvw6.onrender.com/api-docs/#/
 ```
 
-Isso vai iniciar um servidor local. Abra o navegador em:
-
+documentação da api
 ```
-http://127.0.0.1:8000/
+https://m4-projeto-final-qvw6.onrender.com/docs/
 ```
 
 ## Equipe
