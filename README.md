@@ -11,7 +11,7 @@ A proposta é aumentar a eficiência, transparência e visibilidade das campanha
 
 A API foi desenvolvida com foco em boas práticas de código, testes automatizados e uso de tecnologias modernas:
 
-[![Tech Stack](https://skillicons.dev/icons?i=js,nodejs,express,prisma,postgres,jest,npm)](https://skillicons.dev)
+[![Tech Stack](https://skillicons.dev/icons?i=js,nodejs,express,prisma,postgres,jest,npm)](https://skillicons.dev)    <img src="https://techstack-generator.vercel.app/restapi-icon.svg" width="48" height="50" alt="jQuery" />
 
 - **Node.js** e **Express** para construção do servidor
 - **Prisma ORM** para manipulação de banco de dados
