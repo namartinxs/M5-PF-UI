@@ -645,21 +645,21 @@ export { swaggerUi, swaggerDocs };
 /**
  * @swagger
  * tags:
- *   - name: Logs
- *     description: Operações relacionadas a logs de alteração de doações
+ *   - name: logs-alteracao-alteracao
+ *     description: Operações relacionadas a logs-alteracao de alteração de doações
  *
- * /logs:
+ * /logs-alteracao:
  *   get:
- *     tags: [Logs]
- *     summary: Lista todos os logs de alteração de doações
+ *     tags: [logs-alteracao]
+ *     summary: Lista todos os logs-alteracao de alteração de doações
  *     responses:
  *       200:
- *         description: Lista de logs retornada com sucesso
+ *         description: Lista de logs-alteracao retornada com sucesso
  *       500:
- *         description: Erro ao buscar logs
+ *         description: Erro ao buscar logs-alteracao
  *
  *   post:
- *     tags: [Logs]
+ *     tags: [logs-alteracao]
  *     summary: Cria um novo log de alteração
  *     requestBody:
  *       required: true
@@ -678,9 +678,9 @@ export { swaggerUi, swaggerDocs };
  *       400:
  *         description: Erro ao criar log
  *
- * /logs/{id}:
+ * /logs-alteracao/{id}:
  *   get:
- *     tags: [Logs]
+ *     tags: [logs-alteracao]
  *     summary: Retorna um log específico por ID
  *     parameters:
  *       - in: path
@@ -698,7 +698,7 @@ export { swaggerUi, swaggerDocs };
  *         description: Erro ao buscar log
  *
  *   put:
- *     tags: [Logs]
+ *     tags: [logs-alteracao]
  *     summary: Atualiza um log existente
  *     parameters:
  *       - in: path
@@ -723,7 +723,7 @@ export { swaggerUi, swaggerDocs };
  *         description: Erro ao atualizar log
  *
  *   delete:
- *     tags: [Logs]
+ *     tags: [logs-alteracao]
  *     summary: Deleta um log existente
  *     parameters:
  *       - in: path
