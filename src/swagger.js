@@ -15,6 +15,19 @@ const swaggerOptions = {
         url: 'https://m4-projeto-final-qvw6.onrender.com',
         description: 'Servidor Local',
       },
+    ],    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT', // Indica que o token é JWT
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [], // Aplica o esquema de segurança globalmente
+      },
     ],
   },
   apis: ['./src/swagger.js'], // Caminho para os arquivos da doc swagger
