@@ -35,7 +35,10 @@ documentação da api: [click aqui](https://m4-projeto-final-qvw6.onrender.com/d
 ```
 https://m4-projeto-final-qvw6.onrender.com/docs/
 ```
-
+link da  api: [click aqui](https://m4-projeto-final-qvw6.onrender.com/)
+```
+https://m4-projeto-final-qvw6.onrender.com/
+```
 ## Equipe
 
 <table>
@@ -63,7 +66,7 @@ https://m4-projeto-final-qvw6.onrender.com/docs/
       <td><a href="https://github.com/LuanaAguilar2" target="_blank">@LuanaAguilar2</a></td>
     </tr>
     <tr>
-      <td>Odilon Campos</td>
+      <td>Odilon de Campos</td>
       <td><a href="https://github.com/Odilonskt" target="_blank">@Odilonskt</a></td>
     </tr>
     <tr>
