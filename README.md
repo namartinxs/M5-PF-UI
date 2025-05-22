@@ -11,15 +11,16 @@ A proposta é aumentar a eficiência, transparência e visibilidade das campanha
 
 
 
-### Como rodar a documentação
+----
 
-rota da documentação das requisições
+rota da documentação das requisições: [click aqui](https://m4-projeto-final-qvw6.onrender.com/api-docs/#/)
+
 
 ```bash
 https://m4-projeto-final-qvw6.onrender.com/api-docs/#/
 ```
 
-documentação da api
+documentação da api: [click aqui](https://m4-projeto-final-qvw6.onrender.com/docs/)
 ```
 https://m4-projeto-final-qvw6.onrender.com/docs/
 ```
@@ -33,5 +34,6 @@ https://m4-projeto-final-qvw6.onrender.com/docs/
 | Eduardo Lopes    | [@EduardolopesPDA](https://github.com/EduardolopesPDA) |
 | Luana Aguilar    | [@LuanaAguilar2](https://github.com/LuanaAguilar2)     |
 | Odilon Santos    | [@Odilonskt](https://github.com/Odilonskt)             |
-| Désirée Moura    | [@Desiree2522](https://github.com/Desiree2522)         |
+| Désirée Moura    | [
+@Desiree2522](https://github.com/Desiree2522)         |
 | João Lopes Filho | [@JoaoLopesFilho](https://github.com/JoaoLopesFilho)   |
