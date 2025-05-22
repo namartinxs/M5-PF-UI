@@ -71,9 +71,9 @@ class UserController {
       // Formata a resposta para manter consistência
       return res.json({
         id: user.id,
-        name: user.nome,
+        nome: user.nome,
         email: user.email,
-        tipoUsuario: user.tipo
+        tipo: user.tipo
       });
 
     } catch (error) {
@@ -93,9 +93,9 @@ class UserController {
       // Formata a resposta para manter consistência
       const formattedUsers = users.map(user => ({
         id: user.id,
-        name: user.nome,
+        nome: user.nome,
         email: user.email,
-        tipoUsuario: user.tipo
+        tipo: user.tipo
       }));
 
       return res.json(formattedUsers);
@@ -114,16 +114,16 @@ class UserController {
     try {
       // Converte os nomes dos campos se necessário
       const updateData = req.body;
-      if (updateData.name) updateData.nome = updateData.name;
-      if (updateData.tipoUsuario) updateData.tipo = updateData.tipoUsuario;
+      if (updateData.nome) updateData.nome = updateData.nome;
+      if (updateData.tipo) updateData.tipo = updateData.tipo;
       
       const updatedUser = await updateUserService(req.params.id, updateData);
 
       return res.json({
         id: updatedUser.id,
-        name: updatedUser.nome,
+        nome: updatedUser.nome,
         email: updatedUser.email,
-        tipoUsuario: updatedUser.tipo
+        tipo: updatedUser.tipo
       });
 
     } catch (error) {

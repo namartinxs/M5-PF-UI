@@ -733,7 +733,7 @@ export { swaggerUi, swaggerDocs };
  *   - name: Usuários
  *     description: Operações relacionadas aos usuários do sistema
  *
- * /usuarios:
+ * /users:
  *   post:
  *     tags: [Usuários]
  *     summary: Cadastra um novo usuário
@@ -766,7 +766,7 @@ export { swaggerUi, swaggerDocs };
  *       500:
  *         description: Erro interno do servidor
  *
- * /usuarios/login:
+ * /users/login:
  *   post:
  *     tags: [Usuários]
  *     summary: Realiza login e retorna o token JWT
@@ -792,7 +792,7 @@ export { swaggerUi, swaggerDocs };
  *       500:
  *         description: Erro interno do servidor
  *
- * /usuarios/reset-password:
+ * /users/reset-password:
  *   post:
  *     tags: [Usuários]
  *     summary: Envia email para redefinição de senha
@@ -815,7 +815,7 @@ export { swaggerUi, swaggerDocs };
  *       500:
  *         description: Erro interno do servidor
  *
- * /usuarios/me:
+ * /users/me:
  *   get:
  *     tags: [Usuários]
  *     summary: Retorna os dados do usuário logado
@@ -829,7 +829,7 @@ export { swaggerUi, swaggerDocs };
  *       500:
  *         description: Erro interno do servidor
  *
- * /usuarios/users:
+ * /users/users:
  *   get:
  *     tags: [Usuários]
  *     summary: Lista todos os usuários (requer ADMIN)
@@ -841,7 +841,7 @@ export { swaggerUi, swaggerDocs };
  *       500:
  *         description: Erro interno do servidor
  *
- * /usuarios/users/{id}:
+ * /users/users/{id}:
  *   put:
  *     tags: [Usuários]
  *     summary: Edita um usuário

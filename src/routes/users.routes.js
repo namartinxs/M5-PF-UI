@@ -8,16 +8,30 @@ const routerUser = express.Router();
 // ======================================
 // Rotas Públicas (não requerem autenticação)
 // ======================================
-routerUser.post('/', userController.createUser); // Registro de usuário
-routerUser.post('/login', authController.login); // Login (gera token JWT)
-routerUser.post('/reset-password', authController.resetPassword); // Reset de senha
+
+// Registro de usuário
+routerUser.post('/', userController.createUser);
+
+// Login (gera token JWT)
+routerUser.post('/login', authController.login);
+
+// Reset de senha
+routerUser.post('/reset-password', authController.resetPassword);
 
 // ======================================
-// Rotas Protegidas (requerem token válido)
+// Rotas Protegidas (requerem autenticação com token válido)
 // ======================================
-routerUser.get('/me', authMiddleware, userController.getLoggedUser); // Pega usuário logado
-routerUser.get('/users', authMiddleware, userController.getUsers); // Lista usuários (restringir para ADMIN depois)
-routerUser.put('/users/:id', userController.editUser); // Edita usuário
-routerUser.delete('/users/:id', authMiddleware, userController.deleteUser); // Deleta usuário
+
+// Obter informações do usuário logado
+routerUser.get('/me', authMiddleware, userController.getLoggedUser);
+
+// Listar todos os usuários (restrito a ADMIN no futuro)
+routerUser.get('/users', authMiddleware, userController.getUsers);
+
+// Editar informações de um usuário específico
+routerUser.put('/users/:id', authMiddleware, userController.editUser);
+
+// Deletar um usuário específico
+routerUser.delete('/users/:id', authMiddleware, userController.deleteUser);
 
 export default routerUser;
