@@ -1,9 +1,9 @@
-import express from 'express';
+import { Router } from 'express';
 import AuthController from '../controllers/auth.controller.js';
 
-const router = express.Router();
+const router = Router();
 
-// Rota pública
 router.post('/login', AuthController.login);
+router.post('/logout', AuthController.logout);
 
 export default router;
