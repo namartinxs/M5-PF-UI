@@ -31,12 +31,13 @@ class AuthController {
       );
 
       // Envia cookie seguro
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // usa HTTPS em produção
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000 // 1 dia
-      });
+        res.cookie('token', token, {
+          httpOnly: true,
+          secure: false,         // ⚠️ Apenas para localhost (sem HTTPS)
+          sameSite: 'lax',       // ou 'none' se usar HTTPS em ambos
+          maxAge: 24 * 60 * 60 * 1000
+        });
+
 
       return res.status(200).json({
         user: {
