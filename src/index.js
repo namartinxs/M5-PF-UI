@@ -4,6 +4,9 @@ import cookieParser from "cookie-parser";
 import { swaggerUi, swaggerDocs } from './swagger.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from "dotenv";
+dotenv.config();
+
 
 // Rotas
 import logDoacaoRoutes from "./routes/logDoacao.routes.js";
