@@ -23,7 +23,7 @@ const app = express();
 
 // Middlewares globais
 app.use(cors({
-  origin: 'http://localhost:8800', // ou sua URL do front
+  origin: 'http://localhost:3000', // ou sua URL do front
   credentials: true // habilita o envio de cookies
 }));
 app.use(express.json());
