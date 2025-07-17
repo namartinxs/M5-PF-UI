@@ -33,7 +33,7 @@ class AuthController {
       // Envia cookie seguro
         res.cookie('token', token, {
           httpOnly: true,
-          secure: true,         // ⚠️ Apenas para localhost (sem HTTPS)
+          secure: false,         // ⚠️ Apenas para localhost (sem HTTPS)
           sameSite: 'none',       // ou 'none' se usar HTTPS em ambos
           maxAge: 24 * 60 * 60 * 1000
         });
